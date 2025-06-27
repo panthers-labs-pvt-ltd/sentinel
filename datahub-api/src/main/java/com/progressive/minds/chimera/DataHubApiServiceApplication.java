@@ -1,4 +1,4 @@
-package com.progressive.minds.chimera;
+package org.pantherslabs.chimera;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

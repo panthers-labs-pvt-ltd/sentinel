@@ -1,5 +1,5 @@
 /*
-package com.progressive.minds.chimera.core.datahub.referances;
+package org.pantherslabs.chimera.sentinel.datahub.referances;
 
 import com.linkedin.common.urn.Urn;
 import com.linkedin.data.ByteString;

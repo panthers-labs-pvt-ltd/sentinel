@@ -1,4 +1,4 @@
-package com.progressive.minds.chimera.core.datahub.referances;
+package org.pantherslabs.chimera.sentinel.datahub.referances;
 
 public interface DataHubUtils {
     String SYSTEM_USER = "System";

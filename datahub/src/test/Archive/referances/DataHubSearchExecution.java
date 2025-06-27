@@ -1,8 +1,8 @@
-package com.progressive.minds.chimera.core.datahub.referances;
+package org.pantherslabs.chimera.sentinel.datahub.referances;
 
 
-import com.progressive.minds.chimera.core.databaseOps.model.datahub.MetadataAspectV2;
-import com.progressive.minds.chimera.core.databaseOps.repository.datahub.MetadataAspectV2Repository;
+import org.pantherslabs.chimera.sentinel.databaseOps.model.datahub.MetadataAspectV2;
+import org.pantherslabs.chimera.sentinel.databaseOps.repository.datahub.MetadataAspectV2Repository;
 
 import java.util.HashMap;
 import java.util.List;

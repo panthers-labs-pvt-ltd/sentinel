@@ -1,5 +1,5 @@
 /*
-package com.progressive.minds.chimera.core.datahub;
+package org.pantherslabs.chimera.sentinel.datahub;
 
 import com.linkedin.metadata.query.filter.*;
 import com.linkedin.metadata.search.SearchResult;
