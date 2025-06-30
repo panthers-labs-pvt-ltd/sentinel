@@ -1,4 +1,4 @@
-name: Unisca Build Docker
+name: Sentinel Build Docker
 
 on:
   workflow_dispatch:
