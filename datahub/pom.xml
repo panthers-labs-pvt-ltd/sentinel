@@ -5,15 +5,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.progressive.minds.chimera</groupId>
+        <groupId>org.pantherslabs.chimera</groupId>
         <artifactId>sentinel</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.progressive.minds.chimera</groupId>
     <artifactId>sentinel.datahub</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
+    <name>Datahub Integration</name>
+    <description>The datahub_integration module enables seamless integration between the Chimera framework and Acryl DataHub. It facilitates automated metadata ingestion, publishing of lineage, schema, ownership, and operational metadata from Chimera-managed jobs and datasets to DataHub for search, discovery, observability, and governance.
+        Purpose:
+        Centralize metadata from Chimera pipelines into DataHub
+        Enable schema versioning and evolution tracking
+        Surface data lineage (optionally from OpenLineage)
+        Support asset cataloging, governance, and access policies
+        Expose Chimera assets via DataHub’s GraphQL/REST APIs and UI
+    </description>
+    <url>https://github.com/panthers-labs-pvt-ltd/sentinel/tree/main/datahub</url>
     <properties>
         <chimera.project.version>${project.version}</chimera.project.version>
         <open.lineage.version>1.25.0</open.lineage.version>
@@ -47,19 +54,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.progressive.minds.chimera</groupId>
+            <groupId>org.pantherslabs.chimera</groupId>
             <artifactId>unisca.tags</artifactId>
-            <version>${chimera.project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.progressive.minds.chimera</groupId>
-            <artifactId>common.logging</artifactId>
-            <version>${chimera.project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.progressive.minds.chimera</groupId>
-            <artifactId>common.exception</artifactId>
             <version>${chimera.project.version}</version>
         </dependency>
         <dependency>
@@ -97,11 +93,10 @@
         </dependency>
 
         <dependency>
-            <groupId>com.progressive.minds.chimera</groupId>
-            <artifactId>core.api_service</artifactId>
+            <groupId>org.pantherslabs.chimera</groupId>
+            <artifactId>unisca.pipeline_metadata_api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
@@ -113,6 +108,10 @@
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>2.0.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.pantherslabs.chimera</groupId>
+            <artifactId>unisca.logging</artifactId>
         </dependency>
 
 

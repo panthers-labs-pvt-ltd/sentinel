@@ -22,8 +22,8 @@ spring:
     cleanDisabled: true
 
 mybatis:
-  type-aliases-package: com.progressive.minds.chimera.core.api_service.entity
-  type-handlers-package: com.progressive.minds.chimera.configuration.handler
+  type-aliases-package: org.pantherslabs.chimera.sentinel.api_service.entity
+  type-handlers-package: org.pantherslabs.chimera.configuration.handler
   configuration:
     map-underscore-to-camel-case: true
     default-fetch-size: 100

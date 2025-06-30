@@ -1,8 +1,8 @@
-package com.progressive.minds.chimera.controller;
+package org.pantherslabs.chimera.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.progressive.minds.chimera.core.datahub.pipeline.ManagePipeline;
-import com.progressive.minds.chimera.dto.DataPipeline;
+import org.pantherslabs.chimera.sentinel.datahub.pipeline.ManagePipeline;
+import org.pantherslabs.chimera.dto.DataPipeline;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

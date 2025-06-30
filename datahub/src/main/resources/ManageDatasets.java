@@ -12,8 +12,8 @@ import com.linkedin.common.urn.TagUrn;
 import com.linkedin.data.template.StringArray;
 import com.linkedin.mxe.MetadataChangeProposal;
 import com.linkedin.schema.*;
-import com.progressive.minds.chimera.foundational.logging.ChimeraLogger;
-import com.progressive.minds.chimera.foundational.logging.ChimeraLoggerFactory;
+import org.pantherslabs.chimera.unisca.logging.ChimeraLogger;
+import org.pantherslabs.chimera.unisca.logging.ChimeraLoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
@@ -24,8 +24,8 @@ import java.io.FileInputStream;
 import java.net.URISyntaxException;
 import java.time.Instant;
 
-import static com.progressive.minds.chimera.core.datahub.common.genericUtils.createProposal;
-import static com.progressive.minds.chimera.core.datahub.common.genericUtils.emitProposal;
+import static org.pantherslabs.chimera.sentinel.datahub.common.genericUtils.createProposal;
+import static org.pantherslabs.chimera.sentinel.datahub.common.genericUtils.emitProposal;
 
 public class ManageDatasets {
     static ChimeraLogger DatahubLogger = ChimeraLoggerFactory.getLogger(ManageDatasets.class);

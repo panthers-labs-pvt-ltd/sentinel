@@ -5,11 +5,11 @@ import com.linkedin.glossary.GlossaryTermInfo;
 import com.linkedin.mxe.GenericAspect;
 import com.linkedin.mxe.MetadataChangeProposal;
 
-import static com.progressive.minds.chimera.core.datahub.common.genericUtils.replaceSpecialCharsAndLowercase;
+import static org.pantherslabs.chimera.sentinel.datahub.common.genericUtils.replaceSpecialCharsAndLowercase;
 
-import com.progressive.minds.chimera.core.datahub.domain.ManageDomain;
-import com.progressive.minds.chimera.foundational.logging.ChimeraLogger;
-import com.progressive.minds.chimera.foundational.logging.ChimeraLoggerFactory;
+import org.pantherslabs.chimera.sentinel.datahub.domain.ManageDomain;
+import org.pantherslabs.chimera.unisca.logging.ChimeraLogger;
+import org.pantherslabs.chimera.unisca.logging.ChimeraLoggerFactory;
 import datahub.shaded.jackson.databind.ObjectMapper;
 
 import javax.validation.constraints.NotNull;

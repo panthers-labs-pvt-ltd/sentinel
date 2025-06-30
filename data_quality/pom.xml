@@ -5,14 +5,23 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.progressive.minds.chimera</groupId>
+        <groupId>org.pantherslabs.chimera</groupId>
         <artifactId>sentinel</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>data_quality</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
+    <artifactId>sentinel.data_quality</artifactId>
+    <name>Data Quality</name>
+    <description>The data_quality module validates and profiles large-scale datasets using AWS Deequ, a library built on Apache Spark for unit testing of data. It defines constraints such as completeness, uniqueness, and value ranges and runs these checks as part of the data pipeline to ensure reliable, clean, and trustworthy data.
+        Key Features:
+        Declarative Constraint Checks: Define checks like nullability, uniqueness, length, regex, range, and more.
+        Data Profiling: Generate data profiles to understand column statistics.
+        Anomaly Detection: Detect changes in metrics across time (e.g., row count drop).
+        Constraint Suggestion: Automatically generate quality rules from data profiles.
+        Spark-native: Scales with your data across distributed compute.
+        Integration with Lineage and Observability: Can be linked to OpenLineage or other monitoring frameworks.
+    </description>
+    <url>https://github.com/panthers-labs-pvt-ltd/sentinel/tree/main/data_quality</url>
     <properties>
         <spring-boot.version>3.4.1</spring-boot.version>
     </properties>
@@ -63,10 +72,31 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.progressive.minds.chimera</groupId>
-            <artifactId>deequ</artifactId>
-            <version>2.0.8-spark-3.5</version>
+            <groupId>org.pantherslabs.chimera</groupId>
+            <artifactId>unisca.logging</artifactId>
+            <version>${chimera.project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.pantherslabs.chimera</groupId>
+            <artifactId>unisca.exception</artifactId>
+            <version>${chimera.project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.pantherslabs.chimera</groupId>
+            <version>${chimera.project.version}</version>
+            <artifactId>unisca.utilities</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.amazon.deequ</groupId>
+            <artifactId>deequ</artifactId>
+            <version>2.0.11-spark-3.5</version>
+        </dependency>
+ <!--       <dependency>
+            <groupId>org.pantherslabs.chimera</groupId>
+            <artifactId>sentinel.deequ</artifactId>
+            <version>2.0.8-spark-3.5</version>
+        </dependency>-->
 
         <!-- Spring Boot Starter (includes core functionality for a Spring Boot application) -->
         <dependency>
@@ -173,11 +203,7 @@
             <version>${flyway-database-postgresql-version}</version>
         </dependency>
 
-<!--        <dependency>
-            <groupId>com.progressive.minds.chimera</groupId>
-            <version>${chimera.project.version}</version>
-            <artifactId>unisca.util</artifactId>
-        </dependency>-->
+
 
     </dependencies>
 </project>

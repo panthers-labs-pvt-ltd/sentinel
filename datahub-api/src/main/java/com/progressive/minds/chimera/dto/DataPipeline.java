@@ -1,4 +1,4 @@
-package com.progressive.minds.chimera.dto;
+package org.pantherslabs.chimera.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

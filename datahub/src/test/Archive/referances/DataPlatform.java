@@ -1,5 +1,5 @@
 /*
-package com.progressive.minds.chimera.core.datahubutils;
+package org.pantherslabs.chimera.sentinel.datahubutils;
 
 import com.linkedin.common.urn.DataPlatformUrn;
 import com.linkedin.common.urn.Urn;
@@ -9,7 +9,7 @@ import com.linkedin.metadata.key.DataPlatformKey;
 import com.linkedin.mxe.GenericAspect;
 import com.linkedin.mxe.MetadataChangeProposal;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.progressive.minds.chimera.core.datahubutils.emitter.RestEmitterUtil;
+import org.pantherslabs.chimera.sentinel.datahubutils.emitter.RestEmitterUtil;
 import datahub.client.Emitter;
 import datahub.client.MetadataWriteResponse;
 

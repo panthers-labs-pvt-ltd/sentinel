@@ -5,11 +5,37 @@
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.panthers.labs.chimera</groupId>
+    <groupId>org.pantherslabs.chimera</groupId>
     <artifactId>sentinel</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
 
+    <scm>
+        <connection>scm:git:git@github.com:panthers-labs-pvt-ltd/sentinel.git</connection>
+        <developerConnection>scm:git:ssh://github.com:panthers-labs-pvt-ltd/sentinel.git</developerConnection>
+        <url>https://github.com/panthers-labs-pvt-ltd/sentinel.git</url>
+    </scm>
+
+    <repositories>
+        <repository>
+            <name>Central Portal Snapshots</name>
+            <id>central-portal-snapshots</id>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    
     <developers>
         <developer>
             <id>0001</id>
@@ -33,21 +59,26 @@
         </developer>
         <developer>
             <id>0005</id>
-            <name>Abhinav</name>
+            <name>Kumar, Abhinav</name>
             <email>abhinav.official@gmail.com</email>
         </developer>
     </developers>
     <inceptionYear>2024</inceptionYear>
-    <name>Unisca - Data Engineering</name>
-    <description>Unisca is the foundational-shared module of the Chimera Framework. It encapsulates common functionalities and reusable components that are used across all Chimera services and modules. By centralizing these utilities, Unisca ensures consistency, reduces duplication, and promotes a modular and maintainable architecture.</description>
-
+    <name>Sentinel - Data Engineering</name>
+    <description>A watchful protector ensuring security, accuracy, and information governance. "Sentinel is more than a name—it’s a promise. A watchful protector of your organization’s most valuable asset: information. With unwavering focus on security, precision, and governance, Sentinel ensures that your data remains accurate, trustworthy, and compliant.</description>
+    <url>https://github.com/panthers-labs-pvt-ltd</url>
     <modules>
         <module>datahub</module>
         <module>data-lineage</module>
         <module>data_observability</module>
-        <module>deequ</module>
         <module>data_quality</module>
+
+        <!--
+                <module>deequ</module>
+        -->
+<!--
         <module>datahub-api</module>
+-->
     </modules>
 
 
@@ -138,44 +169,26 @@
         <flyway-maven-plugin-version>11.3.2</flyway-maven-plugin-version>
         <flyway-database-postgresql-version>11.3.2</flyway-database-postgresql-version>
     </properties>
-    <!--<repositories><repository><id>gitlab-maven</id><url>https://gitlab.com/manishkumargupta/TestScala.git</url></repository></repositories><distributionManagement><repository><id>gitlab-maven</id><url>https://gitlab.com/manishkumargupta/TestScala.git</url></repository><snapshotRepository><id>gitlab-maven</id><url>https://gitlab.com/manishkumargupta/TestScala.git</url></snapshotRepository></distributionManagement>-->
-    <repositories>
-        <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/panthers-labs-pvt-ltd/progressive.mind.framework</url>
-        </repository>
-    </repositories>
-
-
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub Packages Release Repository</name>
-            <url>https://maven.pkg.github.com/panthers-labs-pvt-ltd/progressive.mind.framework</url>
-        </repository>
-
-        <snapshotRepository>
-            <id>github</id>
-            <name>GitHub Packages Snapshot Repository</name>
-            <url>https://maven.pkg.github.com/panthers-labs-pvt-ltd/progressive.mind.framework</url>
-        </snapshotRepository>
-    </distributionManagement>
-
 
     <dependencyManagement>
-	 <dependency>
-            <groupId>com.progressive.minds.chimera</groupId>
-            <artifactId>unisca.logging</artifactId>
-            <version>${chimera.project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.progressive.minds.chimera</groupId>
-            <artifactId>unisca.exception</artifactId>
-            <version>${chimera.project.version}</version>
-        </dependency>
 
         <dependencies>
+            <dependency>
+                <groupId>org.pantherslabs.chimera</groupId>
+                <artifactId>unisca.logging</artifactId>
+                <version>${chimera.project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.pantherslabs.chimera</groupId>
+                <artifactId>unisca.exception</artifactId>
+                <version>${chimera.project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.pantherslabs.chimera</groupId>
+                <version>${chimera.project.version}</version>
+                <artifactId>unisca.utilities</artifactId>
+            </dependency>
             <!-- AWS SDK for Java 2.x BOM -->
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
@@ -435,7 +448,7 @@
             </dependency>
 
             <dependency>
-                <groupId>com.progressive.minds.chimera</groupId>
+                <groupId>org.pantherslabs.chimera</groupId>
                 <artifactId>common</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -615,6 +628,71 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.8.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                    <waitUntil>published</waitUntil>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <failOnError>false</failOnError>
+                    <additionalJOptions>
+                        <additionalJOption>-Xdoclint:none</additionalJOption>
+                    </additionalJOptions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.1.0</version> <!-- Must be 3.1.0 -->
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <gpgArguments>
+                        <arg>--pinentry-mode</arg>
+                        <arg>loopback</arg>
+                    </gpgArguments>
+                    <useAgent>false</useAgent>
+                </configuration>
             </plugin>
         </plugins>
     </build>

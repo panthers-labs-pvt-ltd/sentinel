@@ -1,7 +1,7 @@
-package com.progressive.minds.chimera.core.datahub.referances;
+package org.pantherslabs.chimera.sentinel.datahub.referances;
 
-import com.progressive.minds.chimera.foundational.logging.ChimeraLogger;
-import com.progressive.minds.chimera.foundational.logging.ChimeraLoggerFactory;
+import org.pantherslabs.chimera.unisca.logging.ChimeraLogger;
+import org.pantherslabs.chimera.unisca.logging.ChimeraLoggerFactory;
 
 public interface SharedLogger {
 

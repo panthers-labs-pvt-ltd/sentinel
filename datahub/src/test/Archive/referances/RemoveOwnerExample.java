@@ -1,5 +1,5 @@
 /*
-package com.progressive.minds.chimera.core.datahub;
+package org.pantherslabs.chimera.sentinel.datahub;
 
 import com.linkedin.common.urn.DatasetUrn;
 import com.linkedin.common.urn.Urn;

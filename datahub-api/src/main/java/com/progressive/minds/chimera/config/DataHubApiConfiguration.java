@@ -1,4 +1,4 @@
-package com.progressive.minds.chimera.config;
+package org.pantherslabs.chimera.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
