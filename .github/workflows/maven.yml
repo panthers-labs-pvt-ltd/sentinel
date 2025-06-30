@@ -28,7 +28,11 @@ jobs:
           # Use version from input or fallback to POM
           version="${version_input:-$pom_version}"
           echo "Using Version: $version"
-          echo "version=${version,,}" >> "$GITHUB_OUTPUT"
+          if [[ "${version^^}" == *"-SNAPSHOT" ]]; then
+            echo "version=$version" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=${version,,}" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Step 3 - Import GPG Key
         run: |
