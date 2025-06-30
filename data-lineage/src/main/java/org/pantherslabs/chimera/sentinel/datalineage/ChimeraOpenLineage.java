@@ -2,7 +2,7 @@ package org.pantherslabs.chimera.sentinel.datalineage;
 
 import org.pantherslabs.chimera.sentinel.datalineage.transports.TransportType;
 import org.pantherslabs.chimera.sentinel.datalineage.facets.RunFacets;
-import com.progressive.minds.chimera.core.api_service.dto.PipelineMetadata;
+import org.pantherslabs.chimera.unisca.pipeline_metadata_api.dto.PipelineMetadata;
 
 import io.openlineage.client.OpenLineage;
 import io.openlineage.client.OpenLineageClient;

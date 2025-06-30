@@ -15,7 +15,7 @@ import java.util.List;
 import static org.mybatis.dynamic.sql.SqlBuilder.select;
 import org.pantherslabs.chimera.unisca.logging.ChimeraLogger;
 import org.pantherslabs.chimera.unisca.logging.ChimeraLoggerFactory;
-import org.pantherslabs.chimera.utilities.ChimeraDataFrame;
+import org.pantherslabs.chimera.unisca.utilities.ChimeraDataFrame;
 import org.springframework.beans.factory.annotation.Autowired;
 public class CoarseDQService {
     private static final ChimeraLogger logger = ChimeraLoggerFactory.getLogger(CoarseDQService.class);

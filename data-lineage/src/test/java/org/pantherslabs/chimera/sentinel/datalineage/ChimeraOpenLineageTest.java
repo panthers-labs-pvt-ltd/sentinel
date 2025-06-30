@@ -1,8 +1,8 @@
 package org.pantherslabs.chimera.sentinel.datalineage;
 
-import com.progressive.minds.chimera.core.api_service.consumer.DBAPIClient;
-import com.progressive.minds.chimera.core.api_service.dto.PipelineMetadata;
-import com.progressive.minds.chimera.core.data_source.sourceTypes.FileReader;
+import org.pantherslabs.chimera.unisca.pipeline_metadata_api.consumer.DBAPIClient;
+import org.pantherslabs.chimera.unisca.pipeline_metadata_api.dto.PipelineMetadata;
+import org.pantherslabs.chimera.unisca.data_sources.sourceTypes.FileReader;
 
 import org.apache.spark.sql.*;
 import org.apache.spark.sql.catalyst.plans.logical.LogicalPlan;

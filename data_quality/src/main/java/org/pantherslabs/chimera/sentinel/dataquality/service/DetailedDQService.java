@@ -2,8 +2,8 @@ package org.pantherslabs.chimera.sentinel.dataquality.service;
 
 import org.pantherslabs.chimera.sentinel.dataquality.entities.DQRulesEntity;
 import org.pantherslabs.chimera.sentinel.dataquality.entities.DataControlsEntity;
-import org.pantherslabs.chimera.utilities.ChimeraDataFrame;
-import org.pantherslabs.chimera.utilities.Engine;
+import org.pantherslabs.chimera.unisca.utilities.ChimeraDataFrame;
+import org.pantherslabs.chimera.unisca.utilities.Engine;
 
 import java.util.ArrayList;
 import java.util.List;

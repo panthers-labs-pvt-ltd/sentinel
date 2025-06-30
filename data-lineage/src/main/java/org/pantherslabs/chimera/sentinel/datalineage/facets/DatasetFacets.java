@@ -1,6 +1,6 @@
 package org.pantherslabs.chimera.sentinel.datalineage.facets;
 
-import com.progressive.minds.chimera.core.api_service.dto.*;
+import org.pantherslabs.chimera.unisca.pipeline_metadata_api.dto.*;
 import io.openlineage.client.OpenLineage;
 import io.openlineage.client.OpenLineage.ColumnLineageDatasetFacetFields;
 import io.openlineage.client.OpenLineage.ColumnLineageDatasetFacetFieldsBuilder;
@@ -17,8 +17,7 @@ import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-//import org.pantherslabs.chimera.sentinel.api_service.dto.*;
-import com.progressive.minds.chimera.core.api_service.dto.PipelineMetadata;
+import org.pantherslabs.chimera.unisca.pipeline_metadata_api.dto.*;
 import io.openlineage.client.OpenLineageClientUtils;
 import io.openlineage.sql.OpenLineageSql;
 import io.openlineage.sql.SqlMeta;

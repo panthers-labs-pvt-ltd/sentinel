@@ -93,8 +93,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.progressive.minds.chimera</groupId>
-            <artifactId>core.api_service</artifactId>
+            <groupId>org.pantherslabs.chimera</groupId>
+            <artifactId>unisca.pipeline_metadata_api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

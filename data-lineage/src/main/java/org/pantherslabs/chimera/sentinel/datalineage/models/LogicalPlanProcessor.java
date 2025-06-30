@@ -1,6 +1,6 @@
 package org.pantherslabs.chimera.sentinel.datalineage.models;
 
-import com.progressive.minds.chimera.core.data_source.sourceTypes.FileReader;
+import org.pantherslabs.chimera.unisca.data_sources.sourceTypes.FileReader;
 
 import org.apache.spark.sql.catalyst.expressions.*;
 import org.apache.spark.sql.catalyst.plans.logical.*;
