@@ -1,4 +1,4 @@
-package org.pantherslabs.chimera.config;
+package org.pantherslabs.chimera.sentinel.datahub_api.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;

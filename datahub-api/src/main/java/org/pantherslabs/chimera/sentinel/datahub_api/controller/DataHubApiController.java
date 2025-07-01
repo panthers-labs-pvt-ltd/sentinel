@@ -1,8 +1,8 @@
-package org.pantherslabs.chimera.controller;
+package org.pantherslabs.chimera.sentinel.datahub_api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.pantherslabs.chimera.sentinel.datahub.pipeline.ManagePipeline;
-import org.pantherslabs.chimera.dto.DataPipeline;
+import org.pantherslabs.chimera.unisca.pipeline_metadata_api.dto.DataPipeline;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
