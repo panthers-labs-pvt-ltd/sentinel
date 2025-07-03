@@ -1,4 +1,4 @@
-package org.pantherslabs.chimera.sentinel.datahub_api.dto;
+package org.pantherslabs.chimera.sentinel.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
