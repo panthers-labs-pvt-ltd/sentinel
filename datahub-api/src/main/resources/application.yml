@@ -8,9 +8,9 @@ spring:
     config:
       enabled: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=test
-    username: postgres
-    password: admin123
+    url: jdbc:postgresql://localhost:15432/chimera_db_test
+    username: chimera_user
+    password: chimera_pass
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
@@ -33,4 +33,4 @@ keycloak:
     enabled: false
     realm: chimera
     client:
-      clientId: chimera_api_client2
+      clientId: chimera_api_client

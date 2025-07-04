@@ -10,7 +10,11 @@
     </parent>
 
     <name>Datahub API</name>
-    <description>A watchful protector ensuring security, accuracy, and information governance. "Sentinel is more than a name—it’s a promise. A watchful protector of your organization’s most valuable asset: information. With unwavering focus on security, precision, and governance, Sentinel ensures that your data remains accurate, trustworthy, and compliant.</description>
+    <description>A watchful protector ensuring security, accuracy, and information governance. "Sentinel is more than a
+        name—it’s a promise. A watchful protector of your organization’s most valuable asset: information. With
+        unwavering focus on security, precision, and governance, Sentinel ensures that your data remains accurate,
+        trustworthy, and compliant.
+    </description>
     <url>https://github.com/panthers-labs-pvt-ltd/sentinel</url>
 
     <artifactId>datahub-api</artifactId>
@@ -19,6 +23,9 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <database.url>jdbc:postgresql://localhost:15432/chimera_db_test</database.url>
+        <database.username>chimera_user</database.username>
+        <database.password>chimera_pass</database.password>
     </properties>
 
     <dependencies>
@@ -26,17 +33,17 @@
         <dependency>
             <groupId>org.pantherslabs.chimera</groupId>
             <artifactId>api-nexus-web</artifactId>
-            <version>1.0.0</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.pantherslabs.chimera</groupId>
             <artifactId>api-nexus-security</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>-->
 
         <dependency>
             <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>sentinel.datahub</artifactId>
+            <artifactId>api-nexus-db</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
@@ -44,6 +51,12 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.pantherslabs.chimera</groupId>
+            <artifactId>sentinel.datahub</artifactId>
+            <version>1.0-SNAPSHOT</version>
+         </dependency>
 
     </dependencies>
     <build>
@@ -59,6 +72,49 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.4.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <configurationFile>src/main/resources/mybatis-generator-config.xml</configurationFile>
+                    <overwrite>true</overwrite>
+                </configuration>
+                <dependencies>
+                    <!-- Lombok Plugin for MyBatis Generator -->
+                    <dependency>
+                        <groupId>com.softwareloop</groupId>
+                        <artifactId>mybatis-generator-lombok-plugin</artifactId>
+                        <version>1.0</version>
+                    </dependency>
+
+                    <!-- PostgresSQL Driver -->
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>42.7.4</version>
+                    </dependency>
+                    <!-- SLF4J Binding Exclusion -->
+                    <dependency>
+                        <groupId>org.mybatis.generator</groupId>
+                        <artifactId>mybatis-generator-core</artifactId>
+                        <version>1.4.2</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.slf4j</groupId>
+                                <artifactId>slf4j-simple</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
