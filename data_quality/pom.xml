@@ -76,7 +76,11 @@
             <artifactId>unisca.logging</artifactId>
             <version>${chimera.project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-compiler</artifactId>
+            <version>${scala.major.version}.${scala.minor.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.pantherslabs.chimera</groupId>
             <artifactId>unisca.exception</artifactId>

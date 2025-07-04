@@ -31,10 +31,10 @@ import org.pantherslabs.chimera.sentinel.model.generated.DqRulesToDataAssetMap;
 
 @Mapper
 public interface DqRulesToDataAssetMapMapper extends CommonCountMapper, CommonDeleteMapper, CommonInsertMapper<DqRulesToDataAssetMap>, CommonUpdateMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.2081933+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.019051028Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     BasicColumn[] selectList = BasicColumn.columnList(dqRulesToDataAssetMapId, ruleId, databaseName, schemaName, tableName, partitionKeys, ruleCol, ruleValue, activeFlg, reserved5, reserved4, reserved3, reserved2, reserved1, createdBy, createdTs, updatedTs, updatedBy);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.1978264+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.017566025Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="DqRulesToDataAssetMapResult", value = {
         @Result(column="dq_rules_to_data_asset_map_id", property="dqRulesToDataAssetMapId", jdbcType=JdbcType.INTEGER, id=true),
@@ -58,29 +58,29 @@ public interface DqRulesToDataAssetMapMapper extends CommonCountMapper, CommonDe
     })
     List<DqRulesToDataAssetMap> selectMany(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.1998251+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.017881226Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @ResultMap("DqRulesToDataAssetMapResult")
     Optional<DqRulesToDataAssetMap> selectOne(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.1998251+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.018086026Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     default long count(CountDSLCompleter completer) {
         return MyBatis3Utils.countFrom(this::count, dqRulesToDataAssetMap, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.2008242+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.018170026Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     default int delete(DeleteDSLCompleter completer) {
         return MyBatis3Utils.deleteFrom(this::delete, dqRulesToDataAssetMap, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.2018232+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.018263226Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     default int deleteByPrimaryKey(Integer dqRulesToDataAssetMapId_) {
         return delete(c -> 
             c.where(dqRulesToDataAssetMapId, isEqualTo(dqRulesToDataAssetMapId_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.2018232+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.018344427Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     default int insert(DqRulesToDataAssetMap row) {
         return MyBatis3Utils.insert(this::insert, row, dqRulesToDataAssetMap, c ->
             c.map(dqRulesToDataAssetMapId).toProperty("dqRulesToDataAssetMapId")
@@ -104,7 +104,7 @@ public interface DqRulesToDataAssetMapMapper extends CommonCountMapper, CommonDe
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.2048251+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.018548427Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     default int insertMultiple(Collection<DqRulesToDataAssetMap> records) {
         return MyBatis3Utils.insertMultiple(this::insertMultiple, records, dqRulesToDataAssetMap, c ->
             c.map(dqRulesToDataAssetMapId).toProperty("dqRulesToDataAssetMapId")
@@ -128,7 +128,7 @@ public interface DqRulesToDataAssetMapMapper extends CommonCountMapper, CommonDe
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.2061931+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.018775027Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     default int insertSelective(DqRulesToDataAssetMap row) {
         return MyBatis3Utils.insert(this::insert, row, dqRulesToDataAssetMap, c ->
             c.map(dqRulesToDataAssetMapId).toPropertyWhenPresent("dqRulesToDataAssetMapId", row::getDqRulesToDataAssetMapId)
@@ -152,34 +152,34 @@ public interface DqRulesToDataAssetMapMapper extends CommonCountMapper, CommonDe
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.2091939+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.019126828Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     default Optional<DqRulesToDataAssetMap> selectOne(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectOne(this::selectOne, selectList, dqRulesToDataAssetMap, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.210193+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.019207528Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     default List<DqRulesToDataAssetMap> select(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectList(this::selectMany, selectList, dqRulesToDataAssetMap, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.210193+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.019270529Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     default List<DqRulesToDataAssetMap> selectDistinct(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectDistinct(this::selectMany, selectList, dqRulesToDataAssetMap, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.2121939+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.019333529Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     default Optional<DqRulesToDataAssetMap> selectByPrimaryKey(Integer dqRulesToDataAssetMapId_) {
         return selectOne(c ->
             c.where(dqRulesToDataAssetMapId, isEqualTo(dqRulesToDataAssetMapId_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.2121939+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.019421129Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     default int update(UpdateDSLCompleter completer) {
         return MyBatis3Utils.update(this::update, dqRulesToDataAssetMap, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.2131937+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.019496829Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     static UpdateDSL<UpdateModel> updateAllColumns(DqRulesToDataAssetMap row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(dqRulesToDataAssetMapId).equalTo(row::getDqRulesToDataAssetMapId)
                 .set(ruleId).equalTo(row::getRuleId)
@@ -201,7 +201,7 @@ public interface DqRulesToDataAssetMapMapper extends CommonCountMapper, CommonDe
                 .set(updatedBy).equalTo(row::getUpdatedBy);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.2131937+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.019672729Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     static UpdateDSL<UpdateModel> updateSelectiveColumns(DqRulesToDataAssetMap row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(dqRulesToDataAssetMapId).equalToWhenPresent(row::getDqRulesToDataAssetMapId)
                 .set(ruleId).equalToWhenPresent(row::getRuleId)
@@ -223,7 +223,7 @@ public interface DqRulesToDataAssetMapMapper extends CommonCountMapper, CommonDe
                 .set(updatedBy).equalToWhenPresent(row::getUpdatedBy);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.214193+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.01991153Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     default int updateByPrimaryKey(DqRulesToDataAssetMap row) {
         return update(c ->
             c.set(ruleId).equalTo(row::getRuleId)
@@ -247,7 +247,7 @@ public interface DqRulesToDataAssetMapMapper extends CommonCountMapper, CommonDe
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T00:48:04.2156985+05:30", comments="Source Table: test.dq_rules_to_data_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:41.02008283Z", comments="Source Table: public.dq_rules_to_data_asset_map")
     default int updateByPrimaryKeySelective(DqRulesToDataAssetMap row) {
         return update(c ->
             c.set(ruleId).equalToWhenPresent(row::getRuleId)

@@ -176,6 +176,12 @@
                 <groupId>org.pantherslabs.chimera</groupId>
                 <artifactId>unisca.logging</artifactId>
                 <version>${chimera.project.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-simple</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
@@ -360,11 +366,11 @@
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j-api.version}</version> <!-- Example latest -->
             </dependency>
-            <dependency>
+<!--            <dependency>
                 <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-simple</artifactId> <!-- Or your chosen binding -->
+                <artifactId>slf4j-simple</artifactId> &lt;!&ndash; Or your chosen binding &ndash;&gt;
                 <version>${slf4j-api.version}</version>
-            </dependency>
+            </dependency>-->
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-core</artifactId>

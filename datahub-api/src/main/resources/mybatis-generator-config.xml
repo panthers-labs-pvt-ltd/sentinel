@@ -30,7 +30,16 @@
                 targetProject="src/main/java"/>
 
 
-        <table schema="test" tableName="dq_rules_to_data_asset_map" delimitIdentifiers="true"/>
+        <table schema="public" tableName="data_asset_profiles" delimitIdentifiers="true"/>
+        <table schema="public" tableName="data_controls" delimitIdentifiers="true"/>
+        <table schema="public" tableName="data_controls_log" delimitIdentifiers="true"/>
+        <table schema="public" tableName="data_controls_to_process_maps" delimitIdentifiers="true"/>
+        <table schema="public" tableName="data_management_processes" delimitIdentifiers="true"/>
+        <table schema="public" tableName="data_quality_suggestions" delimitIdentifiers="true"/>
+        <table schema="public" tableName="dq_dimensions" delimitIdentifiers="true"/>
+        <table schema="public" tableName="dq_rules" delimitIdentifiers="true"/>
+        <table schema="public" tableName="dq_rules_to_data_asset_map" delimitIdentifiers="true"/>
+
     </context>
 </generatorConfiguration>
 
