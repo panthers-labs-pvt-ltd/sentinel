@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: "DataHub API"
+    name: DATA HUB API
   cloud:
     config:
       enabled: false
@@ -15,21 +15,22 @@ spring:
     hikari:
       maximum-pool-size: 10
       connection-timeout: 5000
+
   flyway:
     enabled: false
     schemas: test
     cleanDisabled: true
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          client-id: chimera_api_client2
-          issuer-uri: "http://localhost:3000/realms/chimera"
-          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+logging:
+  level:
+    org.springframework.boot.autoconfigure: DEBUG
+    org.springframework.boot.env: DEBUG
+    org.pantherslabs.chimera: DEBUG
+retry:
+  enabled: false
 
 keycloak:
   setup:
-    enabled: true
+    enabled: false
     realm: chimera
     client:
       clientId: chimera_api_client2
