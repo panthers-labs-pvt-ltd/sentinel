@@ -1,12 +1,17 @@
 package org.pantherslabs.chimera.sentinel.service;
 
+import org.mybatis.dynamic.sql.render.RenderingStrategies;
+import org.mybatis.dynamic.sql.select.render.SelectStatementProvider;
 import org.pantherslabs.chimera.sentinel.mapper.generated.DataControlsMapper;
 import org.pantherslabs.chimera.sentinel.model.generated.DataControls;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.List;
+import java.util.Optional;
+
+import static org.mybatis.dynamic.sql.SqlBuilder.select;
+import static org.pantherslabs.chimera.sentinel.mapper.generated.DataControlsDynamicSqlSupport.dataControls;
 
 @Service
 public class DataControlsService {
@@ -14,41 +19,42 @@ public class DataControlsService {
     @Autowired
     private DataControlsMapper dataControlsMapper;
 
-//    private final Map<Short, DataControls> controlsStore = new ConcurrentHashMap<>();
-//
-//    public List<DataControls> getAllControls() {
-//        return new ArrayList<>(controlsStore.values());
-//    }
-
-//    public DataControls getControlById(Short id) {
-//        return controlsStore.get(id);
-//    }
-
     public DataControls getControlById(Short id) {
+        // Returns the DataControls object with the given id, or null if not found
         return dataControlsMapper.selectByPrimaryKey(id).orElse(null);
     }
 
-//    public DataControls createControl(DataControls dataControls) {
-//        // Example: generate controlId if null
-//        if (dataControls.getControlId() == null) {
-//            short newId = (short) (controlsStore.size() + 1);
-//            dataControls.setControlId(newId);
-//        }
-//        dataControls.setCreatedTs(new Date());
-//        controlsStore.put(dataControls.getControlId(), dataControls);
-//        return dataControls;
-//    }
-//
-//    public DataControls updateControl(Short id, DataControls dataControls) {
-//        DataControls existing = controlsStore.get(id);
-//        if (existing == null) return null;
-//        dataControls.setControlId(id);
-//        dataControls.setUpdatedTs(new Date());
-//        controlsStore.put(id, dataControls);
-//        return dataControls;
-//    }
-//
-//    public boolean deleteControl(Short id) {
-//        return controlsStore.remove(id) != null;
-//    }
+    public List<DataControls> getAllControls() {
+        SelectStatementProvider selectStatement = select(DataControlsMapper.selectList)
+                .from(dataControls)
+                .build()
+                .render(RenderingStrategies.MYBATIS3);
+        return dataControlsMapper.selectMany(selectStatement);
+    }
+
+    public DataControls createControl(DataControls control) {
+        dataControlsMapper.insert(control);
+        return control;
+    }
+
+    public DataControls updateControl(Short id, DataControls updatedControl) {
+        // Update the DataControls record if it exists
+        Optional<DataControls> existing = dataControlsMapper.selectByPrimaryKey(id);
+        if (existing.isPresent()) {
+            updatedControl.setControlId(id);
+            dataControlsMapper.updateByPrimaryKey(updatedControl);
+            return updatedControl;
+        }
+        return null;
+    }
+
+    public boolean deleteControl(Short id) {
+        // Delete the DataControls record if it exists
+        Optional<DataControls> existing = dataControlsMapper.selectByPrimaryKey(id);
+        if (existing.isPresent()) {
+            dataControlsMapper.deleteByPrimaryKey(id);
+            return true;
+        }
+        return false;
+    }
 }
