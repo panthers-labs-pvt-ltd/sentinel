@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class DataControls {
+public class    DataControls {
     @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-04T17:07:40.934176341Z", comments="Source field: public.data_controls.control_id")
     private Short controlId;
 

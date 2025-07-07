@@ -1,4 +1,4 @@
-package org.pantherslabs.chimera.sentinel.dto;
+package org.pantherslabs.chimera.sentinel.data_api.dto;
 
 import jakarta.annotation.Generated;
 import lombok.AllArgsConstructor;

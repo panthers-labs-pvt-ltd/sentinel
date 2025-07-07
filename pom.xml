@@ -72,12 +72,11 @@
         <module>data-lineage</module>
         <module>data_observability</module>
         <module>data_quality</module>
-
+        <module>data_api</module>
         <!--
-                <module>deequ</module>
-        -->
-
+        <module>deequ</module>
         <module>datahub-api</module>
+          -->
     </modules>
 
 
@@ -374,13 +373,18 @@
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-core</artifactId>
-                <version>${log4j.api.version}</version> <!-- Use the latest version -->
+                <version>${log4j.api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j2-impl</artifactId>
+                <version>${log4j.api.version}</version>
             </dependency>
             <!-- Log4j API -->
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-api</artifactId>
-                <version>${log4j.api.version}</version> <!-- Use the latest version -->
+                <version>${log4j.api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>

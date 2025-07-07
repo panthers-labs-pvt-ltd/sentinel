@@ -1,13 +1,24 @@
 package org.pantherslabs.chimera.sentinel.service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+
+import org.pantherslabs.chimera.sentinel.datahub.datasets.ManageDatasets;
+import org.pantherslabs.chimera.unisca.logging.ChimeraLoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
 import org.mybatis.dynamic.sql.render.RenderingStrategies;
 import org.mybatis.dynamic.sql.select.render.SelectStatementProvider;
 import org.pantherslabs.chimera.sentinel.mapper.generated.DataControlsMapper;
 import org.pantherslabs.chimera.sentinel.model.generated.DataControls;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.pantherslabs.chimera.unisca.logging.ChimeraLogger;
+import org.pantherslabs.chimera.unisca.exception.ChimeraException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.mybatis.dynamic.sql.SqlBuilder.select;
@@ -15,16 +26,29 @@ import static org.pantherslabs.chimera.sentinel.mapper.generated.DataControlsDyn
 
 @Service
 public class DataControlsService {
+    static ChimeraLogger DCSLogger = ChimeraLoggerFactory.getLogger(DataControlsService.class);
+
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String currentUsername = (authentication != null) ? authentication.getName() : System.getProperty("user.name");
 
     @Autowired
     private DataControlsMapper dataControlsMapper;
 
+/*
     public DataControls getControlById(Short id) {
-        // Returns the DataControls object with the given id, or null if not found
+        DCSLogger.logInfo("Getting Data Control for " + id);
         return dataControlsMapper.selectByPrimaryKey(id).orElse(null);
     }
+*/
 
-    public List<DataControls> getAllControls() {
+    public DataControls getControlById(Short id) {
+        return dataControlsMapper.selectByPrimaryKey(id)
+                .orElseThrow(() -> new ChimeraException("APIException.404",
+                        Map.of("exception", "Control Id " + id.toString() + " Not Found"),
+                        null,
+                        HttpStatus.NOT_FOUND));
+    }
+        public List<DataControls> getAllControls() {
         SelectStatementProvider selectStatement = select(DataControlsMapper.selectList)
                 .from(dataControls)
                 .build()
@@ -33,17 +57,21 @@ public class DataControlsService {
     }
 
     public DataControls createControl(DataControls control) {
+        control.setCreatedTs(new Timestamp(System.currentTimeMillis()));
+        control.setCreatedBy(currentUsername);
         dataControlsMapper.insert(control);
         return control;
     }
 
     public DataControls updateControl(Short id, DataControls updatedControl) {
-        // Update the DataControls record if it exists
         Optional<DataControls> existing = dataControlsMapper.selectByPrimaryKey(id);
+
         if (existing.isPresent()) {
             updatedControl.setControlId(id);
-            dataControlsMapper.updateByPrimaryKey(updatedControl);
-            return updatedControl;
+            updatedControl.setUpdatedBy(currentUsername);
+            updatedControl.setUpdatedTs(new Timestamp(System.currentTimeMillis()));
+            dataControlsMapper.updateByPrimaryKeySelective(updatedControl);
+            return getControlById(id);
         }
         return null;
     }

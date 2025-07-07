@@ -45,18 +45,15 @@ public class ManagePipeline {
 
 
     public static void createDataPipeline(String pipelineDefinition) throws Exception {
-
-
         Pipeline dataPipeline = utils.getPipelineInfo(pipelineDefinition);
         if (dataPipeline != null) {
             String platform = dataPipeline.getProcessingEngine();
             String flowName = dataPipeline.getPipelineName();
             String cluster = dataPipeline.getFabricType();
-            String createdBy = DATAHUB_ACTOR;
             String domain = dataPipeline.getDomainName();
 
             DataFlowUrn dataFlowUrn = new DataFlowUrn(platform, flowName, cluster);
-            CorpuserUrn userUrn = new CorpuserUrn(createdBy);
+            CorpuserUrn userUrn = new CorpuserUrn(DATAHUB_ACTOR);
 
             TimeStamp createdStamp = new TimeStamp()
                     .setActor(new CorpuserUrn(userUrn.getUsernameEntity()))
