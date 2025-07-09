@@ -1,6 +1,6 @@
 package org.pantherslabs.chimera.sentinel.data_api.exception;
 
-import org.pantherslabs.chimera.sentinel.data_api.service.DataControlsService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.pantherslabs.chimera.unisca.exception.ChimeraException;
 import org.pantherslabs.chimera.unisca.logging.ChimeraLogger;
 import org.pantherslabs.chimera.unisca.logging.ChimeraLoggerFactory;
@@ -8,8 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +18,7 @@ public class GlobalExceptionHandler {
     ChimeraLogger APILogger = ChimeraLoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(ChimeraException.class)
-    public ResponseEntity<Object> handleChimeraException(ChimeraException ex) {
+    public ResponseEntity<Object> handleChimeraException(ChimeraException ex , HttpServletRequest request) {
         String fullMessage = ex.getMessage();
         String errorType = null;
         String errorCode = null;
@@ -39,9 +38,9 @@ public class GlobalExceptionHandler {
             }
         }
         String ErrorTemplate =String.format("""
-                Error Code : %s\
-                Error Type : %s\
-                Error Message : %s\
+                Error Code : %s\\n\
+                Error Type : %s\\n\
+                Error Message : %s\\n\
                 Error StackTrace : %s""",errorCode,errorType,errorMessage,Arrays.toString(ex.getStackTrace())
         );
         APILogger.logError(ErrorTemplate);
@@ -49,11 +48,8 @@ public class GlobalExceptionHandler {
         body.put("errorCode : ", errorCode);
         body.put("errorType :", errorType);
         body.put("errorMessage",errorMessage);
-        //body.put("errorClass", ex.getErrorClass());
-        //body.put("messageParameters", ex.getMessageParameters());
-        //body.put("message", ex.getMessage());
-        body.put("stackTrace", Arrays.toString(ex.getStackTrace()));
-
+        body.put("errorRequestURI",request.getRequestURI());
+        body.put("errorTimestamp", Instant.now());
         return new ResponseEntity<>(body, ex.getHttpStatus());
     }
 }
