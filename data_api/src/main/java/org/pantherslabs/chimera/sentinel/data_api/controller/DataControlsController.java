@@ -1,12 +1,16 @@
 package org.pantherslabs.chimera.sentinel.data_api.controller;
-
+import org.pantherslabs.chimera.sentinel.data_api.mapper.generated.DataControlsMapper;
+import org.pantherslabs.chimera.sentinel.data_api.dto.FilterRequest;
 import org.pantherslabs.chimera.sentinel.data_api.model.generated.DataControls;
 import org.pantherslabs.chimera.sentinel.data_api.service.DataControlsService;
+import org.pantherslabs.chimera.unisca.exception.ChimeraException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/data-controls")
@@ -54,5 +58,19 @@ public class DataControlsController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/filter")
+    public ResponseEntity<List<Map<String, Object>>> filterDataControls(@RequestBody FilterRequest request) {
+        List<Map<String, Object>> result = dataControlsService.getControlWithFilter(request.getTable(), request.getFilters());
+
+        if (result.isEmpty()) {
+            throw new ChimeraException("APIException.404",
+                    Map.of("exception", "No records found"),
+                    null,
+                    HttpStatus.NOT_FOUND);
+        }
+
+        return ResponseEntity.ok(result);
     }
 }

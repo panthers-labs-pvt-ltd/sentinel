@@ -2,6 +2,7 @@ package org.pantherslabs.chimera.sentinel.data_api.service;
 
 import java.sql.Timestamp;
 import org.apache.ibatis.exceptions.PersistenceException;
+import org.pantherslabs.chimera.sentinel.data_api.generics.FilterCondition;
 import org.pantherslabs.chimera.unisca.logging.ChimeraLoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.pantherslabs.chimera.unisca.logging.ChimeraLogger;
 import org.pantherslabs.chimera.unisca.exception.ChimeraException;
-
+import org.pantherslabs.chimera.sentinel.data_api.generics.GenericMapper;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -241,5 +242,19 @@ public class DataControlsService {
             );
         }
     }
+    @Autowired
+    private GenericMapper genericMapper;
 
+    public List<Map<String, Object>>getControlWithFilter(String tableName, List<FilterCondition> filters) {
+        //List<Map<String, Object>> results = dataControlsMapper.executeDynamicQuery(tableName, filters);
+        List<Map<String, Object>> results = genericMapper.executeDynamicFilterQuery(tableName, filters);
+        if (results.isEmpty()) {
+            throw new ChimeraException("APIException.404",
+                    Map.of("exception", "No DataControls found with provided filters"),
+                    null,
+                    HttpStatus.NOT_FOUND);
+        }
+
+        return results;
+    }
 }
