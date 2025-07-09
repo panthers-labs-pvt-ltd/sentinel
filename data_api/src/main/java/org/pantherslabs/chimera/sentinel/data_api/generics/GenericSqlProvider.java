@@ -2,37 +2,94 @@ package org.pantherslabs.chimera.sentinel.data_api.generics;
 
 import java.util.List;
 import java.util.Map;
-
+import scala.collection.Seq;
+import scala.collection.JavaConverters;
 
 public class GenericSqlProvider {
+
+    @SuppressWarnings("unchecked")
+    private List<?> ensureJavaList(Object value) {
+        if (value instanceof List) {
+            return (List<?>) value;
+        } else if (value instanceof Seq) {
+            return JavaConverters.seqAsJavaList((Seq<?>) value);
+        } else {
+            throw new IllegalArgumentException("Expected a List or Scala Seq, but got: " + value.getClass());
+        }
+    }
+
 
     public String buildQuery(Map<String, Object> params) {
         String table = (String) params.get("table");
         @SuppressWarnings("unchecked")
-        List<FilterCondition> filters = (List<FilterCondition>) params.get("filters");
+        List<FilterCondition> filters =
+                (List<FilterCondition>) params.get("filters");
 
-        StringBuilder sql = new StringBuilder("SELECT * FROM ").append(table).append(" WHERE 1=1 ");
+        StringBuilder sql = new StringBuilder(String.format("SELECT * FROM %s  WHERE 1=1", table));
 
-        int index = 0;
-        for (FilterCondition filter : filters) {
-            String paramName = "filters[" + index + "].value";
+        sql.append(buildWhereClause(filters, "filters", /*nested=*/false));
+        return sql.toString();
+    }
 
-            sql.append(" AND ").append(filter.getField()).append(" ");
+    private String buildWhereClause(List<FilterCondition> filters, String pathPrefix, boolean nested) {
+        StringBuilder clause = new StringBuilder();
 
-            switch (filter.getOperator().toLowerCase()) {
-                case "in":
-                    sql.append("IN (")
-                            .append("#{").append(paramName).append("}")
-                            .append(")");
+        for (int i = 0; i < filters.size(); i++) {
+            FilterCondition f = filters.get(i);
+            String logic = f.getLogic() == null ? "AND" : f.getLogic().toUpperCase();
+            String currentPath = pathPrefix + "[" + i + "]";
+            String paramName = currentPath + ".value";
+
+            if (i == 0) {
+                clause.append(nested ? " " : " AND ");
+            } else {
+                clause.append(" ").append(logic).append(" ");
+            }
+
+            if (f.isGroup()) {
+                clause.append("(")
+                        .append(buildWhereClause(f.getGroup(), currentPath + ".group", true))
+                        .append(")");
+                continue;
+            }
+
+            String op = f.getOperator().toLowerCase();
+            clause.append(f.getField()).append(" ");
+
+            switch (op) {
+                case "is null":
+                case "is not null":
+                    clause.append(op.toUpperCase());
                     break;
                 case "like":
-                    sql.append("LIKE CONCAT('%', #{").append(paramName).append("}, '%')");
+                    clause.append("LIKE CONCAT('%', #{").append(paramName).append("[0]}, '%')");
+                    break;
+                case "not like":
+                    clause.append("NOT LIKE CONCAT('%', #{").append(paramName).append("[0]}, '%')");
+                    break;
+                case "between":
+                    clause.append("BETWEEN #{").append(paramName).append("[0]} AND #{")
+                            .append(paramName).append("[1]}");
+                    break;
+                case "in":
+                    clause.append("IN ")
+                            .append("<foreach collection=\"").append(paramName)
+                            .append("\" item=\"item\" open=\"(\" separator=\",\" close=\")\">")
+                            .append("#{item}</foreach>");
+                    break;
+                case "not in":
+                    clause.append("NOT IN ")
+                            .append("<foreach collection=\"").append(paramName)
+                            .append("\" item=\"item\" open=\"(\" separator=\",\" close=\")\">")
+                            .append("#{item}</foreach>");
+                    break;
+                case "=": case ">": case "<": case ">=": case "<=": case "!=": case "<>":
+                    clause.append(op).append(" #{").append(paramName).append("[0]}");
                     break;
                 default:
-                    sql.append(filter.getOperator()).append(" #{").append(paramName).append("}");
+                    throw new IllegalArgumentException("Unsupported operator: " + op);
             }
-            index++;
         }
-        return sql.toString();
+        return clause.toString();
     }
 }

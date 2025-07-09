@@ -3,26 +3,29 @@ package org.pantherslabs.chimera.sentinel.data_api.generics;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 public class FilterCondition {
 
-    // Getter and Setter for field
     private String field;
-    // Getter and Setter for operator
     private String operator;
-    // Getter and Setter for value
-    private Object value;
+    private List<Object> value;
 
-    // Default constructor
+    private List<FilterCondition> group;
+    private String logic = "AND";
     public FilterCondition() {
     }
 
+    public boolean isGroup() {
+        return group != null && !group.isEmpty();
+    }
+
     // Parameterized constructor
-    public FilterCondition(String field, String operator, Object value) {
+    public FilterCondition(String field, String operator, List<Object> value) {
         this.field = field;
         this.operator = operator;
         this.value = value;
     }
-
 }
