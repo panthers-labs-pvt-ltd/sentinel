@@ -1,14 +1,8 @@
 package org.pantherslabs.chimera.sentinel.data_quality.profiling
 
-import scala.None.getOrElse
 import com.amazon.deequ.analyzers.DataTypeInstances
 import com.amazon.deequ.profiles.ColumnProfilerRunner
-import org.apache.spark
-import org.nwg.edl.tachyon.core.dbmgmt.modal.{EdlNumDataProfiler, EdlStdDataProfiler}
-import org.nwg.edl.tachyon.core.dbmgmt.repository.{EdlNumDataProfilerRepository, EdlStdDataProfilerRepository}
-import org.apache.spark.sql.{DataFrame, Row, SparkSession}
-import org.apache.spark.sql.functions.lit
-import org.apache.spark.sql.types.{DoubleType, LongType, StringType, StructField, StructType}
+import org.apache.spark.sql.{DataFrame, SparkSession}
 
 import java.math.BigInteger
 
@@ -19,11 +13,11 @@ class ColumnProfiler {
       .onData(df)
       .run()
 
-    result.profiles.foreach { case (colName, profile) =>
-      val cp = new EdlStdDataProfiler(tableName, colName.toString, "", profile.dataType.toString,
+   result.profiles.foreach { case (colName, profile) =>
+     /*  val cp = new EdlStdDataProfiler(tableName, colName.toString, "", profile.dataType.toString,
         profile.completeness.toString, profile.approximateNumDistinctValues.toString)
 
-      EdlStdDataProfilerRepository.addNewEdlStdDataProfiler(cp)
+      //EdlStdDataProfilerRepository.addNewEdlStdDataProfiler(cp)
 
       if (profile.dataType.equals(DataTypeInstances.Fractional)
         || profile.dataType.equals(DataTypeInstances.Integral)) {
@@ -35,11 +29,8 @@ class ColumnProfiler {
           BigInteger.valueOf(totalNumberProfile.mean.get.toLong),
           BigInteger.valueOf(totalNumberProfile.stdDev.get.toLong))
 
-        EdlNumDataProfilerRepository.addNewEdlNumDataProfiler(ncp)
+      EdlNumDataProfilerRepository.addNewEdlNumDataProfiler(ncp)*/
+      print("Add Logic to Write Using API")
       }
     }
-
-    }
-
-
 }

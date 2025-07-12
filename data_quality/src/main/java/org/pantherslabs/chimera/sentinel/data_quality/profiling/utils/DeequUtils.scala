@@ -1,12 +1,12 @@
 package org.pantherslabs.chimera.sentinel.data_quality.profiling.utils
 
-import scala.reflect.runtime.currentMirror
-import scala.tools.reflect.ToolBox
-import scala.util.Try
-
 import com.amazon.deequ.VerificationResult
 import com.amazon.deequ.repository.{MetricsRepository, ResultKey}
 import org.apache.spark.sql.DataFrame
+
+import scala.reflect.runtime.currentMirror
+import scala.tools.reflect.ToolBox
+import scala.util.Try
 
 object DeequUtils {
   type Verifier = (DataFrame, MetricsRepository, ResultKey) => VerificationResult
@@ -23,7 +23,7 @@ object DeequUtils {
       .where(s"checkLevel = '$checkLevel'")
       .collect()
     rules.map(row=> {
-      (row.getString(1), row.getInt(0).toLong)
+      (row.getString(1), row.getLong(0))
     }).toList
   }
 
@@ -41,7 +41,7 @@ object DeequUtils {
     val verifierSrcCode =
     s"""{
         |import com.amazon.deequ.constraints.ConstrainableDataTypes
-        |import com.amazon.deequ.(VerificationResult, VerificationSuite)
+        |import com.amazon.deequ.{VerificationResult, VerificationSuite}
         |import org.apache.spark.sql.DataFrame
         |import com.amazon.deequ.analyzers.Size
         |
@@ -60,7 +60,7 @@ object DeequUtils {
     }
     |)
     |
-    |(deequTargetdf: DataFrame) => VerificationSuite()
+    |(deequTargetDf: DataFrame) => VerificationSuite()
     |.onData(deequTargetDf)
     |.addChecks(warningChecks)
     |.addChecks(errorChecks)

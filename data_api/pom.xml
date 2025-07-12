@@ -17,7 +17,7 @@
     </description>
     <url>https://github.com/panthers-labs-pvt-ltd/sentinel</url>
 
-    <artifactId>data_api</artifactId>
+    <artifactId>sentinel.data_api</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -47,6 +47,11 @@
             <artifactId>api-nexus-db</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.pantherslabs.chimera</groupId>
+            <artifactId>api-nexus-client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -70,10 +75,16 @@
         </dependency>
 
         <dependency>
-            <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>sentinel.datahub</artifactId>
-            <version>1.0-SNAPSHOT</version>
-         </dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.10.1</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
     <build>

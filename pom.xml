@@ -193,6 +193,12 @@
                 <version>${chimera.project.version}</version>
                 <artifactId>unisca.utilities</artifactId>
             </dependency>
+            <dependency>
+                <groupId>org.pantherslabs.chimera</groupId>
+                <version>${chimera.project.version}</version>
+                <artifactId>execution_engine</artifactId>
+            </dependency>
+
             <!-- AWS SDK for Java 2.x BOM -->
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
@@ -328,6 +334,11 @@
                 <version>${spark.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.derby</groupId>
+                <artifactId>derby</artifactId>
+                <version>10.14.2.0</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.spark</groupId>
                 <artifactId>spark-sql-kafka-0-10_${spark.scala.version}</artifactId>
                 <version>${spark.version}</version>
@@ -358,6 +369,11 @@
                 <groupId>org.apache.datafusion</groupId>
                 <artifactId>comet-spark-spark3.5_${spark.scala.version}</artifactId>
                 <version>${comet-spark-spark3.5-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-hive_2.12</artifactId>
+                <version>3.5.0</version>
             </dependency>
             <!-- Logging -->
             <dependency>

@@ -1,30 +1,28 @@
 package org.pantherslabs.chimera.sentinel.data_quality.profiling
 
-
-
-import scala.collection.JavaConversions
-import org.nwg.edl.tachyon.core.dbmgmt.repository.{EdlDqRulesRepository, EdlDqSuggestionsRepository}
-import org.pantherslabs.chimera.unisca.logging.ChimeraLogger
-import org.apache.spark.sql.{DataFrame, Row, SparkSession}
 import org.apache.spark.sql.functions.{col, expr, lit}
 import org.apache.spark.sql.types.{LongType, StringType, StructField, StructType}
+import org.apache.spark.sql.{DataFrame, Row, SparkSession}
+import org.pantherslabs.chimera.unisca.logging.{ChimeraLogger, ChimeraLoggerFactory}
 
 object ProcessConstraints {
-  val edlLogger = new ChimeraLogger(this.getClass)
+  private val edlLogger: ChimeraLogger = ChimeraLoggerFactory.getLogger(this.getClass)
 
   def getConstraints(spark: SparkSession, tableName: String): DataFrame = {
     // TODO check how we can do IN caluse
     // val scolaMap Mop (tableName" -> sql Text)
     // val constraints_df = OqConstrointSuggestionRepository ListDqConstraintSuggestionByColumn
     try {
-      val constraints_df = EdlDqSuggestionsRepository.listEdlDqSuggestionsByColumn(
+      print("Add Logic to add Suggestion Repo")
+      spark.emptyDataFrame
+      /*val constraints_df = EdlDqSuggestionsRepository.listEdlDqSuggestionsByColumn(
         spark, "sql_Text", tableName)
       constraints_df.show()
-      constraints_df
+      constraints_df*/
     }
     catch {
-      case e: Exception => edlLogger.logError("ProcessConstraints", e.toString)
-        throw (e)
+      case e: Exception => edlLogger.logError("ProcessConstraints" + e.toString)
+        throw e
     }
   }
 
@@ -62,7 +60,8 @@ object ProcessConstraints {
   }
 
   def persistRules(df: DataFrame): Unit = {
-    EdlDqRulesRepository.addNewEdlDqRules(df)
+    print("Add Logic to Add DQ Rule")
+    // EdlDqRulesRepository.addNewEdlDqRules(df)
   }
 
   def main(args: Array[String]): Unit = {
@@ -70,8 +69,6 @@ object ProcessConstraints {
       .master("local")
       .appName("DeequRunner Test example")
       .getOrCreate()
-
-    import spark.implicits._
     val params = collection.mutable.Map[String, String]()
 
     for (arg <- args) {

@@ -45,8 +45,8 @@ public class GlobalExceptionHandler {
         );
         APILogger.logError(ErrorTemplate);
         Map<String, Object> body = new HashMap<>();
-        body.put("errorCode : ", errorCode);
-        body.put("errorType :", errorType);
+        body.put("errorCode", errorCode);
+        body.put("errorType", errorType);
         body.put("errorMessage",errorMessage);
         body.put("errorRequestURI",request.getRequestURI());
         body.put("errorTimestamp", Instant.now());

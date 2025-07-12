@@ -1,44 +1,83 @@
 package org.pantherslabs.chimera.sentinel.data_quality
 
-//@import scala.collection.JavaConversions._
 import scala.collection.JavaConverters._
-import com.amazon.deequ.VerificationResult
 import org.apache.spark.sql.functions.lit
+import com.amazon.deequ.VerificationResult
+import com.fasterxml.jackson.core.`type`.TypeReference
+import org.apache.spark.sql.{DataFrame, Row, SparkSession}
 import org.apache.spark.sql.types.{DoubleType, StringType, StructField, StructType}
 
-import java.util
-import org.apache.spark.sql.{DataFrame, Row, SparkSession}
+import org.pantherslabs.chimera.unisca.exception.ChimeraException
+import org.pantherslabs.chimera.unisca.utilities.ChimeraUtils
+import org.pantherslabs.chimera.unisca.api_nexus.api_nexus_client.consumer.ApiConsumer
+import org.pantherslabs.chimera.unisca.api_nexus.api_nexus_client.response.ErrorResponse
 import org.pantherslabs.chimera.sentinel.data_quality.entities.{DeequRunnerMetrics, DeequRunnerProcessStatus}
 import org.pantherslabs.chimera.sentinel.data_quality.profiling.utils.DeequUtils
-import org.pantherslabs.chimera.unisca.exception.ChimeraException
 import org.pantherslabs.chimera.unisca.logging.{ChimeraLogger, ChimeraLoggerFactory}
-import org.pantherslabs.chimera.unisca.utilities.ChimeraUtils
-import scala.collection.mutable
+import org.pantherslabs.chimera.unisca.execution_engine.OptimizedSparkSession
+import org.pantherslabs.chimera.sentinel.data_quality.api.model.generated.DataQualityVw
 
 object DataQualityRunner {
-
+  private val filterApiUrl = "http://192.168.100.22:9001/api/data-quality/filter"
   private val logger: ChimeraLogger = ChimeraLoggerFactory.getLogger(this.getClass)
   private val loggerTag = "DataQualityRunner"
+  private val consumer = new ApiConsumer
 
-  private def getDqRules(spark: SparkSession, databaseName: String, tableName: String, stageName: String): DataFrame = {
-    
+  private def getDataQualityRules(sparkSession: SparkSession,databaseName: String, tableName: String,
+                                  dataQualityType: String = "CoarseDQService"): DataFrame = {
     logger.logInfo(s"Fetching Data Quality Rules for $databaseName.$tableName")
-    var scalaMap = mutable.Map.empty[String, String]
-    if (stageName.isEmpty) {
-      scalaMap = mutable.Map("databaseNm" -> databaseName, "tableNm" -> tableName, "activeFlg" -> "Y")
+    var filter: String = ""
+    var rules_df = sparkSession.emptyDataFrame
+    filter =    s"""{
+                  "table": "sentinel.data_quality_vw",
+                  "filters": [
+                    { "field": "database_name", "operator": "=", "value": ["$databaseName"] },
+                    { "field": "table_name", "operator": "=", "value": ["$tableName"] },
+                    { "field": "process_name", "operator": "=", "value": ["$dataQualityType"] }
+                  ]
+                }"""
+    val response = consumer.post(filterApiUrl, filter, new TypeReference[java.util.List[DataQualityVw]]() {}, new TypeReference[ErrorResponse]() {})
+    if (response.isSuccess) {
+      rules_df = sparkSession.createDataFrame(response.getSuccessBody, classOf[DataQualityVw])
     }
     else {
-      scalaMap = mutable.Map("databaseNm" -> databaseName, "tableNm" -> tableName, "procecssTypNm" -> stageName, "activeFlg" -> "Y")
+      val error = response.getFailureBody
+      logger.logError(s"Error Code : ${error.getErrorCode}")
+      logger.logError(s"Error Type : ${error.getErrorType}")
+      logger.logError(s"Message : ${error.getErrorMessage}")
+      logger.logError(s"Request URI : ${error.getErrorRequestURI}")
+      logger.logError(s"Timestamp : ${error.getErrorTimestamp}")
+      throw new ChimeraException(error.toString,"DataQualityException.DEEQU_FAILURE",
+      scala.collection.immutable.Map("exception" ->"Dq processing has generated %s errors").asJava)
     }
-    val rules_df = EdlDqUserConfigRepository.listEdlDqUserConfigByColumns(spark, new util.HashMap[String,String](scalaMap)).asJava
     rules_df.show()
     rules_df
   }
 
+  def execute(inBatchId : String, inDataFrame : DataFrame, inDatabaseName : String, inTableName : String,
+              inBusinessDate : String, inPartitionKeys : String, inPipelineName : String, inDataQualityType : String){
+    //val spark: OptimizedSparkSession = OptimizedSparkSession.get(loggerTag, "test")
+    val spark = SparkSession.builder()
+      .appName("OOMFix")
+      .master("local[2]")
+      .config("spark.driver.memory", "4g")
+      .config("spark.executor.memory", "4g")
+      .config("spark.memory.fraction", "0.5")
+      .config("spark.memory.storageFraction", "0.2")
+      .config("spark.shuffle.file.buffer", "128k")
+      .config("spark.reducer.maxSizeInFlight", "48m")
+      .config("spark.sql.shuffle.partitions", "32")
+      .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+      .config("spark.shuffle.sort.bypassMergeThreshold", "1")
+      .getOrCreate()
 
-  def execute(spark: SparkSession, batchId: String, dataFrame: DataFrame, databaseName: String,
-              tableName: String, businessDate: String, instance: String, pipelineName: String,
-              controlNames: Option[Seq[String]], stageName: Option[String], pipelineVersion: String): DeequRunnerMetrics = {
+    executeDataQualityRules(spark,inBatchId,inDataFrame,inDatabaseName,inTableName,inBusinessDate,inPartitionKeys,
+      inPipelineName,inDataQualityType)
+  }
+
+  private def executeDataQualityRules(spark: SparkSession,batchId: String, dataFrame: DataFrame, databaseName: String,
+              tableName: String, businessDate: String, partitionKeys: String, pipelineName: String,
+              dataQualityType: String = "CoarseDQService"): DeequRunnerMetrics = {
     val audit_time = ChimeraUtils.convertTimeFormat("yyyy-MM-dd HH:mm::ss.SSS", ChimeraUtils.currentGMTCalendar())
     var sourceRecordDuplicateCount: Double = 0
     var blank_row: Double = 0
@@ -84,7 +123,7 @@ object DataQualityRunner {
 
       val edlanalysisResultSchema = StructType(Array(
         StructField("entity", StringType, nullable = true),
-        StructField("instance", StringType, nullable = true),
+        StructField("partitionKeys", StringType, nullable = true),
         StructField("name", StringType, nullable = true),
         StructField("value", DoubleType,nullable =  false),
         StructField("table_name", StringType,nullable =  false),
@@ -95,7 +134,7 @@ object DataQualityRunner {
 
       val analysisResultSchema = StructType(Array(
         StructField("entityTyp", StringType, nullable = true),
-        StructField("instance", StringType, nullable = true),
+        StructField("partitionKeys", StringType, nullable = true),
         StructField("ruleName", StringType, nullable = true),
         StructField("actualValue", DoubleType,nullable =  false),
         StructField("batchId", StringType, nullable = false),
@@ -104,7 +143,7 @@ object DataQualityRunner {
         StructField("databaseNm", StringType, nullable = false)))
       var analysisResultDf = spark.createDataFrame(spark.sparkContext.emptyRDD[Row], analysisResultSchema)
 
-      val rulesDf = getDqRules(spark, databaseName, tableName, stageName.getOrElse(""))
+      val rulesDf = getDataQualityRules(spark, databaseName, tableName)
       metrics.deequRules = rulesDf.count()
       metrics.getRulesEndTime = ChimeraUtils.currentGMTCalendar()
       if (metrics.deequRules == 0) {
@@ -113,9 +152,9 @@ object DataQualityRunner {
         return null
       } else {
         rulesDf.collect().foreach(row => {
-          val ruleControlNm = row.getAs[String](fieldName = "controlNm")
-          val ruleNm = row.getAs[String](fieldName = "ruleNm")
-          val ruleColNm = row.getAs[String](fieldName = "ruleCol")
+          val ruleControlNm = row.getAs[String](fieldName = "dimensionName")
+          val ruleNm = row.getAs[String](fieldName = "ruleName")
+          val ruleColNm = row.getAs[String](fieldName = "ruleColumn")
           logger.logInfo(s"Executing DQ Rule $ruleNm for $ruleColNm")
 
           val schema = rulesDf.schema
@@ -130,13 +169,13 @@ object DataQualityRunner {
             .withColumn("table_name", lit(tableName))
             .withColumn("database_name", lit(databaseName))
             .withColumn("edi_business_day", lit(businessDate))
-            .withColumn("src_sys_inst_id", lit(instance))
+            .withColumn("src_sys_inst_id", lit(partitionKeys))
           edlAnalysisResultDf = edlAnalysisResultDf.union(edlAnalysisResultTmp)
 
           val analysisResultDfTmp = VerificationResult.successMetricsAsDataFrame(spark, result)
             .withColumnRenamed("entity", "entityTyp")
             .withColumn("batchId", lit(batchId))
-            .withColumn("processTypNm", lit(stageName.getOrElse("")))
+            .withColumn("processTypNm", lit(dataQualityType))
             .withColumn("tableNm", lit(tableName))
             .withColumn("databaseNm", lit(databaseName))
             .withColumnRenamed("value", "actualValue")
@@ -148,12 +187,12 @@ object DataQualityRunner {
             .withColumn("table_name", lit(tableName))
             .withColumn("database_name", lit(databaseName))
             .withColumn("edi_business_day", lit(businessDate))
-            .withColumn("src_sys_inst_id", lit(instance))
+            .withColumn("src_sys_inst_id", lit(partitionKeys))
           edlCheckResultsDf = edlCheckResultsDf.union(edlCheckResultsDfTmp)
 
           val checkResultsDfTmp = VerificationResult.checkResultsAsDataFrame(spark, result)
             .withColumn("batchId", lit(batchId))
-            .withColumn("processTypNm", lit(stageName.getOrElse("")))
+            .withColumn("processTypNm", lit(dataQualityType))
             .withColumn("tableNm", lit(tableName))
             .withColumn("databaseNm", lit(databaseName))
             .withColumn("ruleCol", lit(ruleColNm))
@@ -172,7 +211,7 @@ object DataQualityRunner {
 
         edlAnalysisResultDf.createOrReplaceTempView("dqAnalysisResults")
         analysisResultDf.show(false)
-        EdlDqUserConfigLogRepository.addNewEdlDqUserConfigLogs(analysisResultDf)
+//        EdlDqUserConfigLogRepository.addNewEdlDqUserConfigLogs(analysisResultDf)
 
         metrics.persistAnalysersEndTime = ChimeraUtils.currentGMTCalendar()
         logger.logInfo("Deequ analysis results Added in Tachyon")
@@ -183,7 +222,7 @@ object DataQualityRunner {
 
         logger.logInfo("Check results of created")
         checkResultsDf.show(false)
-        EdlDataQualityLogRepository.addNewEdlDataQualityLogs(checkResultsDf)
+        //EdlDataQualityLogRepository.addNewEdlDataQualityLogs(checkResultsDf)
         logger.logInfo("check results Dataframe added to DataQualityLogs")
         metrics.persistChecksEndTime = ChimeraUtils.currentGMTCalendar()
         metrics.runnerEndTime = ChimeraUtils.currentGMTCalendar()
@@ -214,19 +253,19 @@ object DataQualityRunner {
         var raw_blank = ""
         if (uniqueness_df_count > 0) {
           raw_dup_count = analysisResultDf.where("ruleName = 'Uniqueness'")
-            .select("actua;Value").first().mkString("")
+            .select("actualValue").first().mkString("")
           logger.logInfo("raw_dup_count :: " + raw_dup_count)
         }
 
         if (size_df_count > 0) {
           raw_count = analysisResultDf.where("ruleName = 'Size'")
-            .select("actua;Value").first().mkString("")
+            .select("actualValue").first().mkString("")
           logger.logInfo("raw_count :: " + raw_count)
         }
 
         if (completeness_df_count > 0) {
           raw_blank = analysisResultDf.where("ruleName = 'Completeness'")
-            .select("actua;Value").first().mkString("")
+            .select("actualValue").first().mkString("")
           logger.logInfo("raw_blank :: " + raw_blank)
         }
 
@@ -264,7 +303,7 @@ object DataQualityRunner {
       case e: ChimeraException =>
         logger.logError(s"An unexpected error has occurred - $e")
         metrics.processStatus = DeequRunnerProcessStatus.Error
-        throw new ChimeraException("EDLDataQualityException.DEEQU_FAILURE",
+       throw new ChimeraException("EDLDataQualityException.DEEQU_FAILURE",
           scala.collection.immutable.Map("exception" ->
             "Dq Processing has generated %s errors".format(metrics.deequErrors)).asJava,e)
     }
@@ -273,17 +312,17 @@ object DataQualityRunner {
       .withColumn("audit_time", lit(audit_time))
       .withColumn("table_name", lit(tableName))
       .withColumn("database_name", lit(databaseName))
-      .withColumn("instance", lit(instance))
+      .withColumn("partition_Keys", lit(partitionKeys))
       .withColumn("business_date", lit(businessDate))
       .withColumn("pipeline_name", lit(pipelineName))
       .withColumn("client_name", lit("CHIMERA"))
-      .withColumn("process_type_name", lit(stageName.getOrElse("")))
+      .withColumn("process_type_name", lit(dataQualityType))
       .withColumn("source_count", lit(actual_count.toLong))
       .withColumn("target_count", lit(actual_count.toLong))
       .withColumn("blank_row", lit(blank_row.toLong))
       .withColumn("source_duplicate_count", lit(sourceRecordDuplicateCount))
       .withColumn("id", lit(null).cast("long"))
-      .withColumn("pipeline_version", lit(pipelineVersion))
+
 
     metricsDf.createOrReplaceTempView("dqMetrics")
     metricsDf.show(false)
@@ -291,5 +330,3 @@ object DataQualityRunner {
     metrics
   }
 }
-
-

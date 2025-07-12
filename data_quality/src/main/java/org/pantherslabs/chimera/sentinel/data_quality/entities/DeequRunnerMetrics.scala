@@ -1,9 +1,10 @@
 package org.pantherslabs.chimera.sentinel.data_quality.entities
 
-import java.sql.Timestamp
-import java.util.Calendar
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{DataFrame, SparkSession}
+
+import java.sql.Timestamp
+import java.util.Calendar
 
 case class DeequRunnerMetrics() {
   var runnerStartTime: Calendar = _
