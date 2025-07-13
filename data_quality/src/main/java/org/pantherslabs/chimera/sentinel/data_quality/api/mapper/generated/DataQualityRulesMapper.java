@@ -31,10 +31,10 @@ import org.pantherslabs.chimera.sentinel.data_quality.api.model.generated.DataQu
 
 @Mapper
 public interface DataQualityRulesMapper extends CommonCountMapper, CommonDeleteMapper, CommonInsertMapper<DataQualityRules>, CommonUpdateMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.685597125Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.837553314Z", comments="Source Table: sentinel.data_quality_rules")
     BasicColumn[] selectList = BasicColumn.columnList(ruleId, dimensionId, ruleName, ruleDesc, ruleExample, ruleOwner, checkLevel, effectiveFrom, expiryDate, reserved5, reserved4, reserved3, reserved2, reserved1, activeFlg, createdBy, createdTs, updatedBy, updatedTs);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.684703716Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.836986182Z", comments="Source Table: sentinel.data_quality_rules")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="DataQualityRulesResult", value = {
         @Result(column="rule_id", property="ruleId", jdbcType=JdbcType.VARCHAR, id=true),
@@ -59,29 +59,29 @@ public interface DataQualityRulesMapper extends CommonCountMapper, CommonDeleteM
     })
     List<DataQualityRules> selectMany(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.684798492Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.837076787Z", comments="Source Table: sentinel.data_quality_rules")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @ResultMap("DataQualityRulesResult")
     Optional<DataQualityRules> selectOne(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.684832498Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.837162792Z", comments="Source Table: sentinel.data_quality_rules")
     default long count(CountDSLCompleter completer) {
         return MyBatis3Utils.countFrom(this::count, dataQualityRules, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.684865496Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.837210095Z", comments="Source Table: sentinel.data_quality_rules")
     default int delete(DeleteDSLCompleter completer) {
         return MyBatis3Utils.deleteFrom(this::delete, dataQualityRules, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.684894002Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.837259197Z", comments="Source Table: sentinel.data_quality_rules")
     default int deleteByPrimaryKey(String ruleId_) {
         return delete(c -> 
             c.where(ruleId, isEqualTo(ruleId_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.684931308Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.8373031Z", comments="Source Table: sentinel.data_quality_rules")
     default int insert(DataQualityRules row) {
         return MyBatis3Utils.insert(this::insert, row, dataQualityRules, c ->
             c.map(ruleId).toProperty("ruleId")
@@ -106,7 +106,7 @@ public interface DataQualityRulesMapper extends CommonCountMapper, CommonDeleteM
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.68523956Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.837380404Z", comments="Source Table: sentinel.data_quality_rules")
     default int insertMultiple(Collection<DataQualityRules> records) {
         return MyBatis3Utils.insertMultiple(this::insertMultiple, records, dataQualityRules, c ->
             c.map(ruleId).toProperty("ruleId")
@@ -131,7 +131,7 @@ public interface DataQualityRulesMapper extends CommonCountMapper, CommonDeleteM
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.685399873Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.837451208Z", comments="Source Table: sentinel.data_quality_rules")
     default int insertSelective(DataQualityRules row) {
         return MyBatis3Utils.insert(this::insert, row, dataQualityRules, c ->
             c.map(ruleId).toPropertyWhenPresent("ruleId", row::getRuleId)
@@ -156,34 +156,34 @@ public interface DataQualityRulesMapper extends CommonCountMapper, CommonDeleteM
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.685661562Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.837603517Z", comments="Source Table: sentinel.data_quality_rules")
     default Optional<DataQualityRules> selectOne(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectOne(this::selectOne, selectList, dataQualityRules, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.685714634Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.837633918Z", comments="Source Table: sentinel.data_quality_rules")
     default List<DataQualityRules> select(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectList(this::selectMany, selectList, dataQualityRules, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.685810143Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.837686121Z", comments="Source Table: sentinel.data_quality_rules")
     default List<DataQualityRules> selectDistinct(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectDistinct(this::selectMany, selectList, dataQualityRules, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.685865231Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.837733024Z", comments="Source Table: sentinel.data_quality_rules")
     default Optional<DataQualityRules> selectByPrimaryKey(String ruleId_) {
         return selectOne(c ->
             c.where(ruleId, isEqualTo(ruleId_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.685931318Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.837785627Z", comments="Source Table: sentinel.data_quality_rules")
     default int update(UpdateDSLCompleter completer) {
         return MyBatis3Utils.update(this::update, dataQualityRules, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.685984389Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.83784653Z", comments="Source Table: sentinel.data_quality_rules")
     static UpdateDSL<UpdateModel> updateAllColumns(DataQualityRules row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(ruleId).equalTo(row::getRuleId)
                 .set(dimensionId).equalTo(row::getDimensionId)
@@ -206,7 +206,7 @@ public interface DataQualityRulesMapper extends CommonCountMapper, CommonDeleteM
                 .set(updatedTs).equalTo(row::getUpdatedTs);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.686075315Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.837917034Z", comments="Source Table: sentinel.data_quality_rules")
     static UpdateDSL<UpdateModel> updateSelectiveColumns(DataQualityRules row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(ruleId).equalToWhenPresent(row::getRuleId)
                 .set(dimensionId).equalToWhenPresent(row::getDimensionId)
@@ -229,7 +229,7 @@ public interface DataQualityRulesMapper extends CommonCountMapper, CommonDeleteM
                 .set(updatedTs).equalToWhenPresent(row::getUpdatedTs);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.686187874Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.837990038Z", comments="Source Table: sentinel.data_quality_rules")
     default int updateByPrimaryKey(DataQualityRules row) {
         return update(c ->
             c.set(dimensionId).equalTo(row::getDimensionId)
@@ -254,7 +254,7 @@ public interface DataQualityRulesMapper extends CommonCountMapper, CommonDeleteM
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.686263952Z", comments="Source Table: sentinel.data_quality_rules")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.838062742Z", comments="Source Table: sentinel.data_quality_rules")
     default int updateByPrimaryKeySelective(DataQualityRules row) {
         return update(c ->
             c.set(dimensionId).equalToWhenPresent(row::getDimensionId)

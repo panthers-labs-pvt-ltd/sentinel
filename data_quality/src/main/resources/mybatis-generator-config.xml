@@ -37,7 +37,7 @@
         <table schema="sentinel" tableName="data_control_process_mapping" delimitIdentifiers="true"/>
         <table schema="sentinel" tableName="data_controls" delimitIdentifiers="true"/>
         <table schema="sentinel" tableName="data_quality_vw" delimitIdentifiers="true"/>
-
+        <table schema="sentinel" tableName="data_controls_log" delimitIdentifiers="true"/>
 
     </context>
 </generatorConfiguration>

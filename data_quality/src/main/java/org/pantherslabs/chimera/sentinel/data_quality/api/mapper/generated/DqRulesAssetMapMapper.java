@@ -31,10 +31,10 @@ import org.pantherslabs.chimera.sentinel.data_quality.api.model.generated.DqRule
 
 @Mapper
 public interface DqRulesAssetMapMapper extends CommonCountMapper, CommonDeleteMapper, CommonInsertMapper<DqRulesAssetMap>, CommonUpdateMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.674254481Z", comments="Source Table: sentinel.dq_rules_asset_map")
-    BasicColumn[] selectList = BasicColumn.columnList(assetMapId, ruleId, databaseName, schemaName, tableName, partitionKeys, ruleColumn, ruleValue, effectiveFrom, expiryDate, activeFlg, reserved5, reserved4, reserved3, reserved2, reserved1, createdBy, createdTs, updatedTs, updatedBy);
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.826351485Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    BasicColumn[] selectList = BasicColumn.columnList(assetMapId, ruleId, databaseName, schemaName, tableName, partitionKeys, ruleColumn, ruleValue, effectiveFrom, expiryDate, checkLevel, reserved5, reserved4, reserved3, reserved2, reserved1, activeFlg, createdBy, createdTs, updatedTs, updatedBy);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.669119048Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.821500012Z", comments="Source Table: sentinel.dq_rules_asset_map")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="DqRulesAssetMapResult", value = {
         @Result(column="asset_map_id", property="assetMapId", jdbcType=JdbcType.VARCHAR, id=true),
@@ -47,12 +47,13 @@ public interface DqRulesAssetMapMapper extends CommonCountMapper, CommonDeleteMa
         @Result(column="rule_value", property="ruleValue", jdbcType=JdbcType.VARCHAR),
         @Result(column="effective_from", property="effectiveFrom", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="expiry_date", property="expiryDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="active_flg", property="activeFlg", jdbcType=JdbcType.VARCHAR),
+        @Result(column="check_level", property="checkLevel", jdbcType=JdbcType.VARCHAR),
         @Result(column="reserved_5", property="reserved5", jdbcType=JdbcType.VARCHAR),
         @Result(column="reserved_4", property="reserved4", jdbcType=JdbcType.VARCHAR),
         @Result(column="reserved_3", property="reserved3", jdbcType=JdbcType.VARCHAR),
         @Result(column="reserved_2", property="reserved2", jdbcType=JdbcType.VARCHAR),
         @Result(column="reserved_1", property="reserved1", jdbcType=JdbcType.VARCHAR),
+        @Result(column="active_flg", property="activeFlg", jdbcType=JdbcType.VARCHAR),
         @Result(column="created_by", property="createdBy", jdbcType=JdbcType.VARCHAR),
         @Result(column="created_ts", property="createdTs", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="updated_ts", property="updatedTs", jdbcType=JdbcType.TIMESTAMP),
@@ -60,29 +61,29 @@ public interface DqRulesAssetMapMapper extends CommonCountMapper, CommonDeleteMa
     })
     List<DqRulesAssetMap> selectMany(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.67016168Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.822823887Z", comments="Source Table: sentinel.dq_rules_asset_map")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @ResultMap("DqRulesAssetMapResult")
     Optional<DqRulesAssetMap> selectOne(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.670449401Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.823082201Z", comments="Source Table: sentinel.dq_rules_asset_map")
     default long count(CountDSLCompleter completer) {
         return MyBatis3Utils.countFrom(this::count, dqRulesAssetMap, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.670727681Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.823336415Z", comments="Source Table: sentinel.dq_rules_asset_map")
     default int delete(DeleteDSLCompleter completer) {
         return MyBatis3Utils.deleteFrom(this::delete, dqRulesAssetMap, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.671078647Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.823735338Z", comments="Source Table: sentinel.dq_rules_asset_map")
     default int deleteByPrimaryKey(String assetMapId_) {
         return delete(c -> 
             c.where(assetMapId, isEqualTo(assetMapId_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.671297805Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.824057056Z", comments="Source Table: sentinel.dq_rules_asset_map")
     default int insert(DqRulesAssetMap row) {
         return MyBatis3Utils.insert(this::insert, row, dqRulesAssetMap, c ->
             c.map(assetMapId).toProperty("assetMapId")
@@ -95,12 +96,13 @@ public interface DqRulesAssetMapMapper extends CommonCountMapper, CommonDeleteMa
             .map(ruleValue).toProperty("ruleValue")
             .map(effectiveFrom).toProperty("effectiveFrom")
             .map(expiryDate).toProperty("expiryDate")
-            .map(activeFlg).toProperty("activeFlg")
+            .map(checkLevel).toProperty("checkLevel")
             .map(reserved5).toProperty("reserved5")
             .map(reserved4).toProperty("reserved4")
             .map(reserved3).toProperty("reserved3")
             .map(reserved2).toProperty("reserved2")
             .map(reserved1).toProperty("reserved1")
+            .map(activeFlg).toProperty("activeFlg")
             .map(createdBy).toProperty("createdBy")
             .map(createdTs).toProperty("createdTs")
             .map(updatedTs).toProperty("updatedTs")
@@ -108,7 +110,7 @@ public interface DqRulesAssetMapMapper extends CommonCountMapper, CommonDeleteMa
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.672483977Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.825187619Z", comments="Source Table: sentinel.dq_rules_asset_map")
     default int insertMultiple(Collection<DqRulesAssetMap> records) {
         return MyBatis3Utils.insertMultiple(this::insertMultiple, records, dqRulesAssetMap, c ->
             c.map(assetMapId).toProperty("assetMapId")
@@ -121,12 +123,13 @@ public interface DqRulesAssetMapMapper extends CommonCountMapper, CommonDeleteMa
             .map(ruleValue).toProperty("ruleValue")
             .map(effectiveFrom).toProperty("effectiveFrom")
             .map(expiryDate).toProperty("expiryDate")
-            .map(activeFlg).toProperty("activeFlg")
+            .map(checkLevel).toProperty("checkLevel")
             .map(reserved5).toProperty("reserved5")
             .map(reserved4).toProperty("reserved4")
             .map(reserved3).toProperty("reserved3")
             .map(reserved2).toProperty("reserved2")
             .map(reserved1).toProperty("reserved1")
+            .map(activeFlg).toProperty("activeFlg")
             .map(createdBy).toProperty("createdBy")
             .map(createdTs).toProperty("createdTs")
             .map(updatedTs).toProperty("updatedTs")
@@ -134,7 +137,7 @@ public interface DqRulesAssetMapMapper extends CommonCountMapper, CommonDeleteMa
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.673195992Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.825632244Z", comments="Source Table: sentinel.dq_rules_asset_map")
     default int insertSelective(DqRulesAssetMap row) {
         return MyBatis3Utils.insert(this::insert, row, dqRulesAssetMap, c ->
             c.map(assetMapId).toPropertyWhenPresent("assetMapId", row::getAssetMapId)
@@ -147,12 +150,13 @@ public interface DqRulesAssetMapMapper extends CommonCountMapper, CommonDeleteMa
             .map(ruleValue).toPropertyWhenPresent("ruleValue", row::getRuleValue)
             .map(effectiveFrom).toPropertyWhenPresent("effectiveFrom", row::getEffectiveFrom)
             .map(expiryDate).toPropertyWhenPresent("expiryDate", row::getExpiryDate)
-            .map(activeFlg).toPropertyWhenPresent("activeFlg", row::getActiveFlg)
+            .map(checkLevel).toPropertyWhenPresent("checkLevel", row::getCheckLevel)
             .map(reserved5).toPropertyWhenPresent("reserved5", row::getReserved5)
             .map(reserved4).toPropertyWhenPresent("reserved4", row::getReserved4)
             .map(reserved3).toPropertyWhenPresent("reserved3", row::getReserved3)
             .map(reserved2).toPropertyWhenPresent("reserved2", row::getReserved2)
             .map(reserved1).toPropertyWhenPresent("reserved1", row::getReserved1)
+            .map(activeFlg).toPropertyWhenPresent("activeFlg", row::getActiveFlg)
             .map(createdBy).toPropertyWhenPresent("createdBy", row::getCreatedBy)
             .map(createdTs).toPropertyWhenPresent("createdTs", row::getCreatedTs)
             .map(updatedTs).toPropertyWhenPresent("updatedTs", row::getUpdatedTs)
@@ -160,34 +164,34 @@ public interface DqRulesAssetMapMapper extends CommonCountMapper, CommonDeleteMa
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.67485357Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.826821011Z", comments="Source Table: sentinel.dq_rules_asset_map")
     default Optional<DqRulesAssetMap> selectOne(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectOne(this::selectOne, selectList, dqRulesAssetMap, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.675180521Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.827038623Z", comments="Source Table: sentinel.dq_rules_asset_map")
     default List<DqRulesAssetMap> select(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectList(this::selectMany, selectList, dqRulesAssetMap, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.675409213Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.827265736Z", comments="Source Table: sentinel.dq_rules_asset_map")
     default List<DqRulesAssetMap> selectDistinct(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectDistinct(this::selectMany, selectList, dqRulesAssetMap, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.675615356Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.827502349Z", comments="Source Table: sentinel.dq_rules_asset_map")
     default Optional<DqRulesAssetMap> selectByPrimaryKey(String assetMapId_) {
         return selectOne(c ->
             c.where(assetMapId, isEqualTo(assetMapId_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.675811508Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.827715161Z", comments="Source Table: sentinel.dq_rules_asset_map")
     default int update(UpdateDSLCompleter completer) {
         return MyBatis3Utils.update(this::update, dqRulesAssetMap, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.676029292Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.827953275Z", comments="Source Table: sentinel.dq_rules_asset_map")
     static UpdateDSL<UpdateModel> updateAllColumns(DqRulesAssetMap row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(assetMapId).equalTo(row::getAssetMapId)
                 .set(ruleId).equalTo(row::getRuleId)
@@ -199,19 +203,20 @@ public interface DqRulesAssetMapMapper extends CommonCountMapper, CommonDeleteMa
                 .set(ruleValue).equalTo(row::getRuleValue)
                 .set(effectiveFrom).equalTo(row::getEffectiveFrom)
                 .set(expiryDate).equalTo(row::getExpiryDate)
-                .set(activeFlg).equalTo(row::getActiveFlg)
+                .set(checkLevel).equalTo(row::getCheckLevel)
                 .set(reserved5).equalTo(row::getReserved5)
                 .set(reserved4).equalTo(row::getReserved4)
                 .set(reserved3).equalTo(row::getReserved3)
                 .set(reserved2).equalTo(row::getReserved2)
                 .set(reserved1).equalTo(row::getReserved1)
+                .set(activeFlg).equalTo(row::getActiveFlg)
                 .set(createdBy).equalTo(row::getCreatedBy)
                 .set(createdTs).equalTo(row::getCreatedTs)
                 .set(updatedTs).equalTo(row::getUpdatedTs)
                 .set(updatedBy).equalTo(row::getUpdatedBy);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.67631518Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.828281593Z", comments="Source Table: sentinel.dq_rules_asset_map")
     static UpdateDSL<UpdateModel> updateSelectiveColumns(DqRulesAssetMap row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(assetMapId).equalToWhenPresent(row::getAssetMapId)
                 .set(ruleId).equalToWhenPresent(row::getRuleId)
@@ -223,19 +228,20 @@ public interface DqRulesAssetMapMapper extends CommonCountMapper, CommonDeleteMa
                 .set(ruleValue).equalToWhenPresent(row::getRuleValue)
                 .set(effectiveFrom).equalToWhenPresent(row::getEffectiveFrom)
                 .set(expiryDate).equalToWhenPresent(row::getExpiryDate)
-                .set(activeFlg).equalToWhenPresent(row::getActiveFlg)
+                .set(checkLevel).equalToWhenPresent(row::getCheckLevel)
                 .set(reserved5).equalToWhenPresent(row::getReserved5)
                 .set(reserved4).equalToWhenPresent(row::getReserved4)
                 .set(reserved3).equalToWhenPresent(row::getReserved3)
                 .set(reserved2).equalToWhenPresent(row::getReserved2)
                 .set(reserved1).equalToWhenPresent(row::getReserved1)
+                .set(activeFlg).equalToWhenPresent(row::getActiveFlg)
                 .set(createdBy).equalToWhenPresent(row::getCreatedBy)
                 .set(createdTs).equalToWhenPresent(row::getCreatedTs)
                 .set(updatedTs).equalToWhenPresent(row::getUpdatedTs)
                 .set(updatedBy).equalToWhenPresent(row::getUpdatedBy);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.676806569Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.82875292Z", comments="Source Table: sentinel.dq_rules_asset_map")
     default int updateByPrimaryKey(DqRulesAssetMap row) {
         return update(c ->
             c.set(ruleId).equalTo(row::getRuleId)
@@ -247,12 +253,13 @@ public interface DqRulesAssetMapMapper extends CommonCountMapper, CommonDeleteMa
             .set(ruleValue).equalTo(row::getRuleValue)
             .set(effectiveFrom).equalTo(row::getEffectiveFrom)
             .set(expiryDate).equalTo(row::getExpiryDate)
-            .set(activeFlg).equalTo(row::getActiveFlg)
+            .set(checkLevel).equalTo(row::getCheckLevel)
             .set(reserved5).equalTo(row::getReserved5)
             .set(reserved4).equalTo(row::getReserved4)
             .set(reserved3).equalTo(row::getReserved3)
             .set(reserved2).equalTo(row::getReserved2)
             .set(reserved1).equalTo(row::getReserved1)
+            .set(activeFlg).equalTo(row::getActiveFlg)
             .set(createdBy).equalTo(row::getCreatedBy)
             .set(createdTs).equalTo(row::getCreatedTs)
             .set(updatedTs).equalTo(row::getUpdatedTs)
@@ -261,7 +268,7 @@ public interface DqRulesAssetMapMapper extends CommonCountMapper, CommonDeleteMa
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.677184116Z", comments="Source Table: sentinel.dq_rules_asset_map")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.829061137Z", comments="Source Table: sentinel.dq_rules_asset_map")
     default int updateByPrimaryKeySelective(DqRulesAssetMap row) {
         return update(c ->
             c.set(ruleId).equalToWhenPresent(row::getRuleId)
@@ -273,12 +280,13 @@ public interface DqRulesAssetMapMapper extends CommonCountMapper, CommonDeleteMa
             .set(ruleValue).equalToWhenPresent(row::getRuleValue)
             .set(effectiveFrom).equalToWhenPresent(row::getEffectiveFrom)
             .set(expiryDate).equalToWhenPresent(row::getExpiryDate)
-            .set(activeFlg).equalToWhenPresent(row::getActiveFlg)
+            .set(checkLevel).equalToWhenPresent(row::getCheckLevel)
             .set(reserved5).equalToWhenPresent(row::getReserved5)
             .set(reserved4).equalToWhenPresent(row::getReserved4)
             .set(reserved3).equalToWhenPresent(row::getReserved3)
             .set(reserved2).equalToWhenPresent(row::getReserved2)
             .set(reserved1).equalToWhenPresent(row::getReserved1)
+            .set(activeFlg).equalToWhenPresent(row::getActiveFlg)
             .set(createdBy).equalToWhenPresent(row::getCreatedBy)
             .set(createdTs).equalToWhenPresent(row::getCreatedTs)
             .set(updatedTs).equalToWhenPresent(row::getUpdatedTs)

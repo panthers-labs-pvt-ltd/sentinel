@@ -31,10 +31,10 @@ import org.pantherslabs.chimera.sentinel.data_quality.api.model.generated.DataCo
 
 @Mapper
 public interface DataControlsMapper extends CommonCountMapper, CommonDeleteMapper, CommonInsertMapper<DataControls>, CommonUpdateMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.696351955Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.849829603Z", comments="Source Table: sentinel.data_controls")
     BasicColumn[] selectList = BasicColumn.columnList(controlId, controlName, controlShortDesc, controlLongDesc, activeFlg, effectiveFrom, expiryDate, reserved5, reserved4, reserved3, reserved2, reserved1, createdBy, createdTs, updatedBy, updatedTs);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.695906396Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.849464983Z", comments="Source Table: sentinel.data_controls")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="DataControlsResult", value = {
         @Result(column="control_id", property="controlId", jdbcType=JdbcType.VARCHAR, id=true),
@@ -56,29 +56,29 @@ public interface DataControlsMapper extends CommonCountMapper, CommonDeleteMappe
     })
     List<DataControls> selectMany(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.695988707Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.849527286Z", comments="Source Table: sentinel.data_controls")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @ResultMap("DataControlsResult")
     Optional<DataControls> selectOne(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.696028395Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.849558388Z", comments="Source Table: sentinel.data_controls")
     default long count(CountDSLCompleter completer) {
         return MyBatis3Utils.countFrom(this::count, dataControls, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.696059926Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.84958479Z", comments="Source Table: sentinel.data_controls")
     default int delete(DeleteDSLCompleter completer) {
         return MyBatis3Utils.deleteFrom(this::delete, dataControls, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.696087516Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.849609091Z", comments="Source Table: sentinel.data_controls")
     default int deleteByPrimaryKey(String controlId_) {
         return delete(c -> 
             c.where(controlId, isEqualTo(controlId_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.696118405Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.849634592Z", comments="Source Table: sentinel.data_controls")
     default int insert(DataControls row) {
         return MyBatis3Utils.insert(this::insert, row, dataControls, c ->
             c.map(controlId).toProperty("controlId")
@@ -100,7 +100,7 @@ public interface DataControlsMapper extends CommonCountMapper, CommonDeleteMappe
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.69618825Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.849687595Z", comments="Source Table: sentinel.data_controls")
     default int insertMultiple(Collection<DataControls> records) {
         return MyBatis3Utils.insertMultiple(this::insertMultiple, records, dataControls, c ->
             c.map(controlId).toProperty("controlId")
@@ -122,7 +122,7 @@ public interface DataControlsMapper extends CommonCountMapper, CommonDeleteMappe
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.696251496Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.849739898Z", comments="Source Table: sentinel.data_controls")
     default int insertSelective(DataControls row) {
         return MyBatis3Utils.insert(this::insert, row, dataControls, c ->
             c.map(controlId).toPropertyWhenPresent("controlId", row::getControlId)
@@ -144,34 +144,34 @@ public interface DataControlsMapper extends CommonCountMapper, CommonDeleteMappe
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.696404201Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.849856105Z", comments="Source Table: sentinel.data_controls")
     default Optional<DataControls> selectOne(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectOne(this::selectOne, selectList, dataControls, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.696443707Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.849882506Z", comments="Source Table: sentinel.data_controls")
     default List<DataControls> select(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectList(this::selectMany, selectList, dataControls, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.696473221Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.849908108Z", comments="Source Table: sentinel.data_controls")
     default List<DataControls> selectDistinct(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectDistinct(this::selectMany, selectList, dataControls, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.696502186Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.849932809Z", comments="Source Table: sentinel.data_controls")
     default Optional<DataControls> selectByPrimaryKey(String controlId_) {
         return selectOne(c ->
             c.where(controlId, isEqualTo(controlId_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.696534633Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.849960111Z", comments="Source Table: sentinel.data_controls")
     default int update(UpdateDSLCompleter completer) {
         return MyBatis3Utils.update(this::update, dataControls, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.696564881Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.849985912Z", comments="Source Table: sentinel.data_controls")
     static UpdateDSL<UpdateModel> updateAllColumns(DataControls row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(controlId).equalTo(row::getControlId)
                 .set(controlName).equalTo(row::getControlName)
@@ -191,7 +191,7 @@ public interface DataControlsMapper extends CommonCountMapper, CommonDeleteMappe
                 .set(updatedTs).equalTo(row::getUpdatedTs);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.696619877Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.850032415Z", comments="Source Table: sentinel.data_controls")
     static UpdateDSL<UpdateModel> updateSelectiveColumns(DataControls row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(controlId).equalToWhenPresent(row::getControlId)
                 .set(controlName).equalToWhenPresent(row::getControlName)
@@ -211,7 +211,7 @@ public interface DataControlsMapper extends CommonCountMapper, CommonDeleteMappe
                 .set(updatedTs).equalToWhenPresent(row::getUpdatedTs);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.69669788Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.850103219Z", comments="Source Table: sentinel.data_controls")
     default int updateByPrimaryKey(DataControls row) {
         return update(c ->
             c.set(controlName).equalTo(row::getControlName)
@@ -233,7 +233,7 @@ public interface DataControlsMapper extends CommonCountMapper, CommonDeleteMappe
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.696791464Z", comments="Source Table: sentinel.data_controls")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.850151521Z", comments="Source Table: sentinel.data_controls")
     default int updateByPrimaryKeySelective(DataControls row) {
         return update(c ->
             c.set(controlName).equalToWhenPresent(row::getControlName)

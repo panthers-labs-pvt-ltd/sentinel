@@ -31,10 +31,10 @@ import org.pantherslabs.chimera.sentinel.data_quality.api.model.generated.DataCo
 
 @Mapper
 public interface DataControlProcessMappingMapper extends CommonCountMapper, CommonDeleteMapper, CommonInsertMapper<DataControlProcessMapping>, CommonUpdateMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.693435335Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.847190855Z", comments="Source Table: sentinel.data_control_process_mapping")
     BasicColumn[] selectList = BasicColumn.columnList(mappingId, processId, controlId, checkLvl, effectiveFrom, expiryDate, activeFlg, reserved5, reserved4, reserved3, reserved2, reserved1, createdBy, createdTs, updatedBy, updatedTs, refMetadata);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.692913423Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.846690527Z", comments="Source Table: sentinel.data_control_process_mapping")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="DataControlProcessMappingResult", value = {
         @Result(column="mapping_id", property="mappingId", jdbcType=JdbcType.VARCHAR, id=true),
@@ -57,29 +57,29 @@ public interface DataControlProcessMappingMapper extends CommonCountMapper, Comm
     })
     List<DataControlProcessMapping> selectMany(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.693017732Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.846848136Z", comments="Source Table: sentinel.data_control_process_mapping")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @ResultMap("DataControlProcessMappingResult")
     Optional<DataControlProcessMapping> selectOne(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.693057696Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.846882738Z", comments="Source Table: sentinel.data_control_process_mapping")
     default long count(CountDSLCompleter completer) {
         return MyBatis3Utils.countFrom(this::count, dataControlProcessMapping, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.693094727Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.846929841Z", comments="Source Table: sentinel.data_control_process_mapping")
     default int delete(DeleteDSLCompleter completer) {
         return MyBatis3Utils.deleteFrom(this::delete, dataControlProcessMapping, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.693122408Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.846955042Z", comments="Source Table: sentinel.data_control_process_mapping")
     default int deleteByPrimaryKey(String mappingId_) {
         return delete(c -> 
             c.where(mappingId, isEqualTo(mappingId_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.693154214Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.846981543Z", comments="Source Table: sentinel.data_control_process_mapping")
     default int insert(DataControlProcessMapping row) {
         return MyBatis3Utils.insert(this::insert, row, dataControlProcessMapping, c ->
             c.map(mappingId).toProperty("mappingId")
@@ -102,7 +102,7 @@ public interface DataControlProcessMappingMapper extends CommonCountMapper, Comm
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.693224884Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.847038847Z", comments="Source Table: sentinel.data_control_process_mapping")
     default int insertMultiple(Collection<DataControlProcessMapping> records) {
         return MyBatis3Utils.insertMultiple(this::insertMultiple, records, dataControlProcessMapping, c ->
             c.map(mappingId).toProperty("mappingId")
@@ -125,7 +125,7 @@ public interface DataControlProcessMappingMapper extends CommonCountMapper, Comm
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.693290329Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.84710225Z", comments="Source Table: sentinel.data_control_process_mapping")
     default int insertSelective(DataControlProcessMapping row) {
         return MyBatis3Utils.insert(this::insert, row, dataControlProcessMapping, c ->
             c.map(mappingId).toPropertyWhenPresent("mappingId", row::getMappingId)
@@ -148,34 +148,34 @@ public interface DataControlProcessMappingMapper extends CommonCountMapper, Comm
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.693468608Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.847217157Z", comments="Source Table: sentinel.data_control_process_mapping")
     default Optional<DataControlProcessMapping> selectOne(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectOne(this::selectOne, selectList, dataControlProcessMapping, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.693505272Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.847246558Z", comments="Source Table: sentinel.data_control_process_mapping")
     default List<DataControlProcessMapping> select(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectList(this::selectMany, selectList, dataControlProcessMapping, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.693534145Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.84727176Z", comments="Source Table: sentinel.data_control_process_mapping")
     default List<DataControlProcessMapping> selectDistinct(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectDistinct(this::selectMany, selectList, dataControlProcessMapping, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.693562467Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.847316662Z", comments="Source Table: sentinel.data_control_process_mapping")
     default Optional<DataControlProcessMapping> selectByPrimaryKey(String mappingId_) {
         return selectOne(c ->
             c.where(mappingId, isEqualTo(mappingId_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.693593724Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.847344664Z", comments="Source Table: sentinel.data_control_process_mapping")
     default int update(UpdateDSLCompleter completer) {
         return MyBatis3Utils.update(this::update, dataControlProcessMapping, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.693630479Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.847410768Z", comments="Source Table: sentinel.data_control_process_mapping")
     static UpdateDSL<UpdateModel> updateAllColumns(DataControlProcessMapping row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(mappingId).equalTo(row::getMappingId)
                 .set(processId).equalTo(row::getProcessId)
@@ -196,7 +196,7 @@ public interface DataControlProcessMappingMapper extends CommonCountMapper, Comm
                 .set(refMetadata).equalTo(row::getRefMetadata);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.693699407Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.847532674Z", comments="Source Table: sentinel.data_control_process_mapping")
     static UpdateDSL<UpdateModel> updateSelectiveColumns(DataControlProcessMapping row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(mappingId).equalToWhenPresent(row::getMappingId)
                 .set(processId).equalToWhenPresent(row::getProcessId)
@@ -217,7 +217,7 @@ public interface DataControlProcessMappingMapper extends CommonCountMapper, Comm
                 .set(refMetadata).equalToWhenPresent(row::getRefMetadata);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.69375862Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.847708784Z", comments="Source Table: sentinel.data_control_process_mapping")
     default int updateByPrimaryKey(DataControlProcessMapping row) {
         return update(c ->
             c.set(processId).equalTo(row::getProcessId)
@@ -240,7 +240,7 @@ public interface DataControlProcessMappingMapper extends CommonCountMapper, Comm
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.693814257Z", comments="Source Table: sentinel.data_control_process_mapping")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.847774788Z", comments="Source Table: sentinel.data_control_process_mapping")
     default int updateByPrimaryKeySelective(DataControlProcessMapping row) {
         return update(c ->
             c.set(processId).equalToWhenPresent(row::getProcessId)

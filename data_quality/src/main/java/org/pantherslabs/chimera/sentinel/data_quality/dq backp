@@ -1,0 +1,216 @@
+package org.pantherslabs.chimera.sentinel.data_quality
+import scala.reflect.runtime.universe
+import scala.tools.reflect.ToolBox
+import scala.collection.JavaConverters._
+import org.apache.spark.sql.functions.{col, lit, regexp_extract}
+import com.amazon.deequ.{VerificationResult, VerificationSuite}
+import com.amazon.deequ.checks.{Check, CheckLevel}
+import com.amazon.deequ.constraints.Constraint
+import com.fasterxml.jackson.core.`type`.TypeReference
+import org.apache.spark.sql.{DataFrame, Row, SparkSession}
+import org.apache.spark.sql.types.{DoubleType, StringType, StructField, StructType}
+import org.pantherslabs.chimera.unisca.exception.ChimeraException
+import org.pantherslabs.chimera.unisca.utilities.ChimeraUtils
+import org.pantherslabs.chimera.unisca.api_nexus.api_nexus_client.consumer.ApiConsumer
+import org.pantherslabs.chimera.unisca.api_nexus.api_nexus_client.response.ErrorResponse
+import org.pantherslabs.chimera.sentinel.data_quality.entities.{DeequRunnerMetrics, DeequRunnerProcessStatus}
+import org.pantherslabs.chimera.sentinel.data_quality.profiling.utils.DeequUtils
+import org.pantherslabs.chimera.unisca.logging.{ChimeraLogger, ChimeraLoggerFactory}
+import org.pantherslabs.chimera.unisca.execution_engine.OptimizedSparkSession
+import org.pantherslabs.chimera.sentinel.data_quality.api.model.generated.DataQualityVw
+
+import scala.util.Try
+
+object DataQualityRunner {
+  private val filterApiUrl = "http://192.168.100.22:9001/api/data-quality/filter"
+  private val logger: ChimeraLogger = ChimeraLoggerFactory.getLogger(this.getClass)
+  private val loggerTag = "DataQualityRunner"
+  private val consumer = new ApiConsumer
+
+  private def getDataQualityRules(sparkSession: SparkSession, databaseName: String, tableName: String,
+                                  dataQualityType: String = "CoarseDQService"): DataFrame = {
+    logger.logInfo(s"Fetching Data Quality Rules for $databaseName.$tableName")
+    var filter: String = ""
+    var rules_df = sparkSession.emptyDataFrame
+    filter =
+      s"""{
+                  "table": "sentinel.data_quality_vw",
+                  "filters": [
+                    { "field": "database_name", "operator": "=", "value": ["$databaseName"] },
+                    { "field": "table_name", "operator": "=", "value": ["$tableName"] },
+                    { "field": "process_name", "operator": "=", "value": ["$dataQualityType"] }
+                  ]
+                }"""
+    val response = consumer.post(filterApiUrl, filter, new TypeReference[java.util.List[DataQualityVw]]() {}, new TypeReference[ErrorResponse]() {})
+    if (response.isSuccess) {
+      rules_df = sparkSession.createDataFrame(response.getSuccessBody, classOf[DataQualityVw])
+    }
+    else {
+      val error = response.getFailureBody
+      logger.logError(s"Error Code : ${error.getErrorCode}")
+      logger.logError(s"Error Type : ${error.getErrorType}")
+      logger.logError(s"Message : ${error.getErrorMessage}")
+      logger.logError(s"Request URI : ${error.getErrorRequestURI}")
+      logger.logError(s"Timestamp : ${error.getErrorTimestamp}")
+      throw new ChimeraException(error.toString, "DataQualityException.DEEQU_FAILURE",
+        scala.collection.immutable.Map("exception" -> "Dq processing has generated %s errors").asJava)
+    }
+    rules_df.show()
+    rules_df
+  }
+
+  def execute(inBatchId: String, inDataFrame: DataFrame, inDatabaseName: String, inTableName: String,
+              inBusinessDate: String, inPartitionKeys: String, inPipelineName: String, inDataQualityType: String) {
+    val spark: OptimizedSparkSession = OptimizedSparkSession.get(loggerTag, "test")
+    /*  val spark = SparkSession.builder()
+      .appName("OOMFix")
+      .master("local[2]")
+      .config("spark.driver.memory", "4g")
+      .config("spark.executor.memory", "4g")
+      .config("spark.memory.fraction", "0.5")
+      .config("spark.memory.storageFraction", "0.2")
+      .config("spark.shuffle.file.buffer", "128k")
+      .config("spark.reducer.maxSizeInFlight", "48m")
+      .config("spark.sql.shuffle.partitions", "32")
+      .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+      .config("spark.shuffle.sort.bypassMergeThreshold", "1")
+      .getOrCreate()
+*/
+    executeDataQualityRules(spark, inBatchId, inDataFrame, inDatabaseName, inTableName, inBusinessDate, inPartitionKeys,
+      inPipelineName, inDataQualityType)
+  }
+
+  private def executeDataQualityRules(spark: SparkSession, batchId: String, dataFrame: DataFrame, databaseName: String,
+                                      tableName: String, businessDate: String, partitionKeys: String, pipelineName: String,
+                                      dataQualityType: String = "CoarseDQService"): Unit = {
+    val audit_time = ChimeraUtils.convertTimeFormat("yyyy-MM-dd HH:mm::ss.SSS", ChimeraUtils.currentGMTCalendar())
+    var sourceRecordDuplicateCount: Double = 0
+    var blank_row: Double = 0
+    var actual_count: Double = 0
+    val metrics = new DeequRunnerMetrics
+    if (dataFrame.limit(1).count() == 0) {
+      logger.logError(" There is no records in Dataframe for which DQ check is requested")
+      //return null
+    }
+    try {
+      val dataFrameTmp = dataFrame.cache
+      metrics.runnerStartTime = ChimeraUtils.currentGMTCalendar()
+      metrics.getRulesStartTime = ChimeraUtils.currentGMTCalendar()
+
+      val rulesDf = getDataQualityRules(spark, databaseName, tableName)
+      metrics.deequRules = rulesDf.count()
+      metrics.getRulesEndTime = ChimeraUtils.currentGMTCalendar()
+      if (metrics.deequRules == 0) {
+        logger.logError(metrics.deequRules + "rules returned for table: %s "
+          .format(tableName))
+      } else {
+/*        metrics.executeRulesStartTime = ChimeraUtils.currentGMTCalendar()
+        val result = DeequUtils.executeRulesNoRepo(rulesDf, dataFrameTmp)
+        metrics.executeRulesEndTime = ChimeraUtils.currentGMTCalendar()
+        metrics.persistAnalysersStartTime = ChimeraUtils.currentGMTCalendar()
+        val metricsDf = VerificationResult.successMetricsAsDataFrame(spark, result)
+        metricsDf.show(false)
+        val checkResultsDf = VerificationResult.checkResultsAsDataFrame(spark, result)
+        checkResultsDf.show(false)*/
+        val rules = rulesDf.collect()
+        val checks = rules.map { row =>
+          val ruleName = row.getAs[String]("ruleName")
+          val ruleColumn = row.getAs[String]("ruleColumn")
+          val ruleValue = row.getAs[String]("ruleValue")
+          val checkLevel = row.getAs[String]("checkLevel")
+          val rownum = row.getAs[Long]("rownum")
+
+          val checkMetadata = s"rownum=$rownum"
+
+          val checkCode =
+            s"""
+               |import com.amazon.deequ.checks._
+               |Check(CheckLevel.$checkLevel, "$checkMetadata").$ruleValue
+     """.stripMargin
+          val mirror = universe.runtimeMirror(getClass.getClassLoader)
+          val toolbox = mirror.mkToolBox()
+          toolbox.eval(toolbox.parse(checkCode)).asInstanceOf[Check]
+        }
+
+        val verificationResult = VerificationSuite()
+          .onData(dataFrame)
+          .addChecks(checks)
+          .run()
+
+        // Parse rownum from description field
+        def extractMeta(colName: String, key: String) =
+          regexp_extract(col(colName), s"(?<=\\b$key=)[^|]+", 0).cast("long")
+
+       /* val successDf = VerificationResult.successMetricsAsDataFrame(spark, verificationResult)
+          .withColumn("rownum", extractMeta("name", "rownum"))
+*/
+        val checkDf = VerificationResult.checkResultsAsDataFrame(spark, verificationResult)
+          .withColumn("rownum", extractMeta("check", "rownum"))
+
+        // Join both metrics with metadata
+/*
+        val enrichedSuccessDf = successDf.join(rulesDf, Seq("rownum"), "left")
+*/
+        val enrichedCheckDf = checkDf.join(rulesDf, Seq("rownum"), "left")
+        enrichedCheckDf.show(false)
+      /*  // Merge both
+        val finalDf = enrichedSuccessDf
+          .join(enrichedCheckDf, Seq("rownum"), "outer")*/
+
+        /*
+        SLOUTION 2
+        val mirror = universe.runtimeMirror(getClass.getClassLoader)
+        val toolbox = mirror.mkToolBox()
+
+        val checks: Seq[Check] = rules.groupBy(_.getAs[String]("checkLevel")).flatMap {
+          case (levelStr, rows) =>
+            val checkLevel = levelStr match {
+              case "Error"   => CheckLevel.Error
+              case "Warning" => CheckLevel.Warning
+              case _         => throw new IllegalArgumentException(s"Unknown level: $levelStr")
+            }
+
+            rows.map { row =>
+              val ruleName = row.getAs[String]("ruleName")
+              val ruleColumn = row.getAs[String]("ruleColumn")
+              val ruleValue = row.getAs[String]("ruleValue")
+              val rownum = row.getAs[Long]("rownum")
+              val tableName = row.getAs[String]("tableName")
+              val controlName = row.getAs[String]("controlName")
+              val metadata = s"ruleName=$ruleName|column=$ruleColumn|rownum=$rownum|table=$tableName|control=$controlName"
+              val checkCode =
+                s"""com.amazon.deequ.checks.Check(com.amazon.deequ.checks.CheckLevel.${checkLevel.toString}, "$metadata").$ruleValue"""
+              toolbox.eval(toolbox.parse(checkCode)).asInstanceOf[Check]
+            }
+        }.toSeq
+        val verificationResult = VerificationSuite()
+          .onData(dataFrame)
+          .addChecks(checks)
+          .run()
+        val successMetricsDf = VerificationResult.successMetricsAsDataFrame(spark, verificationResult)
+        successMetricsDf.show(false)
+        val checkResultsDf = VerificationResult.checkResultsAsDataFrame(spark, verificationResult)
+        checkResultsDf.show(false)
+
+        val extractMeta = (field: String, key: String) =>
+          regexp_extract(col(field), s"(?<=\\b$key=)[^|]+", 0)
+
+        val enrichedCheckResultsDf = checkResultsDf
+          .withColumn("ruleName", extractMeta("check", "ruleName"))
+          .withColumn("ruleColumn", extractMeta("check", "column"))
+          .withColumn("rownum", extractMeta("check", "rownum").cast("long"))
+          .withColumn("tableName", extractMeta("check", "table"))
+          .withColumn("controlName", extractMeta("check", "control"))
+
+        val enrichedMetricsDf = successMetricsDf
+          .withColumn("ruleName", extractMeta("name", "ruleName"))
+          .withColumn("ruleColumn", extractMeta("name", "column"))
+          .withColumn("rownum", extractMeta("name", "rownum").cast("long"))
+          .withColumn("tableName", extractMeta("name", "table"))
+          .withColumn("controlName", extractMeta("name", "control"))
+*/
+        print("WAit")
+      }
+    }
+  }
+}

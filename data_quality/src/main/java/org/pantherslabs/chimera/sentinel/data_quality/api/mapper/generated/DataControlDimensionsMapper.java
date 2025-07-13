@@ -31,10 +31,10 @@ import org.pantherslabs.chimera.sentinel.data_quality.api.model.generated.DataCo
 
 @Mapper
 public interface DataControlDimensionsMapper extends CommonCountMapper, CommonDeleteMapper, CommonInsertMapper<DataControlDimensions>, CommonUpdateMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.681706435Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.83391571Z", comments="Source Table: sentinel.data_control_dimensions")
     BasicColumn[] selectList = BasicColumn.columnList(dimensionId, controlId, dimensionName, dimensionShortDesc, dimensionLongDesc, calculatedField, calculationFunction, effectiveFrom, expiryDate, createdBy, createdTs, updatedBy, updatedTs);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.681175632Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.833456284Z", comments="Source Table: sentinel.data_control_dimensions")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="DataControlDimensionsResult", value = {
         @Result(column="dimension_id", property="dimensionId", jdbcType=JdbcType.VARCHAR, id=true),
@@ -53,29 +53,29 @@ public interface DataControlDimensionsMapper extends CommonCountMapper, CommonDe
     })
     List<DataControlDimensions> selectMany(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.681252993Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.833547889Z", comments="Source Table: sentinel.data_control_dimensions")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @ResultMap("DataControlDimensionsResult")
     Optional<DataControlDimensions> selectOne(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.681290849Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.833585491Z", comments="Source Table: sentinel.data_control_dimensions")
     default long count(CountDSLCompleter completer) {
         return MyBatis3Utils.countFrom(this::count, dataControlDimensions, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.68132458Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.833618793Z", comments="Source Table: sentinel.data_control_dimensions")
     default int delete(DeleteDSLCompleter completer) {
         return MyBatis3Utils.deleteFrom(this::delete, dataControlDimensions, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.681354828Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.833648595Z", comments="Source Table: sentinel.data_control_dimensions")
     default int deleteByPrimaryKey(String dimensionId_) {
         return delete(c -> 
             c.where(dimensionId, isEqualTo(dimensionId_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.681385167Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.833679096Z", comments="Source Table: sentinel.data_control_dimensions")
     default int insert(DataControlDimensions row) {
         return MyBatis3Utils.insert(this::insert, row, dataControlDimensions, c ->
             c.map(dimensionId).toProperty("dimensionId")
@@ -94,7 +94,7 @@ public interface DataControlDimensionsMapper extends CommonCountMapper, CommonDe
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.681452995Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.8337463Z", comments="Source Table: sentinel.data_control_dimensions")
     default int insertMultiple(Collection<DataControlDimensions> records) {
         return MyBatis3Utils.insertMultiple(this::insertMultiple, records, dataControlDimensions, c ->
             c.map(dimensionId).toProperty("dimensionId")
@@ -113,7 +113,7 @@ public interface DataControlDimensionsMapper extends CommonCountMapper, CommonDe
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.681518716Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.833811504Z", comments="Source Table: sentinel.data_control_dimensions")
     default int insertSelective(DataControlDimensions row) {
         return MyBatis3Utils.insert(this::insert, row, dataControlDimensions, c ->
             c.map(dimensionId).toPropertyWhenPresent("dimensionId", row::getDimensionId)
@@ -132,34 +132,34 @@ public interface DataControlDimensionsMapper extends CommonCountMapper, CommonDe
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.681744749Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.833948411Z", comments="Source Table: sentinel.data_control_dimensions")
     default Optional<DataControlDimensions> selectOne(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectOne(this::selectOne, selectList, dataControlDimensions, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.681797362Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.833980113Z", comments="Source Table: sentinel.data_control_dimensions")
     default List<DataControlDimensions> select(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectList(this::selectMany, selectList, dataControlDimensions, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.681835584Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.834011315Z", comments="Source Table: sentinel.data_control_dimensions")
     default List<DataControlDimensions> selectDistinct(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectDistinct(this::selectMany, selectList, dataControlDimensions, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.681866199Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.834085019Z", comments="Source Table: sentinel.data_control_dimensions")
     default Optional<DataControlDimensions> selectByPrimaryKey(String dimensionId_) {
         return selectOne(c ->
             c.where(dimensionId, isEqualTo(dimensionId_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.681921378Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.834394836Z", comments="Source Table: sentinel.data_control_dimensions")
     default int update(UpdateDSLCompleter completer) {
         return MyBatis3Utils.update(this::update, dataControlDimensions, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.681956025Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.83445054Z", comments="Source Table: sentinel.data_control_dimensions")
     static UpdateDSL<UpdateModel> updateAllColumns(DataControlDimensions row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(dimensionId).equalTo(row::getDimensionId)
                 .set(controlId).equalTo(row::getControlId)
@@ -176,7 +176,7 @@ public interface DataControlDimensionsMapper extends CommonCountMapper, CommonDe
                 .set(updatedTs).equalTo(row::getUpdatedTs);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.682030545Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.834562546Z", comments="Source Table: sentinel.data_control_dimensions")
     static UpdateDSL<UpdateModel> updateSelectiveColumns(DataControlDimensions row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(dimensionId).equalToWhenPresent(row::getDimensionId)
                 .set(controlId).equalToWhenPresent(row::getControlId)
@@ -193,7 +193,7 @@ public interface DataControlDimensionsMapper extends CommonCountMapper, CommonDe
                 .set(updatedTs).equalToWhenPresent(row::getUpdatedTs);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.68209764Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.834646551Z", comments="Source Table: sentinel.data_control_dimensions")
     default int updateByPrimaryKey(DataControlDimensions row) {
         return update(c ->
             c.set(controlId).equalTo(row::getControlId)
@@ -212,7 +212,7 @@ public interface DataControlDimensionsMapper extends CommonCountMapper, CommonDe
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.682205065Z", comments="Source Table: sentinel.data_control_dimensions")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.834712254Z", comments="Source Table: sentinel.data_control_dimensions")
     default int updateByPrimaryKeySelective(DataControlDimensions row) {
         return update(c ->
             c.set(controlId).equalToWhenPresent(row::getControlId)

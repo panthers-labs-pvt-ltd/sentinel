@@ -5,39 +5,39 @@ import lombok.Data;
 
 @Data
 public class DataQualityVw {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.696900448Z", comments="Source field: sentinel.data_quality_vw.rownum")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.850230926Z", comments="Source field: sentinel.data_quality_vw.rownum")
     private Long rownum;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.696964152Z", comments="Source field: sentinel.data_quality_vw.process_name")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.850287029Z", comments="Source field: sentinel.data_quality_vw.process_name")
     private String processName;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.697009982Z", comments="Source field: sentinel.data_quality_vw.control_name")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.850406836Z", comments="Source field: sentinel.data_quality_vw.control_name")
     private String controlName;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.69705517Z", comments="Source field: sentinel.data_quality_vw.dimension_name")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.850453638Z", comments="Source field: sentinel.data_quality_vw.dimension_name")
     private String dimensionName;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.69710045Z", comments="Source field: sentinel.data_quality_vw.rule_name")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.850563945Z", comments="Source field: sentinel.data_quality_vw.rule_name")
     private String ruleName;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.697144264Z", comments="Source field: sentinel.data_quality_vw.rule_column")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.850613847Z", comments="Source field: sentinel.data_quality_vw.rule_column")
     private String ruleColumn;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.697187894Z", comments="Source field: sentinel.data_quality_vw.rule_value")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.850695352Z", comments="Source field: sentinel.data_quality_vw.rule_value")
     private String ruleValue;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.697231157Z", comments="Source field: sentinel.data_quality_vw.database_name")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.850743755Z", comments="Source field: sentinel.data_quality_vw.database_name")
     private String databaseName;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.697273413Z", comments="Source field: sentinel.data_quality_vw.schema_name")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.850810659Z", comments="Source field: sentinel.data_quality_vw.schema_name")
     private String schemaName;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.697316676Z", comments="Source field: sentinel.data_quality_vw.table_name")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.85101927Z", comments="Source field: sentinel.data_quality_vw.table_name")
     private String tableName;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.69735884Z", comments="Source field: sentinel.data_quality_vw.partition_keys")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.851074573Z", comments="Source field: sentinel.data_quality_vw.partition_keys")
     private String partitionKeys;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.697401461Z", comments="Source field: sentinel.data_quality_vw.check_level")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.851121376Z", comments="Source field: sentinel.data_quality_vw.check_level")
     private String checkLevel;
 }

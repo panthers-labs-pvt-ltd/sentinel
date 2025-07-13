@@ -30,10 +30,10 @@ import org.pantherslabs.chimera.sentinel.data_quality.api.model.generated.DataQu
 
 @Mapper
 public interface DataQualityVwMapper extends CommonCountMapper, CommonDeleteMapper, CommonInsertMapper<DataQualityVw>, CommonUpdateMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.698515588Z", comments="Source Table: sentinel.data_quality_vw")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.852721266Z", comments="Source Table: sentinel.data_quality_vw")
     BasicColumn[] selectList = BasicColumn.columnList(rownum, processName, controlName, dimensionName, ruleName, ruleColumn, ruleValue, databaseName, schemaName, tableName, partitionKeys, checkLevel);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.698017966Z", comments="Source Table: sentinel.data_quality_vw")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.852384647Z", comments="Source Table: sentinel.data_quality_vw")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="DataQualityVwResult", value = {
         @Result(column="rownum", property="rownum", jdbcType=JdbcType.BIGINT),
@@ -51,22 +51,22 @@ public interface DataQualityVwMapper extends CommonCountMapper, CommonDeleteMapp
     })
     List<DataQualityVw> selectMany(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.698094044Z", comments="Source Table: sentinel.data_quality_vw")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.852449051Z", comments="Source Table: sentinel.data_quality_vw")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @ResultMap("DataQualityVwResult")
     Optional<DataQualityVw> selectOne(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.698151148Z", comments="Source Table: sentinel.data_quality_vw")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.852478252Z", comments="Source Table: sentinel.data_quality_vw")
     default long count(CountDSLCompleter completer) {
         return MyBatis3Utils.countFrom(this::count, dataQualityVw, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.698178096Z", comments="Source Table: sentinel.data_quality_vw")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.852502554Z", comments="Source Table: sentinel.data_quality_vw")
     default int delete(DeleteDSLCompleter completer) {
         return MyBatis3Utils.deleteFrom(this::delete, dataQualityVw, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.698203944Z", comments="Source Table: sentinel.data_quality_vw")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.852526755Z", comments="Source Table: sentinel.data_quality_vw")
     default int insert(DataQualityVw row) {
         return MyBatis3Utils.insert(this::insert, row, dataQualityVw, c ->
             c.map(rownum).toProperty("rownum")
@@ -84,7 +84,7 @@ public interface DataQualityVwMapper extends CommonCountMapper, CommonDeleteMapp
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.698311003Z", comments="Source Table: sentinel.data_quality_vw")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.852578658Z", comments="Source Table: sentinel.data_quality_vw")
     default int insertMultiple(Collection<DataQualityVw> records) {
         return MyBatis3Utils.insertMultiple(this::insertMultiple, records, dataQualityVw, c ->
             c.map(rownum).toProperty("rownum")
@@ -102,7 +102,7 @@ public interface DataQualityVwMapper extends CommonCountMapper, CommonDeleteMapp
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.698406696Z", comments="Source Table: sentinel.data_quality_vw")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.85262586Z", comments="Source Table: sentinel.data_quality_vw")
     default int insertSelective(DataQualityVw row) {
         return MyBatis3Utils.insert(this::insert, row, dataQualityVw, c ->
             c.map(rownum).toPropertyWhenPresent("rownum", row::getRownum)
@@ -120,27 +120,27 @@ public interface DataQualityVwMapper extends CommonCountMapper, CommonDeleteMapp
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.69855326Z", comments="Source Table: sentinel.data_quality_vw")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.852753768Z", comments="Source Table: sentinel.data_quality_vw")
     default Optional<DataQualityVw> selectOne(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectOne(this::selectOne, selectList, dataQualityVw, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.698580667Z", comments="Source Table: sentinel.data_quality_vw")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.852780669Z", comments="Source Table: sentinel.data_quality_vw")
     default List<DataQualityVw> select(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectList(this::selectMany, selectList, dataQualityVw, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.698609815Z", comments="Source Table: sentinel.data_quality_vw")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.852810871Z", comments="Source Table: sentinel.data_quality_vw")
     default List<DataQualityVw> selectDistinct(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectDistinct(this::selectMany, selectList, dataQualityVw, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.698636304Z", comments="Source Table: sentinel.data_quality_vw")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.852861874Z", comments="Source Table: sentinel.data_quality_vw")
     default int update(UpdateDSLCompleter completer) {
         return MyBatis3Utils.update(this::update, dataQualityVw, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.698662061Z", comments="Source Table: sentinel.data_quality_vw")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.852887875Z", comments="Source Table: sentinel.data_quality_vw")
     static UpdateDSL<UpdateModel> updateAllColumns(DataQualityVw row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(rownum).equalTo(row::getRownum)
                 .set(processName).equalTo(row::getProcessName)
@@ -156,7 +156,7 @@ public interface DataQualityVwMapper extends CommonCountMapper, CommonDeleteMapp
                 .set(checkLevel).equalTo(row::getCheckLevel);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-12T12:20:25.698707341Z", comments="Source Table: sentinel.data_quality_vw")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-13T04:34:35.852934878Z", comments="Source Table: sentinel.data_quality_vw")
     static UpdateDSL<UpdateModel> updateSelectiveColumns(DataQualityVw row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(rownum).equalToWhenPresent(row::getRownum)
                 .set(processName).equalToWhenPresent(row::getProcessName)

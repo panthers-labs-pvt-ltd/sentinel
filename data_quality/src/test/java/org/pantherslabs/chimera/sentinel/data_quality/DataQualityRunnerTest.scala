@@ -5,6 +5,9 @@ import org.apache.spark.sql.DataFrame
 import org.pantherslabs.chimera.sentinel.data_quality.DataQualityRunner.{execute, loggerTag}
 import org.pantherslabs.chimera.unisca.execution_engine.OptimizedSparkSession
 
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 class DataQualityRunnerTest extends TestCase {
   def testGetDqRules(): Unit = {
     val spark: OptimizedSparkSession = OptimizedSparkSession.get("DataQualityRunnerTest", "test")
@@ -17,9 +20,11 @@ class DataQualityRunnerTest extends TestCase {
     goods_classification_df.createOrReplaceTempView("sample_table")
     spark.sql(f"create database if not exists $DatabaseName")
     spark.sql(f"CREATE TABLE IF NOT EXISTS $DatabaseName.$TableName AS SELECT * FROM sample_table")
-
-    execute("inBatchId", goods_classification_df, DatabaseName, TableName,
-      "2025-12-31", null, "inPipelineName","CoarseDQService")
+    val timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))
+    val batch_id = f"${DatabaseName}_${TableName}_${timestamp}"
+    var curr_date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+    execute(batch_id, goods_classification_df, DatabaseName, TableName,
+      curr_date)
 
   }
 }
