@@ -1,8 +1,8 @@
 package org.pantherslabs.chimera.sentinel.data_api.controller;
-import org.pantherslabs.chimera.sentinel.data_api.mapper.generated.DataControlsMapper;
-import org.pantherslabs.chimera.sentinel.data_api.dto.FilterRequest;
+import org.pantherslabs.chimera.unisca.api_nexus.api_nexus_client.dynamic_query.dto.FilterRequest;
 import org.pantherslabs.chimera.sentinel.data_api.model.generated.DataControls;
 import org.pantherslabs.chimera.sentinel.data_api.service.DataControlsService;
+import org.pantherslabs.chimera.unisca.api_nexus.api_nexus_client.response.StandardResponse;
 import org.pantherslabs.chimera.unisca.exception.ChimeraException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

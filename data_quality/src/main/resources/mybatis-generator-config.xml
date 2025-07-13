@@ -1,0 +1,44 @@
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="postgres" targetRuntime="MyBatis3DynamicSql">
+        <!-- 1. Plugins FIRST -->
+        <plugin type="com.softwareloop.mybatis.generator.plugins.LombokPlugin"/>
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="false"/>
+        </commentGenerator>
+
+        <!-- 2. Database Connection -->
+        <jdbcConnection
+                driverClass="org.postgresql.Driver"
+                connectionURL="${database.url}"
+                userId="${database.username}"
+                password="${database.password}"/>
+
+        <!-- 3. Model/Client Generators -->
+        <javaModelGenerator
+                targetPackage="org.pantherslabs.chimera.sentinel.data_quality.api.model.generated"
+                targetProject="src/main/java"/>
+
+        <!-- 4. Mapper Generators -->
+        <javaClientGenerator
+                type="ANNOTATEDMAPPER"
+                targetPackage="org.pantherslabs.chimera.sentinel.data_quality.api.mapper.generated"
+                targetProject="src/main/java"/>
+
+        <table schema="sentinel" tableName="dq_rules_asset_map" delimitIdentifiers="true"/>
+        <table schema="sentinel" tableName="data_control_dimensions" delimitIdentifiers="true"/>
+        <table schema="sentinel" tableName="data_quality_rules" delimitIdentifiers="true"/>
+        <table schema="sentinel" tableName="data_controls_log" delimitIdentifiers="true"/>
+        <table schema="sentinel" tableName="data_management_processes" delimitIdentifiers="true"/>
+        <table schema="sentinel" tableName="data_control_process_mapping" delimitIdentifiers="true"/>
+        <table schema="sentinel" tableName="data_controls" delimitIdentifiers="true"/>
+        <table schema="sentinel" tableName="data_quality_vw" delimitIdentifiers="true"/>
+        <table schema="sentinel" tableName="data_controls_log" delimitIdentifiers="true"/>
+
+    </context>
+</generatorConfiguration>
+

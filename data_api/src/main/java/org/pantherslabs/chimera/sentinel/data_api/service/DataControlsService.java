@@ -2,8 +2,9 @@ package org.pantherslabs.chimera.sentinel.data_api.service;
 
 import java.sql.Timestamp;
 import org.apache.ibatis.exceptions.PersistenceException;
-import org.pantherslabs.chimera.sentinel.data_api.generics.FilterCondition;
+import org.pantherslabs.chimera.unisca.api_nexus.api_nexus_client.dynamic_query.dto.FilterCondition;
 import org.pantherslabs.chimera.unisca.logging.ChimeraLoggerFactory;
+import org.pantherslabs.chimera.unisca.utilities.ChimeraUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication;
@@ -15,11 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.pantherslabs.chimera.unisca.logging.ChimeraLogger;
 import org.pantherslabs.chimera.unisca.exception.ChimeraException;
-import org.pantherslabs.chimera.sentinel.data_api.generics.GenericMapper;
+import org.pantherslabs.chimera.unisca.api_nexus.api_nexus_client.dynamic_query.mapper.GenericMapper;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+import java.util.stream.Collectors;
 import static org.mybatis.dynamic.sql.SqlBuilder.select;
 import static org.pantherslabs.chimera.sentinel.data_api.mapper.generated.DataControlsDynamicSqlSupport.dataControls;
 
@@ -246,7 +247,6 @@ public class DataControlsService {
     private GenericMapper genericMapper;
 
     public List<Map<String, Object>>getControlWithFilter(String tableName, List<FilterCondition> filters) {
-        //List<Map<String, Object>> results = dataControlsMapper.executeDynamicQuery(tableName, filters);
         List<Map<String, Object>> results = genericMapper.executeDynamicFilterQuery(tableName, filters);
         if (results.isEmpty()) {
             throw new ChimeraException("APIException.404",
@@ -254,7 +254,9 @@ public class DataControlsService {
                     null,
                     HttpStatus.NOT_FOUND);
         }
+        return results.stream()
+                .map(ChimeraUtils::convertKeysToCamelCase)
+                .collect(Collectors.toList());
 
-        return results;
     }
 }

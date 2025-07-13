@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>org.pantherslabs.chimera</groupId>
         <artifactId>sentinel</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>sentinel.data_quality</artifactId>
     <name>Data Quality</name>
-    <description>The data_quality module validates and profiles large-scale datasets using AWS Deequ, a library built on Apache Spark for unit testing of data. It defines constraints such as completeness, uniqueness, and value ranges and runs these checks as part of the data pipeline to ensure reliable, clean, and trustworthy data.
+    <description>The data_quality module validates and profiles large-scale datasets using AWS Deequ, a library built on
+        Apache Spark for unit testing of data. It defines constraints such as completeness, uniqueness, and value ranges
+        and runs these checks as part of the data pipeline to ensure reliable, clean, and trustworthy data.
         Key Features:
         Declarative Constraint Checks: Define checks like nullability, uniqueness, length, regex, range, and more.
         Data Profiling: Generate data profiles to understand column statistics.
@@ -22,60 +23,17 @@
         Integration with Lineage and Observability: Can be linked to OpenLineage or other monitoring frameworks.
     </description>
     <url>https://github.com/panthers-labs-pvt-ltd/sentinel/tree/main/data_quality</url>
+
     <properties>
-        <spring-boot.version>3.4.1</spring-boot.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <database.url>jdbc:postgresql://localhost:15432/chimera_db_test</database.url>
+        <database.username>chimera_user</database.username>
+        <database.password>chimera_pass</database.password>
     </properties>
 
-
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <groupId>org.springframework.boot</groupId>
-                <version>${spring-boot.version}</version>
-            </plugin>
-            <!--<plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <version>${flyway-maven-plugin-version}</version>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>migrate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <url>jdbc:postgresql://localhost:5432/data_management</url>
-                    <user>owner_data_management</user>
-                    <password>owner_data_management</password>
-                    &lt;!&ndash; Update the URL to point to your actual database, this config is as per my DB &ndash;&gt;
-                    <defaultSchema>public</defaultSchema>
-                    <schemas>
-                        <schema>public</schema>
-                    </schemas>
-                    <locations>
-                        <location>filesystem:src/main/resources/migration</location>
-                    </locations>
-                </configuration>
-            </plugin>-->
-        </plugins>
-    </build>
-
     <dependencies>
-        <dependency>
-            <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>unisca.logging</artifactId>
-            <version>${chimera.project.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-compiler</artifactId>
@@ -83,131 +41,146 @@
         </dependency>
         <dependency>
             <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>unisca.exception</artifactId>
-            <version>${chimera.project.version}</version>
+            <artifactId>api-nexus-web</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>10.14.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.pantherslabs.chimera</groupId>
+            <artifactId>api-nexus-security</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.pantherslabs.chimera</groupId>
             <version>${chimera.project.version}</version>
-            <artifactId>unisca.utilities</artifactId>
+            <artifactId>unisca.execution_engine</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.pantherslabs.chimera</groupId>
+            <artifactId>api-nexus-db</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.pantherslabs.chimera</groupId>
+            <artifactId>api-nexus-client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.pantherslabs.chimera</groupId>
+            <artifactId>unisca.logging</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.pantherslabs.chimera</groupId>
+            <artifactId>unisca.exception</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.10.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.amazon.deequ</groupId>
             <artifactId>deequ</artifactId>
             <version>2.0.11-spark-3.5</version>
         </dependency>
-        <!--       <dependency>
-                   <groupId>org.pantherslabs.chimera</groupId>
-                   <artifactId>sentinel.deequ</artifactId>
-                   <version>2.0.8-spark-3.5</version>
-               </dependency>-->
-
-        <!-- Spring Boot Starter (includes core functionality for a Spring Boot application) -->
-        <dependency>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <groupId>org.springframework.boot</groupId>
-            <version>${spring-boot.version}</version>
-        </dependency>
-
-        <dependency>
-            <artifactId>spring-cloud-dependencies</artifactId>
-            <groupId>org.springframework.cloud</groupId>
-            <scope>import</scope>
-            <type>pom</type>
-            <version>${spring-cloud.version}</version>
-        </dependency>
-
-        <dependency>
-            <artifactId>spring-boot-starter-aop</artifactId>
-            <groupId>org.springframework.boot</groupId>
-            <version>${spring-boot.version}</version>
-        </dependency>
-        <!-- MyBatis Spring Boot Starter (MyBatis integration with Spring Boot) -->
-        <dependency>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <version>3.0.4</version>
-        </dependency>
-        <dependency>
-            <artifactId>mybatis-dynamic-sql</artifactId>
-            <groupId>org.mybatis.dynamic-sql</groupId>
-            <version>1.5.2</version>
-        </dependency>
-
-        <!-- Spring Boot Starter JDBC (Required for MyBatis to function correctly) -->
-        <dependency>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>tomcat-jdbc</artifactId>
-                    <groupId>org.apache.tomcat</groupId>
-                </exclusion>
-            </exclusions>
-            <groupId>org.springframework.boot</groupId>
-            <version>${spring-boot.version}</version>
-        </dependency>
-
-        <!-- Spring Boot Starter Security -->
-        <dependency>
-            <artifactId>spring-boot-starter-security</artifactId>
-            <groupId>org.springframework.boot</groupId>
-            <version>${spring-boot.version}</version>
-        </dependency>
-
-        <!-- OAuth2 Resource Server -->
-        <dependency>
-            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-            <groupId>org.springframework.boot</groupId>
-            <version>${spring-boot.version}</version>
-        </dependency>
-
-        <dependency>
-            <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
-            <groupId>org.springframework.cloud</groupId>
-        </dependency>
-
-        <dependency>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-            <groupId>org.springframework.boot</groupId>
-            <version>${spring-boot.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.8.4</version>
-        </dependency>
-
-        <dependency>
-            <artifactId>jakarta.validation-api</artifactId>
-            <groupId>jakarta.validation</groupId>
-            <version>3.1.0</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-        <dependency>
-            <artifactId>gson</artifactId>
-            <groupId>com.google.code.gson</groupId>
-            <version>2.10.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.scalatest</groupId>
-            <artifactId>scalatest_${scala.major.version}</artifactId>
-            <version>${scalatest.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Flyway dependency -->
-        <!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
-        <dependency>
-            <artifactId>flyway-database-postgresql</artifactId>
-            <groupId>org.flywaydb</groupId>
-            <scope>runtime</scope>
-            <version>${flyway-database-postgresql-version}</version>
-        </dependency>
-
-
-
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.4.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <configurationFile>src/main/resources/mybatis-generator-config.xml</configurationFile>
+                    <overwrite>true</overwrite>
+                </configuration>
+                <dependencies>
+                    <!-- Lombok Plugin for MyBatis Generator -->
+                    <dependency>
+                        <groupId>com.softwareloop</groupId>
+                        <artifactId>mybatis-generator-lombok-plugin</artifactId>
+                        <version>1.0</version>
+                    </dependency>
+
+                    <!-- PostgresSQL Driver -->
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>42.7.4</version>
+                    </dependency>
+                    <!-- SLF4J Binding Exclusion -->
+                    <dependency>
+                        <groupId>org.mybatis.generator</groupId>
+                        <artifactId>mybatis-generator-core</artifactId>
+                        <version>1.4.2</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.slf4j</groupId>
+                                <artifactId>slf4j-simple</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 </project>

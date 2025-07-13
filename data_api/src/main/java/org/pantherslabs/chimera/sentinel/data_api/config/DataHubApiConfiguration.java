@@ -19,7 +19,7 @@ public class DataHubApiConfiguration {
   public ManagePipeline managePipeline(ManagePipeline managePipeline){
      return new ManagePipeline();
   }*/
-
+/*
   @Bean
   public HttpMessageConverter<Object> yamlHttpMessageConverter() {
     return new AbstractJackson2HttpMessageConverter(
@@ -33,7 +33,7 @@ public class DataHubApiConfiguration {
     ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
     mapper.findAndRegisterModules();
     return mapper;
-  }
+  }*/
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
