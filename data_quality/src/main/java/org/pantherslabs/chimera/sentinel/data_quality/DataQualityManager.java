@@ -18,7 +18,7 @@ public class DataQualityManager {
     private final ChimeraLogger Logger =  ChimeraLoggerFactory.getLogger(DataQualityManager.class);
 
 
-    String filterApiUrl = "http://192.168.100.22:9001/api/data-quality/filter";
+    String filterApiUrl = "http://localhost:9001/api/data-quality/filter";
     ApiConsumer consumer = new ApiConsumer();
 
      private Dataset<Row> getDataQualityRules(SparkSession spark,String processType, String databaseName, String tableName) throws IOException, InterruptedException {

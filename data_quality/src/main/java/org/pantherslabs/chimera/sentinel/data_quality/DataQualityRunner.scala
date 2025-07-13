@@ -17,8 +17,8 @@ import org.pantherslabs.chimera.unisca.execution_engine.OptimizedSparkSession
 import org.pantherslabs.chimera.sentinel.data_quality.api.model.generated.{DataControlsLog, DataQualityVw}
 
 object DataQualityRunner {
-  private val filterApiUrl = "http://192.168.100.22:9001/api/data-quality/filter"
-  private val logApiUrl = "http://192.168.100.22:9001/api/data-controls/addDQLog"
+  private val filterApiUrl = "http://localhost:9001/api/data-quality/filter"
+  private val logApiUrl = "http://localhost:9001/api/data-controls/addDQLog"
   private val logger: ChimeraLogger = ChimeraLoggerFactory.getLogger(this.getClass)
   private val loggerTag = "DataQualityRunner"
   private val consumer = new ApiConsumer

@@ -20,7 +20,8 @@ jobs:
       - name: Extract Branch Name
         id: extract
         run: |
-          branch_ref="${GITHUB_REF##*/}"
+          #branch_ref="${GITHUB_REF##*/}"
+          branch_ref="${GITHUB_REF#refs/heads/}"
           echo "Branch: $branch_ref"
           echo "branch_name=$branch_ref" >> $GITHUB_OUTPUT
 
