@@ -1,0 +1,72 @@
+name: Validate Jira Ticket from Branch Name
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate-jira:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Extract Branch Name
+        id: extract
+        run: |
+          branch_ref="${GITHUB_REF##*/}"
+          echo "Branch: $branch_ref"
+          echo "branch_name=$branch_ref" >> $GITHUB_OUTPUT
+
+      - name: Skip Check for Main, Master, Develop, Release/*
+        id: skip_check
+        run: |
+          branch="${{ steps.extract.outputs.branch_name }}"
+
+          # Skip these branches
+          if [[ "$branch" == "main" || "$branch" == "master" || "$branch" == "develop" || "$branch" =~ ^release/.* ]]; then
+            echo "✅ Skipping Jira validation for protected branch: $branch"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Extract Jira Ticket
+        if: steps.skip_check.outputs.skip == 'false'
+        id: extract_ticket
+        run: |
+          branch="${{ steps.extract.outputs.branch_name }}"
+
+          # Match pattern like feature/JIRA-123-description
+          if [[ "$branch" =~ ^(feature|bugfix|hotfix)/([A-Z]+-[0-9]+).* ]]; then
+            ticket="${BASH_REMATCH[2]}"
+            echo "✅ Found Jira ticket: $ticket"
+            echo "issue_key=$ticket" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Branch name '$branch' is invalid. Expected format: feature/JIRA-123-description"
+            exit 1
+          fi
+
+      - name: Validate Jira Ticket via API
+        if: steps.skip_check.outputs.skip == 'false'
+        env:
+          EMAIL: ${{ secrets.JIRA_EMAIL_PROGRESSIVE_MIND_CHIMERA }}
+          API_TOKEN: ${{ secrets.JIRA_TOKEN_PROGRESSIVE_MIND_CHIMERA }}
+          JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN_PROGRESSIVE_MIND_CHIMERA }}
+          ISSUE_KEY: ${{ steps.extract_ticket.outputs.issue_key }}
+        run: |
+          echo "🔎 Validating Jira issue: $ISSUE_KEY"
+
+          response=$(curl -s -o /dev/null -w "%{http_code}" \
+            -u "$EMAIL:$API_TOKEN" \
+            -H "Accept: application/json" \
+            -X GET "$JIRA_DOMAIN/rest/api/3/issue/$ISSUE_KEY")
+
+          if [ "$response" -eq 200 ]; then
+            echo "✅ Jira issue $ISSUE_KEY exists."
+            exit 0
+          elif [ "$response" -eq 404 ]; then
+            echo "❌ Jira issue $ISSUE_KEY not found or inaccessible."
+            exit 1
+          else
+            echo "⚠️ Unexpected Jira response code: $response"
+            exit 2
+          fi
