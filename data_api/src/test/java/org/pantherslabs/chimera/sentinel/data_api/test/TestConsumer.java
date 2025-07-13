@@ -16,7 +16,7 @@ public class TestConsumer {
 
     @Test
     public void GetControl() throws IOException, InterruptedException {
-        DataControls dataSource = consumer.get("http://192.168.100.22:9001/api/data-controls/1", new TypeReference<DataControls>() {});
+        DataControls dataSource = consumer.get("http://localhost:9001/api/data-controls/1", new TypeReference<DataControls>() {});
         System.out.println(dataSource);
     }
 
@@ -31,7 +31,7 @@ public class TestConsumer {
                     { "field": "control_id", "operator": ">", "value": [6] }
                   ]
                 }""";
-        ResponseWrapper<List<DataControls>, ErrorResponse> response = consumer.post("http://192.168.100.22:9001/api/data-controls/filter",
+        ResponseWrapper<List<DataControls>, ErrorResponse> response = consumer.post("http://localhost:9001/api/data-controls/filter",
                 filter, new TypeReference<List<DataControls>>() {},new TypeReference<ErrorResponse>() {});
         if (response.isSuccess()) {
             List<DataControls> data = response.getSuccessBody();
