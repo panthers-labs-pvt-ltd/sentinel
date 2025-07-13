@@ -1,8 +1,16 @@
 name: Validate Jira Ticket from Branch Name
 
 on:
-  push:
-  pull_request:
+  create:     # triggers when a new branch or tag is created
+    branches:
+      - '**'
+
+  push:       # triggers when code is pushed
+    branches-ignore:
+      - main
+      - master
+      - develop
+      - 'release/**'
 
 jobs:
   validate-jira:
