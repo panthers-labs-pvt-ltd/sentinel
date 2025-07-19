@@ -1,0 +1,12 @@
+dependencies:
+- name: datahub-gms
+  repository: file://./subcharts/datahub-gms
+  version: 0.2.186
+- name: datahub-frontend
+  repository: file://./subcharts/datahub-frontend
+  version: 0.2.163
+- name: acryl-datahub-actions
+  repository: file://./subcharts/acryl-datahub-actions
+  version: 0.2.152
+digest: sha256:98823049b761b19d62574a0974bbed51b8a76a9e00ce45fcdfcd03ab3095c8ea
+generated: "2025-07-19T14:17:07.507549921Z"

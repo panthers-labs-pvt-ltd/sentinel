@@ -49,8 +49,9 @@
 
         <dependency>
             <groupId>io.acryl</groupId>
-            <artifactId>datahub-client-java8</artifactId>
-            <version>0.15.0-2rc7</version>
+            <artifactId>datahub-client</artifactId>
+            <!--<version>0.15.0-2rc7</version>-->
+            <version>15.0.5rc2</version>
         </dependency>
 
         <dependency>

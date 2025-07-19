@@ -16,9 +16,6 @@ import com.linkedin.mxe.MetadataChangeProposal;
 import datahub.event.MetadataChangeProposalWrapper;
 
 
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
 import static org.pantherslabs.chimera.sentinel.datahub.common.genericUtils.createProposal;
 import static org.pantherslabs.chimera.sentinel.datahub.common.genericUtils.emitProposal;
 
@@ -60,8 +57,8 @@ public class DataJobExample {
             dataJobInputOutput.setOutputDatasets(outputDatasetUrnArray);
 
             // Step 4: Set up DataJobInputOutput
-            dataJobInputOutput.setInputDatasets(datasetUrnArray); // Provide dataset URNs here
-            dataJobInputOutput.setOutputDatasets(outputDatasetUrnArray); // Provide dataset URNs here
+            dataJobInputOutput.setInputDatasets(datasetUrnArray);
+            dataJobInputOutput.setOutputDatasets(outputDatasetUrnArray);
 
             // Step 6: Assemble DataJobSnapshot
             DataJobSnapshot dataJobSnapshot = new DataJobSnapshot()
@@ -86,7 +83,7 @@ public class DataJobExample {
         }
     }
 
-    private static void createDataPipeline() throws IOException, ExecutionException, InterruptedException {
+    private static void createDataPipeline()  {
         MetadataChangeProposalWrapper mcpw = MetadataChangeProposalWrapper.builder()
                 .entityType("dataflow")
                 .entityUrn("urn:li:dataFlow:(kafka,trace-pipeline,PROD)")

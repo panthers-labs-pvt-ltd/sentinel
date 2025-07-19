@@ -26,11 +26,18 @@ class ManageUsersAndGroupsTest {
 
     @Test
     void createUsersMandatoryValues() throws URISyntaxException, IOException, ExecutionException, InterruptedException {
-        List<Users> userInfo = new ArrayList<>();
-        Users user = new Users( "ABC","Kumar",  "ABC@gmail.com");
+        List<Users> userList = new ArrayList<>();
+        userList.add(new Users("Abhinav", "Kumar", "abhinav.official@gmail.com"));
+        userList.add(new Users("Chhaya", "Jain","chhaya.237@gmail.com"));
+        userList.add(new Users("Ganesh", "Raj", "ganeshrajaj@gmail.com"));
+        userList.add(new Users("Jaycharakula", "K", "jaycharakula.official@gmail.com"));
+        userList.add(new Users("Manish Kumar", "Gupta", "manish.kumar.gupta@outlook.com"));
+        userList.add(new Users("Mohit", "Ranjan", "mohit.sinha10@gmail.com"));
+        userList.add(new Users("Prashant", "Kumar", "prashantkumar.official@gmail.com"));
+        userList.add(new Users("sandhya", "salian", "sandhya.rock18@gmail.com"));
+        userList.add(new Users("Vivek", "Tiwari", "vivekt1801@gmail.com"));
 
-        userInfo.add(user);
-        ManageUsersAndGroups.createUsers(userInfo);
+        ManageUsersAndGroups.createUsers(userList);
 
     }
 }

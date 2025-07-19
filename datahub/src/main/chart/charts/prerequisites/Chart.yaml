@@ -1,0 +1,19 @@
+apiVersion: v2
+name: datahub-prerequisites
+description: A Helm chart for packages that Datahub depends on
+type: application
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+version: 0.1.15
+dependencies:
+  - name: opensearch
+    version: 2.18.0
+    repository: https://opensearch-project.github.io/helm-charts
+    condition: opensearch.enabled
+  - name: kafka
+    version: 26.11.2
+    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+    condition: kafka.enabled
+maintainers:
+  - name: DataHub
+    email: datahub@acryl.io
