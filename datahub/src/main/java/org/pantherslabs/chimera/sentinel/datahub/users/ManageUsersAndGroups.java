@@ -8,144 +8,178 @@ import com.linkedin.common.urn.Urn;
 import com.linkedin.data.template.StringArray;
 import com.linkedin.identity.*;
 import com.linkedin.mxe.MetadataChangeProposal;
+import org.pantherslabs.chimera.sentinel.datahub.emitter.TransactionalDataHubEmitter;
 import org.pantherslabs.chimera.sentinel.datahub.common.genericUtils;
+import org.pantherslabs.chimera.sentinel.datahub.modal.EmitResult;
 import org.pantherslabs.chimera.sentinel.datahub.modal.Users;
-import java.io.IOException;
-import java.net.URISyntaxException;
+import org.pantherslabs.chimera.unisca.logging.ChimeraLogger;
+import org.pantherslabs.chimera.unisca.logging.ChimeraLoggerFactory;
+import org.springframework.stereotype.Service;
 import java.time.Instant;
-import java.util.Base64;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.ExecutionException;
+import java.util.*;
 
 import static org.pantherslabs.chimera.sentinel.datahub.Constants.*;
-import static org.pantherslabs.chimera.sentinel.datahub.common.genericUtils.createProposal;
-import static org.pantherslabs.chimera.sentinel.datahub.common.genericUtils.emitProposal;
+import static org.pantherslabs.chimera.sentinel.datahub.users.SecretService.buildProposal;
 
+@Service
 public class ManageUsersAndGroups {
- static String DEFAULT_USER_PASSWORD = "12345";
- static String PROFILE = "https://static.vecteezy.com/system/resources/previews/014/194/219/large_2x/businessman-manager-boss-man-an-office-worker-illustration-flat-design-vector.jpg";
-    public static boolean createUsers(List<Users> userInfo) throws URISyntaxException, IOException, ExecutionException, InterruptedException {
+    static List<MetadataChangeProposal> proposals = new ArrayList<>();
+    private static final ChimeraLogger logger = ChimeraLoggerFactory.getLogger(ManageUsersAndGroups.class);
+    EmitResult result;
+    public EmitResult createOrEditUsers(List<Users> userInfo, String changeType) throws Exception {
         for (Users info : userInfo) {
-
+            // Basic validations
             Objects.requireNonNull(info.getEmail(), "User Email must not be null!");
             Objects.requireNonNull(info.getFirstName(), "FirstName must not be null!");
             Objects.requireNonNull(info.getLastName(), "LastName must not be null!");
 
-            CorpUserInfo result = new CorpUserInfo();
-            CorpuserUrn userUrn = CorpuserUrn.createFromString("urn:li:corpuser:"+info.getEmail());
-            result.setActive(genericUtils.getOrElse(info.getActive(), true));
-            result.setCountryCode(genericUtils.getOrElse(info.getCountryCode(), "-"));
-            result.setDepartmentId(genericUtils.getOrElse(info.getDepartmentId(), 0L));
-            result.setDepartmentName(genericUtils.getOrElse(info.getDepartmentName(), "-"));
-            result.setEmail(genericUtils.getOrElse(info.getEmail(), ""));
-            result.setDisplayName(genericUtils.getOrElse(info.getDisplayName(), info.getLastName() + ", " + info.getFirstName()));
-            result.setFirstName(genericUtils.getOrElse(info.getFirstName(), "-"));
-            result.setLastName(genericUtils.getOrElse(info.getLastName(), "-"));
-            result.setFullName(info.getLastName() + info.getFirstName());
-            result.setTitle(genericUtils.getOrElse(info.getTitle(), "Read Only User"));
+            // User URN
+            CorpuserUrn userUrn = CorpuserUrn.createFromString(URN_LI_CORP_USER_PREFIX + info.getEmail());
 
-            MetadataChangeProposal UserInfoProposal = createProposal(String.valueOf(userUrn), CORP_USER_ENTITY_NAME,
-                    CORP_USER_INFO_ASPECT_NAME, ACTION_TYPE,result);
-             emitProposal(UserInfoProposal, CORP_USER_ENTITY_NAME);
+            //Build CorpUserInfo
 
+            CorpUserInfo corpUserInfo = new CorpUserInfo();
+            corpUserInfo.setActive(genericUtils.getOrElse(info.getActive(), true));
+            corpUserInfo.setCountryCode(genericUtils.getOrElse(info.getCountryCode(), "+91"));
+            corpUserInfo.setDepartmentId(genericUtils.getOrElse(info.getDepartmentId(), 0L));
+            corpUserInfo.setDepartmentName(genericUtils.getOrElse(info.getDepartmentName(), "Not Specified"));
+            corpUserInfo.setEmail(info.getEmail());
+            corpUserInfo.setDisplayName(genericUtils.getOrElse(info.getDisplayName(), info.getLastName() + ", " + info.getFirstName()));
+            corpUserInfo.setFirstName(genericUtils.getOrElse(info.getFirstName(), "-"));
+            corpUserInfo.setLastName(genericUtils.getOrElse(info.getLastName(), "-"));
+            corpUserInfo.setFullName(info.getLastName() + info.getFirstName());
+            corpUserInfo.setTitle(genericUtils.getOrElse(info.getTitle(), "Read Only User"));
+            proposals.add(buildProposal(userUrn, "corpUserInfo", corpUserInfo, changeType));
+
+            // AuditStamp
             AuditStamp createdStamp = new AuditStamp()
-                    .setActor(new CorpuserUrn(userUrn.getUsernameEntity()))
+                    .setActor(new CorpuserUrn(DATAHUB_ACTOR))
+                    .setImpersonator(userUrn)
+                    .setMessage("Created Audit Timestamp")
                     .setTime(Instant.now().toEpochMilli());
 
+            // Platforms
             UrnArray platform = new UrnArray();
-            if (info.getPlatform() != null)
-            {
-            info.getPlatform().forEach(platformNm ->
-            {
-                try {
-                    platform.add(Urn.createFromString("urn:li:dataPlatform:"+platformNm));
-                } catch (URISyntaxException e) {
-                    throw new RuntimeException(e);
+            List<String> platformNames = info.getPlatform();
+            if (platformNames != null && !platformNames.isEmpty()) {
+                for (String platformName : platformNames) {
+                    platform.add(Urn.createFromString(DATA_PLATFORM_PREFIX + platformName));
                 }
-            });
-            }
-            else
-            {
+            } else {
                 platform.add(Urn.createFromString(UNKNOWN_DATA_PLATFORM));
             }
 
+            // Skills
             StringArray skills = new StringArray();
-            if (info.getSkills() != null) skills.addAll(info.getSkills()); else skills.add("default");
+            if (info.getSkills() != null) skills.addAll(info.getSkills());
+            else skills.add("default");
 
+            // Teams
             StringArray teams = new StringArray();
-            if (info.getTeams() != null) teams.addAll(info.getTeams()); else teams.add("default");
+            if (info.getTeams() != null) teams.addAll(info.getTeams());
+            else teams.add("default");
 
-            CorpUserEditableInfo corpUserEditableInfo = new CorpUserEditableInfo();
-            corpUserEditableInfo.setAboutMe(genericUtils.getOrElse(info.getAboutMe(), "-"))
-                    .setPhone(genericUtils.getOrElse(info.getPhone(), "-"))
+            // CorpUserEditableInfo
+            CorpUserEditableInfo corpUserEditableInfo = new CorpUserEditableInfo()
+                    .setAboutMe(genericUtils.getOrElse(info.getAboutMe(), "About Me ??"))
+                    .setPhone(genericUtils.getOrElse(info.getPhone(), "99999-99999"))
                     .setPictureLink(new Url(genericUtils.getOrElse(info.getPictureLink(), PROFILE)))
                     .setPlatforms(platform)
                     .setSkills(skills)
-                    .setSlack(genericUtils.getOrElse(info.getSlack(), "-"))
+                    .setSlack(genericUtils.getOrElse(info.getSlack(), "My Slack"))
                     .setTeams(teams);
+            proposals.add(buildProposal(userUrn, CORP_USER_EDITABLE_INFO_ASPECT_NAME, corpUserEditableInfo, changeType));
 
-            MetadataChangeProposal UserEditableInfoProposal = createProposal(String.valueOf(userUrn), CORP_USER_ENTITY_NAME,
-                    CORP_USER_EDITABLE_INFO_ASPECT_NAME, ACTION_TYPE,corpUserEditableInfo);
-            emitProposal(UserEditableInfoProposal, CORP_USER_ENTITY_NAME);
-
+            // CorpUserStatus
             CorpUserStatus corpUserStatus = new CorpUserStatus();
             corpUserStatus.setStatus(CORP_USER_STATUS_ACTIVE);
             corpUserStatus.setLastModified(createdStamp);
+            proposals.add(buildProposal(userUrn, CORP_USER_STATUS_ASPECT_NAME, corpUserStatus, changeType));
 
-            MetadataChangeProposal StatusProposal = createProposal(String.valueOf(userUrn), CORP_USER_ENTITY_NAME,
-                    CORP_USER_STATUS_ASPECT_NAME, ACTION_TYPE,corpUserStatus);
-            emitProposal(StatusProposal, CORP_USER_ENTITY_NAME);
+            // RoleMembership
+            UrnArray roleMembershipArray = new UrnArray();
+            roleMembershipArray.add(Urn.createFromString(DATA_PLATFORM_READ_ROLE));
+            RoleMembership roleMembership = new RoleMembership().setRoles(roleMembershipArray);
+            proposals.add(buildProposal(userUrn, ROLE_MEMBERSHIP_ASPECT_NAME, roleMembership, changeType));
 
-
-            UrnArray roleMembershipArray =new UrnArray();
-            roleMembershipArray.add(Urn.createFromString("urn:li:dataHubRole:Reader"));
-            RoleMembership roleMembership =new RoleMembership();
-            roleMembership.setRoles(roleMembershipArray);
-
-            MetadataChangeProposal roleProposal = createProposal(String.valueOf(userUrn), CORP_USER_ENTITY_NAME,
-                    ROLE_MEMBERSHIP_ASPECT_NAME, ACTION_TYPE,roleMembership);
-            emitProposal(roleProposal, CORP_USER_ENTITY_NAME);
-            SecretService _SecretService = new SecretService(DEFAULT_USER_PASSWORD);
+            // CorpUserCredentials
             CorpUserCredentials corpUserCredentials = new CorpUserCredentials();
             final byte[] salt = SecretService.generateSalt(SALT_TOKEN_LENGTH);
             String encryptedSalt = SecretService.encrypt(Base64.getEncoder().encodeToString(salt));
-            corpUserCredentials.setSalt(encryptedSalt);
             String hashedPassword = SecretService.getHashedPassword(salt, DEFAULT_USER_PASSWORD);
+            corpUserCredentials.setSalt(encryptedSalt);
             corpUserCredentials.setHashedPassword(hashedPassword);
+            proposals.add(buildProposal(userUrn, CORP_USER_CREDENTIALS_ASPECT_NAME, corpUserCredentials, changeType));
 
-            MetadataChangeProposal CorpUserCredentialsProposal = createProposal(String.valueOf(userUrn), CORP_USER_ENTITY_NAME,
-                    CORP_USER_CREDENTIALS_ASPECT_NAME, ACTION_TYPE,corpUserCredentials);
-            emitProposal(CorpUserCredentialsProposal, CORP_USER_ENTITY_NAME);
+            // NativeGroupMembership
+            UrnArray nativeGroups = new UrnArray();
+            if (info.getNativeGroups() != null) {
+                for (String urnStr : info.getNativeGroups()) {
+                    nativeGroups.add(Urn.createFromString(CORP_GROUP_PREFIX + urnStr));
+                }
+            } else {
+                nativeGroups.add(Urn.createFromString(CORP_GROUP_PREFIX + "default"));
+            }
+            NativeGroupMembership nativeGroupMembership = new NativeGroupMembership().setNativeGroups(nativeGroups);
+            proposals.add(buildProposal(userUrn, NATIVE_GROUP_MEMBERSHIP_ASPECT_NAME, nativeGroupMembership, changeType));
 
-   /*       InviteToken inviteToken = new InviteToken();
-            inviteToken.setRole(Urn.createFromString("urn:li:dataHubRole:Reader"))
-                    .setToken(info.Email);
+            // GroupMembership
+            UrnArray groups = new UrnArray();
+            if (info.getGroupsMembership() != null) {
+                for (String urnStr : info.getGroupsMembership()) {
+                    groups.add(Urn.createFromString(CORP_GROUP_PREFIX + urnStr));
+                }
+            } else {
+                groups.add(Urn.createFromString(CORP_GROUP_PREFIX + "default"));
+            }
+            GroupMembership groupMembership = new GroupMembership().setGroups(groups);
+            proposals.add(buildProposal(userUrn, GROUP_MEMBERSHIP_ASPECT_NAME, groupMembership, changeType));
 
-
-            MetadataChangeProposal InviteProposal = createProposal(String.valueOf(userUrn), INVITE_TOKEN_ENTITY_NAME,
-                    INVITE_TOKEN_ASPECT_NAME, ACTION_TYPE,inviteToken);
-            emitProposal(InviteProposal, CORP_USER_ENTITY_NAME);*/
-/*
-            UrnArray NativeGroupMembershipArray =new UrnArray();
-            NativeGroupMembershipArray.add("");
-            NativeGroupMembership nativeGroupMembership = new NativeGroupMembership();
-            nativeGroupMembership.setNativeGroups(NativeGroupMembershipArray);
-
-            UrnArray GroupMembershipArray =new UrnArray();
-            GroupMembership groupMembership = new GroupMembership();
-            groupMembership.setGroups(GroupMembershipArray);
-
-            CorpUserViewsSettings corpUserViewsSettings = new CorpUserViewsSettings();
-            corpUserViewsSettings.setDefaultView(corpUserViewsSettings.getDefaultView());
-            CorpUserSettings corpUserSettings = new CorpUserSettings();
-            corpUserSettings.setViews(corpUserViewsSettings);*/
-
-           /* if (info.Manager != null) {
-            result.setManager(new CorpUser.Builder().setUrn(info.getManagerUrn().toString()).build());
-        }*/
-            // return result;
+            // Emit with rollback
+            TransactionalDataHubEmitter txEmitter = new TransactionalDataHubEmitter();
+             result = txEmitter.emitWithRollback(proposals);
+            }
+        return result;
         }
-         return false;
+
+    public EmitResult deactivateUser(String userEmail) {
+        List<MetadataChangeProposal> proposals = new ArrayList<>();
+        try {
+            if (userEmail == null || userEmail.isBlank()) {
+                throw new IllegalArgumentException("Username cannot be null or blank.");
+            }
+
+            String userUrnStr = URN_LI_CORP_USER_PREFIX + userEmail;
+            Urn userUrn = Urn.createFromString(userUrnStr);
+
+            AuditStamp LastModified = new AuditStamp()
+                    .setActor(new CorpuserUrn(DATAHUB_ACTOR))
+                    .setImpersonator(userUrn)
+                    .setMessage("Created Audit Timestamp")
+                    .setTime(Instant.now().toEpochMilli());
+
+            CorpUserStatus corpUserStatus = new CorpUserStatus()
+                    .setStatus(CORP_USER_STATUS_SUSPENDED)
+                    .setLastModified(LastModified);
+
+            proposals.add(buildProposal(userUrn, CORP_USER_STATUS_ASPECT_NAME, corpUserStatus, UPSERT_ACTION_TYPE));
+
+            // Emit with rollback support
+            TransactionalDataHubEmitter txEmitter = new TransactionalDataHubEmitter();
+            EmitResult result =txEmitter.emitWithRollback(proposals);
+
+            if (result.isSuccess()) {
+                logger.logInfo("✅ User soft-deleted successfully: " + userEmail + result.getSucceeded());
+            } else {
+                logger.logError("❌ Soft delete failed and rollback triggered for user: " + userEmail);
+            }
+
+
+        } catch (IllegalArgumentException e) {
+            logger.logError("⚠️ Invalid input: " + e.getMessage());
+        } catch (Exception e) {
+            logger.logError("❌ Exception during user deletion for '" + userEmail + "': " + e.getMessage(), e);
+        }
+        return result;
     }
 }

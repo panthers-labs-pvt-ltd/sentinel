@@ -141,4 +141,10 @@ public static String DATAHUB_AUTH_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhY3RvclR5cGUi
         DatahubLogger.logError("Unable to connect with Datahub..");
         return "";
     }
+ /*   public static GenericAspect toGenericAspect(RecordTemplate aspect) throws Exception {
+        GenericAspect genericAspect = new GenericAspect();
+        genericAspect.setValue(serializeAspect(aspect));
+        genericAspect.setContentType("application/json"); // required
+        return genericAspect;
+    }*/
 }

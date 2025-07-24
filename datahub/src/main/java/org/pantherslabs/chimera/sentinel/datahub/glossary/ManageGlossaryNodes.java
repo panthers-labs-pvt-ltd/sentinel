@@ -45,8 +45,8 @@ public class ManageGlossaryNodes {
                     && (nodeGroup.Ownership == null || nodeGroup.Ownership.isEmpty())) {
 
                 // Add parent ownership to the current (child) term's ownership
-                ManageOwners.addOwners(glossaryNodeUrn, GLOSSARY_NODE_ENTITY_NAME, "ownership", "UPSERT",
-                        nodeGroup.parentGlossaryNodeGroup.Ownership);
+              /*  ManageOwners.addOwners(glossaryNodeUrn, GLOSSARY_NODE_ENTITY_NAME, "ownership", "UPSERT",
+                        nodeGroup.parentGlossaryNodeGroup.Ownership);*/
             }
 
 
@@ -62,8 +62,8 @@ public class ManageGlossaryNodes {
                 emitProposal(proposal, GLOSSARY_NODE_ENTITY_NAME);
 
             if (nodeGroup.Ownership != null && !nodeGroup.Ownership.isEmpty()) {
-                ManageOwners.addOwners(glossaryNodeUrn, GLOSSARY_NODE_ENTITY_NAME, "ownership", "UPSERT",
-                        nodeGroup.Ownership);
+         /*       ManageOwners.addOwners(glossaryNodeUrn, GLOSSARY_NODE_ENTITY_NAME, "ownership", "UPSERT",
+                        nodeGroup.Ownership);*/
             }
         }
         // Return a message indicating how many glossary nodes were processed

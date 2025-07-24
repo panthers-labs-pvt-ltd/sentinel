@@ -3,15 +3,13 @@ package org.pantherslabs.chimera.sentinel.datahub.users;
 import org.pantherslabs.chimera.sentinel.datahub.modal.Users;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 class ManageUsersAndGroupsTest {
+/*
 
-/*    @Test
+    @Test
     void createUsers() throws URISyntaxException, IOException, ExecutionException, InterruptedException {
         List<Users> userInfo = new ArrayList<>();
         Users user = new Users( "Data Engineer", "Manish","Kumar", "Kumar, Manish Gupta", "manish.kumar@natwest.com",null,
@@ -22,22 +20,24 @@ class ManageUsersAndGroupsTest {
         userInfo.add(user);
         ManageUsersAndGroups.createUsers(userInfo);
 
-    }*/
+    }
+*/
 
     @Test
-    void createUsersMandatoryValues() throws URISyntaxException, IOException, ExecutionException, InterruptedException {
+    void createUsersMandatoryValues() throws Exception {
         List<Users> userList = new ArrayList<>();
-        userList.add(new Users("Abhinav", "Kumar", "abhinav.official@gmail.com"));
-        userList.add(new Users("Chhaya", "Jain","chhaya.237@gmail.com"));
+        userList.add(new Users("APITEST", "Kumar", "api.official@gmail.com"));
+/*        userList.add(new Users("Chhaya", "Jain","chhaya.237@gmail.com"));
         userList.add(new Users("Ganesh", "Raj", "ganeshrajaj@gmail.com"));
         userList.add(new Users("Jaycharakula", "K", "jaycharakula.official@gmail.com"));
         userList.add(new Users("Manish Kumar", "Gupta", "manish.kumar.gupta@outlook.com"));
         userList.add(new Users("Mohit", "Ranjan", "mohit.sinha10@gmail.com"));
         userList.add(new Users("Prashant", "Kumar", "prashantkumar.official@gmail.com"));
         userList.add(new Users("sandhya", "salian", "sandhya.rock18@gmail.com"));
-        userList.add(new Users("Vivek", "Tiwari", "vivekt1801@gmail.com"));
-
-        ManageUsersAndGroups.createUsers(userList);
+        userList.add(new Users("Vivek", "Tiwari", "vivekt1801@gmail.com"));*/
+        ManageUsersAndGroups manageUsersAndGroups = new ManageUsersAndGroups();
+        //ManageUsersAndGroups.createUsers(userList);
+        manageUsersAndGroups.createOrEditUsers(userList, "UPSERT");
 
     }
 }

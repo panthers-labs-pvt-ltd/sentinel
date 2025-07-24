@@ -9,16 +9,27 @@ import java.util.List;
     public class Constants {
         public static final String SYSTEM_USER = "Chimera";
         public static final String ACTION_TYPE = "UPSERT";
+        public static final String CREATE_ACTION_TYPE = "CREATE";
+        public static final String UPSERT_ACTION_TYPE = "UPSERT";
+        public static final String DEFAULT_USER_PASSWORD = "12345";
         public static final String INTERNAL_DELEGATED_FOR_ACTOR_HEADER_NAME = "X-DataHub-Delegated-For";
         public static final String INTERNAL_DELEGATED_FOR_ACTOR_TYPE = "X-DataHub-Delegated-For-";
+        public static String PROFILE = "https://static.vecteezy.com/system/resources/previews/014/194/219/large_2x/businessman-manager-boss-man-an-office-worker-illustration-flat-design-vector.jpg";
 
         public static final String URN_LI_PREFIX = "urn:li:";
+        public static final String URN_LI_CORP_USER_PREFIX = "urn:li:corpuser:";
+
         public static final String DATAHUB_ACTOR = "urn:li:corpuser:datahub"; // Super user.
         public static final String SYSTEM_ACTOR =
                 "urn:li:corpuser:__datahub_system"; // DataHub internal service principal.
         public static final String UNKNOWN_ACTOR = "urn:li:corpuser:UNKNOWN"; // Unknown principal.
         public static final Long ASPECT_LATEST_VERSION = 0L;
         public static final String UNKNOWN_DATA_PLATFORM = "urn:li:dataPlatform:unknown";
+        public static final String DATA_PLATFORM_PREFIX = "urn:li:dataPlatform:";
+        public static final String DATA_PLATFORM_READ_ROLE = "urn:li:dataHubRole:Reader";
+        public static final String DATA_PLATFORM_WRITE_ROLE = "urn:li:dataHubRole:Writer";
+        public static final String DATA_PLATFORM_ADMIN_ROLE = "urn:li:dataHubRole:Admin";
+
         public static final String ENTITY_TYPE_URN_PREFIX = "urn:li:entityType:";
         public static final String DATA_TYPE_URN_PREFIX = "urn:li:dataType:";
         public static final String STRUCTURED_PROPERTY_MAPPING_FIELD = "structuredProperties";
@@ -59,6 +70,7 @@ import java.util.List;
         public static final String CORP_USER_ENTITY_NAME = "corpuser";
 
         public static final String CORP_GROUP_ENTITY_NAME = "corpGroup";
+        public static final String CORP_GROUP_PREFIX = "urn:li:corpGroup:";
         public static final String DATASET_ENTITY_NAME = "dataset";
         public static final String CHART_ENTITY_NAME = "chart";
         public static final String DASHBOARD_ENTITY_NAME = "dashboard";
@@ -97,6 +109,9 @@ import java.util.List;
         public static final String QUERY_ENTITY_NAME = "query";
         public static final String DATA_PRODUCT_ENTITY_NAME = "dataProduct";
         public static final String OWNERSHIP_TYPE_ENTITY_NAME = "ownershipType";
+        public static final Urn OWNERSHIP_TYPE_URN =
+                UrnUtils.getUrn("urn:li:ownershipType:");
+
         public static final Urn DEFAULT_OWNERSHIP_TYPE_URN =
                 UrnUtils.getUrn("urn:li:ownershipType:__system__none");
         public static final String STRUCTURED_PROPERTY_ENTITY_NAME = "structuredProperty";

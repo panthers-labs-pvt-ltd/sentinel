@@ -1,7 +1,7 @@
 dataProductName: Finance
 pipelineName: Chimera Sample Data Pipeline
 pipelineDescription: Chimera Sample Data Pipeline to show what we can configure at the time of pipeline creation
-FabricType: DEV
+fabricType: DEV
 processingEngine: spark
 domainName: natwestdomain
 inActiveFlag : false
@@ -42,7 +42,7 @@ stages:
         description : my input dataset description created at PreInitialization Stage
         dataProductName: Finance
         displayName: chimeradb.PreInit_dataset_1
-        FabricType: DEV
+        fabricType: DEV
         datasetPlatformName: oracle
         qualifiedName: chimeradb.PreInit_dataset_1
         uri: 'http://pantherlabs.io/dept.sql'
@@ -116,7 +116,7 @@ stages:
         description: my second dataset description PreInitialization Stage
         dataProductName: Finance
         displayName: chimeradb.PreInit_dataset_2
-        FabricType: DEV
+        fabricType: DEV
         datasetPlatformName: oracle
         qualifiedName: chimeradb.PreInit_dataset_2
         uri: 'http://pantherlabs.io/dept.sql'
@@ -200,7 +200,7 @@ stages:
       - name : Extract Dataset 1
         dataProductName: Finance
         displayName: chimeradb.Extract_dataset_1
-        FabricType: DEV
+        fabricType: DEV
         datasetPlatformName: s3
         qualifiedName: chimeradb.Extract_dataset_1
         uri: 'http://pantherlabs.io/dept.sql'
@@ -275,7 +275,7 @@ stages:
         description: my 1 second dataset description
         dataProductName: Finance
         displayName: chimeradb.dept
-        FabricType: DEV
+        fabricType: DEV
         datasetPlatformName: oracle
         qualifiedName: chimeradb.Extract_dataset_2
         uri: 'http://pantherlabs.io/dept.sql'
@@ -359,7 +359,7 @@ stages:
       - name : Transform_dataset_1
         dataProductName: Finance
         displayName: chimeradb.Transform_dataset_1
-        FabricType: DEV
+        fabricType: DEV
         datasetPlatformName: s3
         qualifiedName: chimeradb.Transform_dataset_1
         uri: 'http://pantherlabs.io/dept.sql'
@@ -434,7 +434,7 @@ stages:
         description: my 2 Transform second dataset description
         dataProductName: Finance
         displayName: chimeradb.Transform_2
-        FabricType: DEV
+        fabricType: DEV
         datasetPlatformName: oracle
         qualifiedName: chimeradb.Transform_2
         uri: 'http://pantherlabs.io/dept.sql'

@@ -37,6 +37,7 @@ import static org.pantherslabs.chimera.sentinel.datahub.common.genericUtils.crea
 import static org.pantherslabs.chimera.sentinel.datahub.common.genericUtils.emitProposal;
 import static org.pantherslabs.chimera.sentinel.datahub.datasets.schema.setGlobalTags;
 import static org.pantherslabs.chimera.sentinel.datahub.datasets.schema.setGlossaryTerms;
+import static org.pantherslabs.chimera.sentinel.datahub.pipeline.utils.getPipelineInfo;
 
 public class ManagePipeline {
     static ChimeraLogger DatahubLogger = ChimeraLoggerFactory.getLogger(ManageDatasets.class);
@@ -44,8 +45,9 @@ public class ManagePipeline {
 
 
 
-    public static void createDataPipeline(String pipelineDefinition) throws Exception {
-        Pipeline dataPipeline = utils.getPipelineInfo(pipelineDefinition);
+    public static void createDataPipeline(String inFilePath) throws Exception {
+        Pipeline dataPipeline = getPipelineInfo(inFilePath);
+
         if (dataPipeline != null) {
             String platform = dataPipeline.getProcessingEngine();
             String flowName = dataPipeline.getPipelineName();

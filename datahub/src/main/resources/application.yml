@@ -1,0 +1,42 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: Sentinel Data Hub API
+  mvc:
+    content-negotiation:
+      favor-path-extension: false
+      favor-parameter: false
+      favor-header: true
+      default-content-type: application/json
+  cloud:
+    config:
+      enabled: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/datahub
+    username: postgres
+    password: Abnamro1!
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 5000
+
+  flyway:
+    enabled: false
+    schemas: test
+    cleanDisabled: true
+logging:
+  level:
+    org.springframework.boot.autoconfigure: DEBUG
+    org.springframework.boot.env: DEBUG
+    org.pantherslabs.chimera: DEBUG
+retry:
+  enabled: false
+
+keycloak:
+  setup:
+    enabled: false
+    realm: chimera
+    client:
+      clientId: chimera_api_client

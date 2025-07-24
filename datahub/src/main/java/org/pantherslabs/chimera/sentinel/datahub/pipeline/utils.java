@@ -8,28 +8,31 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.pantherslabs.chimera.sentinel.datahub.modal.Pipeline;
 import org.pantherslabs.chimera.unisca.logging.ChimeraLogger;
 import org.pantherslabs.chimera.unisca.logging.ChimeraLoggerFactory;
-import java.io.IOException;
+
+import java.io.*;
 
 public class utils {
 
-    public static Pipeline getPipelineInfo(String InputFormat) {
+    public static Pipeline getPipelineInfo(String inFilePath) throws IOException {
         ChimeraLogger DatahubLogger = ChimeraLoggerFactory.getLogger(ManagePipeline.class);
-        InputFormat = InputFormat.trim();
+        File file = new File(inFilePath);
+        String InputFormat =  file.getAbsolutePath().toLowerCase();
         String SchemaFormat;
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
-
-        if (InputFormat.startsWith("{") || InputFormat.startsWith("["))  SchemaFormat="JSON";
-        else if (InputFormat.contains(":") && !InputFormat.contains("{"))  SchemaFormat = "YAML";
+        if (InputFormat.endsWith(".yaml") || InputFormat.endsWith(".yml"))
+            SchemaFormat="YAML";
+        else if (InputFormat.endsWith(".json"))
+            SchemaFormat="JSON";
         else throw new RuntimeException("Invalid Format of Dataset Definition");
+
         Pipeline pipeline;
+        try (InputStream inputStream = new FileInputStream(inFilePath))        {
         switch (SchemaFormat.toUpperCase()) {
             case "JSON":
                 objectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.LOWER_CAMEL_CASE);
-
-
                 try {
-                    pipeline = objectMapper.readValue(InputFormat, Pipeline.class);
+                    pipeline = objectMapper.readValue(inputStream, Pipeline.class);
                 } catch (IOException e) {
                     DatahubLogger.logError("Error While Processing Json Schema " + e.getMessage());
                     return null;
@@ -39,7 +42,7 @@ public class utils {
             case "YAML":
                 ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
                 try {
-                    pipeline =  yamlMapper.readValue(InputFormat, Pipeline.class);
+                    pipeline =  yamlMapper.readValue(inputStream, Pipeline.class);
                 } catch (JsonProcessingException e) {
                     throw new RuntimeException(e);
                 }
@@ -47,6 +50,7 @@ public class utils {
             default:
                 System.out.println("Unsupported format: " + SchemaFormat);
                 throw new IllegalArgumentException("Invalid format provided: " + SchemaFormat);
+        }
         }
         return  pipeline;
     }

@@ -29,6 +29,8 @@ public class Users {
     private String slack;
     private List<String> platform;
     private String pictureLink;
+    private List<String> nativeGroups;
+    private List<String> groupsMembership;
     public Users() {
 
     }

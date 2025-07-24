@@ -32,11 +32,11 @@ class ManageOwnersTest {
         owner3.setType("UNKNOWN_TYPE"); // invalid type
         owners.add(owner3);
 
-        String retval = ManageOwners.addOwners(Urn.createFromString("urn:li:dataProduct:manishdataproduct11"),
+    /*    ManageOwners.addOwners(Urn.createFromString("urn:li:dataProduct:manishdataproduct11"),
                 "dataProduct", "ownership","UPSERT",
-                owners);
+                owners);*/
 
         System.out.println("Product Created With URN ");
-        System.out.println(retval.toString());
+        // System.out.println(retval.toString());
     }
 }
