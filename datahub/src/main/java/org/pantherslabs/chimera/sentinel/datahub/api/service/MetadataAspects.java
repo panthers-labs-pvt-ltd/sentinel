@@ -1,8 +1,11 @@
 package org.pantherslabs.chimera.sentinel.datahub.api.service;
 
+import org.pantherslabs.chimera.sentinel.datahub.api.mapper.generated.LatestMetadataAspectV2DynamicSqlSupport;
+import org.pantherslabs.chimera.sentinel.datahub.api.mapper.generated.LatestMetadataAspectV2Mapper;
+import org.pantherslabs.chimera.sentinel.datahub.api.mapper.generated.MetadataAspectV2DynamicSqlSupport;
+import org.pantherslabs.chimera.sentinel.datahub.api.mapper.generated.MetadataAspectV2Mapper;
 import org.pantherslabs.chimera.unisca.api_nexus.api_nexus_client.dynamic_query.dto.FilterCondition;
 import org.pantherslabs.chimera.unisca.api_nexus.api_nexus_client.dynamic_query.mapper.GenericMapper;
-import org.pantherslabs.chimera.unisca.exception.ChimeraException;
 import org.pantherslabs.chimera.unisca.logging.ChimeraLogger;
 import org.pantherslabs.chimera.unisca.logging.ChimeraLoggerFactory;
 import org.pantherslabs.chimera.unisca.utilities.ChimeraUtils;
@@ -12,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
 
 @Service
 public class MetadataAspects {
@@ -30,5 +35,14 @@ public class MetadataAspects {
                 .map(ChimeraUtils::convertKeysToCamelCase)
                 .collect(Collectors.toList());
 
+    }
+
+    @Autowired
+    private MetadataAspectV2Mapper metadataAspectV2Mapper;
+
+    public int deleteByUrn(String inputUrn) {
+        return metadataAspectV2Mapper.delete(c ->
+                c.where(MetadataAspectV2DynamicSqlSupport.urn, isEqualTo(inputUrn))
+        );
     }
 }

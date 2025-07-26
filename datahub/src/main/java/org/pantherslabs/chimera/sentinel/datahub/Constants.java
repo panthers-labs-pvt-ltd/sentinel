@@ -109,8 +109,7 @@ import java.util.List;
         public static final String QUERY_ENTITY_NAME = "query";
         public static final String DATA_PRODUCT_ENTITY_NAME = "dataProduct";
         public static final String OWNERSHIP_TYPE_ENTITY_NAME = "ownershipType";
-        public static final Urn OWNERSHIP_TYPE_URN =
-                UrnUtils.getUrn("urn:li:ownershipType:");
+        public static final String OWNERSHIP_TYPE_URN = "urn:li:ownershipType:";
 
         public static final Urn DEFAULT_OWNERSHIP_TYPE_URN =
                 UrnUtils.getUrn("urn:li:ownershipType:__system__none");
@@ -297,6 +296,8 @@ import java.util.List;
         public static final String DOMAIN_KEY_ASPECT_NAME = "domainKey";
         public static final String DOMAIN_PROPERTIES_ASPECT_NAME = "domainProperties";
         public static final String DOMAINS_ASPECT_NAME = "domains";
+        public static final String DOMAINS_ASPECT_PREFIX = "urn:li:domain:";
+
 
         // ExternalRoleMetadata
         public static final String ROLE_ENTITY_NAME = "role";

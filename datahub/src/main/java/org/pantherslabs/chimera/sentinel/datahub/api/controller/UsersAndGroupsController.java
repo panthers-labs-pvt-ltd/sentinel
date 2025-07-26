@@ -15,14 +15,42 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
-public class ManageUsersAndGroupsController {
+public class UsersAndGroupsController {
 
     @Autowired
     private ManageUsersAndGroupsService manageUsersAndGroups;
 
+    /**
+     *
+     * @param userInfo
+     * [
+     *   {
+     *     "title": "Mr.",
+     *     "firstName": "John",
+     *     "lastName": "Doe",
+     *     "displayName": "John D.",
+     *     "email": "john.doe@example.com",
+     *     "manager": "jane.manager@example.com",
+     *     "active": true,
+     *     "countryCode": "US",
+     *     "departmentId": 12345,
+     *     "departmentName": "Engineering",
+     *     "aboutMe": "Full-stack developer with 10 years of experience.",
+     *     "skills": ["Java", "Spring Boot", "MySQL"],
+     *     "teams": ["Backend", "API"],
+     *     "phone": "+1-555-1234",
+     *     "slack": "@johndoe",
+     *     "platform": ["GitHub", "Jira"],
+     *     "pictureLink": "https://example.com/pictures/johndoe.jpg",
+     *     "nativeGroups": ["admins", "devs"],
+     *     "groupsMembership": ["engineering", "cloud"]
+     *   }]
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/new")
-    public ResponseEntity<?> createUsers(@RequestBody List<Users> userInfo) {
-        EmitResult result = manageUsersAndGroups.createUsers(userInfo, "CREATE");
+    public ResponseEntity<?> createUsers(@RequestBody List<Users> userInfo) throws Exception {
+        EmitResult result = manageUsersAndGroups.createOrEditUsers(userInfo, "CREATE");
 
         if (!result.isSuccess()) {
             throw new ChimeraException(
@@ -37,7 +65,7 @@ public class ManageUsersAndGroupsController {
 
     @PostMapping("/edit")
     public ResponseEntity<?> updateUsers(@RequestBody List<Users> userInfo) throws Exception {
-        EmitResult result = manageUsersAndGroups.createUsers(userInfo, "UPSERT");
+        EmitResult result = manageUsersAndGroups.createOrEditUsers(userInfo, "UPSERT");
 
         if (!result.isSuccess()) {
             throw new ChimeraException(

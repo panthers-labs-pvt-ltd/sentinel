@@ -1,14 +1,22 @@
 package org.pantherslabs.chimera.sentinel.datahub.domain;
 
 import com.ibm.icu.impl.data.ResourceReader;
+import com.linkedin.common.urn.Urn;
+import com.linkedin.events.metadata.ChangeType;
+import com.linkedin.mxe.MetadataChangeProposal;
 import io.datahubproject.openapi.generated.OwnershipType;
 import org.junit.jupiter.api.Test;
+import org.pantherslabs.chimera.sentinel.datahub.api.generics.DataHubEntityClient;
+import org.pantherslabs.chimera.sentinel.datahub.emitter.TransactionalDataHubEmitter;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
+
+import static org.pantherslabs.chimera.sentinel.datahub.Constants.TAG_ENTITY_NAME;
+import static org.pantherslabs.chimera.sentinel.datahub.common.genericUtils.emitProposal;
 
 
 class ManageDomainTest {
@@ -59,7 +67,6 @@ String domainName = "Panthers Labs - Chimera";
         ownersMap.put("BUSINESS_OWNER", OwnershipType.BUSINESS_OWNER.toString());
         ownersMap.put("Abhinav Kumar", OwnershipType.BUSINESS_OWNER.toString());
         ownersMap.put("Manish Kumar", OwnershipType.TECHNICAL_OWNER.toString());
-        ownersMap.put("BUSINESS_OWNER", OwnershipType.BUSINESS_OWNER.toString());
         ownersMap.put("DATA_STEWARD", OwnershipType.DATA_STEWARD.toString());
         ownersMap.put("DEVELOPER", OwnershipType.DEVELOPER.toString());
         ownersMap.put("DATAOWNER", OwnershipType.DATAOWNER.toString());
@@ -77,5 +84,23 @@ String domainName = "Panthers Labs - Chimera";
         } catch (URISyntaxException|IOException|ExecutionException|InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    void deleteDomain() throws URISyntaxException, IOException, ExecutionException, InterruptedException {
+   Urn domainUrn = Urn.createFromString("urn:li:domain:sales");
+/*urn:li:domain:sales
+        MetadataChangeProposal proposal = new MetadataChangeProposal();
+        proposal.setEntityUrn(domainUrn);
+        proposal.setEntityType("domain");
+        proposal.setAspectName("domainProperties");
+        proposal.setChangeType(ChangeType.DELETE);
+
+        // Emit the proposal using DataHub Emitter
+        emitProposal(proposal, "domain");*/
+        List<String> aspects = List.of("domainProperties","domainKey");
+
+        DataHubEntityClient.performAction(DataHubEntityClient.Action.DELETE, "domain", domainUrn.toString(), true, aspects);
+
     }
  }

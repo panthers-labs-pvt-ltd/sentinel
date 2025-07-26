@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkedin.common.*;
 import com.linkedin.common.urn.CorpuserUrn;
 import com.linkedin.common.urn.Urn;
-import com.linkedin.events.metadata.ChangeType;
 import com.linkedin.mxe.MetadataChangeProposal;
 import org.pantherslabs.chimera.sentinel.datahub.api.generics.AspectsMetadata;
 import org.pantherslabs.chimera.sentinel.datahub.api.model.generated.LatestMetadataAspectV2;
@@ -17,22 +16,22 @@ import org.pantherslabs.chimera.unisca.logging.ChimeraLoggerFactory;
 import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.pantherslabs.chimera.sentinel.datahub.Constants.*;
 import static org.pantherslabs.chimera.sentinel.datahub.Constants.UPSERT_ACTION_TYPE;
+import static org.pantherslabs.chimera.sentinel.datahub.Constants.OWNERSHIP_TYPE_URN;
 import static org.pantherslabs.chimera.sentinel.datahub.common.genericUtils.serializeAspect;
 import static org.pantherslabs.chimera.sentinel.datahub.users.SecretService.buildProposal;
 
 @Service
 public class ManageOwnership {
     static ChimeraLogger DCSLogger = ChimeraLoggerFactory.getLogger(ManageOwnership.class);
-    List<MetadataChangeProposal> proposals = new ArrayList<>();
+    static List<MetadataChangeProposal> proposals = new ArrayList<>();
 
-    public EmitResult createOwners(
+    public static EmitResult createOwners(
             Urn entityUrn,
             String entityType,
             Map<String, List<String>> ownersInfo,

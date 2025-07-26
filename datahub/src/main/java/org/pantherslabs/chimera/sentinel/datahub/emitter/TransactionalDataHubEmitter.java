@@ -16,7 +16,7 @@ import org.pantherslabs.chimera.unisca.logging.ChimeraLogger;
 import org.pantherslabs.chimera.unisca.logging.ChimeraLoggerFactory;
 
 public class TransactionalDataHubEmitter {
-    ChimeraLogger logger = ChimeraLoggerFactory.getLogger(ManageDatasets.class);
+    ChimeraLogger logger = ChimeraLoggerFactory.getLogger(TransactionalDataHubEmitter.class);
     private final Emitter emitter;
     private static final String DATAHUB_URL = System.getenv("DATAHUB_GMS_URL");
     public static String DATAHUB_AUTH_TOKEN = System.getenv("DATAHUB_TOKEN");
