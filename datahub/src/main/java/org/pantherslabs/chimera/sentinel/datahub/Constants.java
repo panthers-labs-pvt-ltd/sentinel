@@ -60,6 +60,8 @@ import java.util.List;
         // been processed and
         // should not be reprocessed
         public static final String APP_SOURCE = "appSource";
+        public static final String APP_URN_PREFIX = "urn:li:application:";
+        public static final String APPLICATION_ENTITY_NAME = "application";
 
         // App sources
         public static final String UI_SOURCE = "ui";

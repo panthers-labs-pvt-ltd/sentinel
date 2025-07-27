@@ -42,7 +42,7 @@ public class OwnershipController {
         EmitResult result = null;
         try {
             Urn urn = Urn.createFromString(request.getEntityUrn());
-            result = manageOwnership.createOwners(
+            result = ManageOwnership.createOwners(
                     urn,
                     request.getEntityType(),
                     request.getOwnersInfo(),

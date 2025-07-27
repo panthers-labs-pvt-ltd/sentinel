@@ -3,8 +3,6 @@ package org.pantherslabs.chimera.sentinel.datahub.modal;
 import com.linkedin.mxe.MetadataChangeProposal;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Collections;
 import java.util.List;
 
 @Setter
@@ -23,23 +21,12 @@ public class EmitResult {
         this.errorDetails = errorDetails;
     }
 
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public List<MetadataChangeProposal> getSucceeded() {
-        return succeeded;
-    }
-
-    public MetadataChangeProposal getFailedProposal() {
-        return failedProposal;
-    }
-
-    public ErrorDetails getErrorDetails() {
-        return errorDetails;
-    }
 
     public EmitResult(boolean success, ErrorDetails errorDetails) {
-        this(success, Collections.emptyList(), null, errorDetails);
+        this.success = success;
+        this.errorDetails = errorDetails;
+        this.succeeded = null;
+        this.failedProposal = null;
     }
+
 }

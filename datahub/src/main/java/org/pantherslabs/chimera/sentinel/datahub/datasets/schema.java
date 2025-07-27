@@ -23,9 +23,9 @@ import java.util.concurrent.ExecutionException;
 
 
 public class schema {
+    static ChimeraLogger DatahubLogger = ChimeraLoggerFactory.getLogger(ManageDatasets.class);
 
  public static Dataset getDatasetInformation(String InputFormat) {
- ChimeraLogger DatahubLogger = ChimeraLoggerFactory.getLogger(ManageDatasets.class);
      InputFormat = InputFormat.trim();
  String SchemaFormat;
 

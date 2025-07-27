@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 import static org.pantherslabs.chimera.sentinel.datahub.Constants.*;
 import static org.pantherslabs.chimera.sentinel.datahub.Constants.UPSERT_ACTION_TYPE;
 import static org.pantherslabs.chimera.sentinel.datahub.Constants.OWNERSHIP_TYPE_URN;
-import static org.pantherslabs.chimera.sentinel.datahub.common.genericUtils.serializeAspect;
 import static org.pantherslabs.chimera.sentinel.datahub.users.SecretService.buildProposal;
 
 @Service
