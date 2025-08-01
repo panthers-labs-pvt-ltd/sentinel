@@ -88,6 +88,7 @@ import java.util.List;
         public static final String ML_PRIMARY_KEY_ENTITY_NAME = "mlPrimaryKey";
         public static final String POLICY_ENTITY_NAME = "dataHubPolicy";
         public static final String TAG_ENTITY_NAME = "tag";
+        public static final String TAG_URN_PREFIX = "urn:li:tag:";
         public static final String CONTAINER_ENTITY_NAME = "container";
         public static final String DOMAIN_ENTITY_NAME = "domain";
         public static final String ER_MODEL_RELATIONSHIP_ENTITY_NAME = "erModelRelationship";
@@ -289,6 +290,8 @@ import java.util.List;
         public static final String GLOSSARY_TERM_KEY_ASPECT_NAME = "glossaryTermKey";
         public static final String GLOSSARY_TERM_INFO_ASPECT_NAME = "glossaryTermInfo";
         public static final String GLOSSARY_RELATED_TERM_ASPECT_NAME = "glossaryRelatedTerms";
+        public static final String GLOSSARY_TERM_URN_PREFIX = "urn:li:glossaryTerm:";
+
 
         // Glossary node
         public static final String GLOSSARY_NODE_KEY_ASPECT_NAME = "glossaryNodeKey";
@@ -323,6 +326,7 @@ import java.util.List;
         public static final String ASSERTION_RUN_EVENT_ASPECT_NAME = "assertionRunEvent";
         public static final String ASSERTION_RUN_EVENT_STATUS_COMPLETE = "COMPLETE";
         public static final String ASSERTION_ACTIONS_ASPECT_NAME = "assertionActions";
+        public static final String ASSERTION_URN_PREFIX = "urn:li:assertion:";
 
         // Tests
         public static final String TEST_ENTITY_NAME = "test";
@@ -333,6 +337,7 @@ import java.util.List;
         // Incident
         public static final String INCIDENT_KEY_ASPECT_NAME = "incidentKey";
         public static final String INCIDENT_INFO_ASPECT_NAME = "incidentInfo";
+        public static final String INCIDENT_URN_PREFIX = "urn:li:incident:";
 
         // DataHub Ingestion Source
         public static final String INGESTION_SOURCE_KEY_ASPECT_NAME = "dataHubIngestionSourceKey";
@@ -340,6 +345,9 @@ import java.util.List;
 
         // DataHub Secret
         public static final String SECRET_VALUE_ASPECT_NAME = "dataHubSecretValue";
+        public static final String DATAHUB_SECRET_URN_PREFIX = "urn:li:dataHubSecret:";
+        public static final String DATAHUB_SECRET_ENTITY = "datahubsecret";
+
 
         // DataHub Execution Request
         public static final String EXECUTION_REQUEST_INPUT_ASPECT_NAME = "dataHubExecutionRequestInput";
@@ -379,6 +387,7 @@ import java.util.List;
         // DataProduct
         public static final String DATA_PRODUCT_PROPERTIES_ASPECT_NAME = "dataProductProperties";
         public static final String DATA_PRODUCTS_ASPECT_NAME = "dataProducts";
+        public static final String DATA_PRODUCTS_URN_PREFIX = "urn:li:dataProduct:";
 
         // Ownership Types
         public static final String OWNERSHIP_TYPE_KEY_ASPECT_NAME = "ownershipTypeKey";

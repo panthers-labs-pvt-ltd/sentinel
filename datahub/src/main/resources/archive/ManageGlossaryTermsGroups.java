@@ -5,7 +5,7 @@ import com.linkedin.glossary.GlossaryTermInfo;
 import com.linkedin.mxe.GenericAspect;
 import com.linkedin.mxe.MetadataChangeProposal;
 
-import static org.pantherslabs.chimera.sentinel.datahub.common.genericUtils.replaceSpecialCharsAndLowercase;
+import static org.pantherslabs.chimera.sentinel.datahub.commons.genericUtils.replaceSpecialCharsAndLowercase;
 
 import org.pantherslabs.chimera.sentinel.datahub.domain.ManageDomain;
 import org.pantherslabs.chimera.unisca.logging.ChimeraLogger;

@@ -20,13 +20,13 @@
 
         <!-- 3. Model/Client Generators -->
         <javaModelGenerator
-                targetPackage="org.pantherslabs.chimera.sentinel.datahub.api.model.generated"
+                targetPackage="org.pantherslabs.chimera.sentinel.datahub.model.generated"
                 targetProject="src/main/java"/>
 
         <!-- 4. Mapper Generators -->
         <javaClientGenerator
                 type="ANNOTATEDMAPPER"
-                targetPackage="org.pantherslabs.chimera.sentinel.datahub.api.mapper.generated"
+                targetPackage="org.pantherslabs.chimera.sentinel.datahub.mapper.generated"
                 targetProject="src/main/java"/>
 
         <table schema="public" tableName="metadata_aspect_v2" delimitIdentifiers="true"/>

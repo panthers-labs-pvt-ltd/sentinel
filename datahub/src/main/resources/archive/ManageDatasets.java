@@ -24,8 +24,8 @@ import java.io.FileInputStream;
 import java.net.URISyntaxException;
 import java.time.Instant;
 
-import static org.pantherslabs.chimera.sentinel.datahub.common.genericUtils.createProposal;
-import static org.pantherslabs.chimera.sentinel.datahub.common.genericUtils.emitProposal;
+import static org.pantherslabs.chimera.sentinel.datahub.commons.genericUtils.createProposal;
+import static org.pantherslabs.chimera.sentinel.datahub.commons.genericUtils.emitProposal;
 
 public class ManageDatasets {
     static ChimeraLogger DatahubLogger = ChimeraLoggerFactory.getLogger(ManageDatasets.class);

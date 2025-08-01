@@ -1,0 +1,74 @@
+Error from server (NotFound): pods "datahubcore-datahub-frontend-77548c857b-x55sl" not found
+Error from server (NotFound): pods "datahubcore-datahub-frontend-77548c857b-x55sl" not found
+Forwarding from 127.0.0.1:9002 -> 9002
+Forwarding from [::1]:9002 -> 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+E0729 12:46:59.146838  251655 portforward.go:413] "Unhandled Error" err="an error occurred forwarding 9002 -> 9002: error forwarding port 9002 to pod 36706da1c176319007670cc714dddfc32166e335171311c710a49ac958ad42d8, uid : Error response from daemon: No such container: 36706da1c176319007670cc714dddfc32166e335171311c710a49ac958ad42d8"
+E0729 12:46:59.148248  251655 portforward.go:413] "Unhandled Error" err="an error occurred forwarding 9002 -> 9002: error forwarding port 9002 to pod 36706da1c176319007670cc714dddfc32166e335171311c710a49ac958ad42d8, uid : Error response from daemon: No such container: 36706da1c176319007670cc714dddfc32166e335171311c710a49ac958ad42d8"
+error: lost connection to pod
+Error from server (NotFound): pods "datahubcore-datahub-frontend-55fd9b87f5-g6pjb" not found
+Forwarding from 127.0.0.1:9002 -> 9002
+Forwarding from [::1]:9002 -> 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+Handling connection for 9002
+E0729 14:06:00.395140  276068 portforward.go:413] "Unhandled Error" err="an error occurred forwarding 9002 -> 9002: error forwarding port 9002 to pod ad05e5e35d2c1b5e1925542dccb9e7de56b37b334544612ba1d2441ebee89c72, uid : Error response from daemon: No such container: ad05e5e35d2c1b5e1925542dccb9e7de56b37b334544612ba1d2441ebee89c72"
+E0729 14:06:00.395963  276068 portforward.go:413] "Unhandled Error" err="an error occurred forwarding 9002 -> 9002: error forwarding port 9002 to pod ad05e5e35d2c1b5e1925542dccb9e7de56b37b334544612ba1d2441ebee89c72, uid : Error response from daemon: No such container: ad05e5e35d2c1b5e1925542dccb9e7de56b37b334544612ba1d2441ebee89c72"
+error: lost connection to pod
+Unable to listen on port 8080: Listeners failed to create with the following errors: [unable to create listener: Error listen tcp4 127.0.0.1:8080: bind: address already in use unable to create listener: Error listen tcp6 [::1]:8080: bind: address already in use]
+error: unable to listen on any of the requested ports: [{8080 8080}]
