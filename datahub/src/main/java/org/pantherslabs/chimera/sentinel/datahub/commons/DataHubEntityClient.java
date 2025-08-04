@@ -15,10 +15,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class DataHubEntityClient {
-    private static final String DATAHUB_URLa = System.getenv("DATAHUB_GMS_URL");
-    public static String DATAHUB_AUTH_TOKEN3= System.getenv("DATAHUB_TOKEN");
-    public static String DATAHUB_AUTH_TOKEN="eyJhbGciOiJIUzI1NiJ9.eyJhY3RvclR5cGUiOiJVU0VSIiwiYWN0b3JJZCI6ImRhdGFodWIiLCJ0eXBlIjoiUEVSU09OQUwiLCJ2ZXJzaW9uIjoiMiIsImp0aSI6IjJhNWI2ODNlLTMxNTktNDQ5ZC04YmM2LTc4MjI5NTAxNjMyNSIsInN1YiI6ImRhdGFodWIiLCJpc3MiOiJkYXRhaHViLW1ldGFkYXRhLXNlcnZpY2UifQ.GMojHOdUCp0R3dltLmCJMqqxMrlo5wtDyhHAub3Vw08";
-    private static final String DATAHUB_URL = "http://localhost:9002";
+    private static final String DATAHUB_URL = System.getenv("DATAHUB_GMS_URL");
+    public static String DATAHUB_AUTH_TOKEN= System.getenv("DATAHUB_TOKEN");
+
     public enum Action {
         GET,
         DELETE

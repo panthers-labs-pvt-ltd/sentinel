@@ -256,34 +256,6 @@ public class commonsFunctions {
         return "No validation message found.";
     }
 
-    public static SchemaFieldDataType NativeTypeToSchemaType(Object value) {
-        if (value == null) {
-            return new SchemaFieldDataType().setType(SchemaFieldDataType.Type.create(new NullType()));
-        } else if (value instanceof Boolean) {
-            return new SchemaFieldDataType().setType(SchemaFieldDataType.Type.create(new BooleanType()));
-        } else if (value instanceof byte[]) {
-            return new SchemaFieldDataType().setType(SchemaFieldDataType.Type.create(new BytesType()));
-        } else if (value instanceof String) {
-            return new SchemaFieldDataType().setType(SchemaFieldDataType.Type.create(new StringType()));
-        } else if (value instanceof Number) {
-            return new SchemaFieldDataType().setType(SchemaFieldDataType.Type.create(new NumberType()));
-        } else if (value instanceof java.util.Date || value instanceof java.time.LocalDate) {
-            return new SchemaFieldDataType().setType(SchemaFieldDataType.Type.create(new DateType()));
-        } else if (value instanceof java.time.LocalTime) {
-            return new SchemaFieldDataType().setType(SchemaFieldDataType.Type.create(new TimeType()));
-        } else if (value.getClass().isEnum()) {
-            return new SchemaFieldDataType().setType(SchemaFieldDataType.Type.create(new EnumType()));
-        } else if (value instanceof Map) {
-            return new SchemaFieldDataType().setType(SchemaFieldDataType.Type.create(new MapType()));
-        } else if (value instanceof List || value.getClass().isArray()) {
-            return new SchemaFieldDataType().setType(SchemaFieldDataType.Type.create(new ArrayType()));
-        } else if (value.getClass().isRecord()) {
-            return new SchemaFieldDataType().setType(SchemaFieldDataType.Type.create(new RecordType()));
-        } else {
-            return new SchemaFieldDataType().setType(SchemaFieldDataType.Type.create(new StringType()));
-        }
-    }
-
     // Convert DataMap to byte[]
     public static byte[] dataMapToBytes(DataMap map) throws Exception {
         return CODEC.mapToBytes(map);
@@ -303,89 +275,50 @@ public class commonsFunctions {
         return false;
     }
 
-    public static List<ErrorResponse> compareSchemas(
-            List<Field> inputSchema,
-            List<SchemaField> existingFields,
-            String requestURI // e.g., dataset URN or API path
-    ) {
-        List<ErrorResponse> errors = new ArrayList<>();
-        String errorTimestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
-        Map<String, SchemaField> fieldMap = new HashMap<>();
-        for (SchemaField f : existingFields) {
-            fieldMap.put(f.getFieldPath().toLowerCase(), f);
+    public static <E extends Enum<E>> boolean isValid(Class<E> enumClass, Object value) {
+        if (value == null) {
+            return false;
         }
 
-        for (Field inputField : inputSchema) {
-            String fieldName = inputField.getName().toLowerCase();
-            if (!fieldMap.containsKey(fieldName)) {
-                errors.add(new ErrorResponse(errorTimestamp,
-                        "FIELD_MISSING",
-                        requestURI,
-                        "Field missing in dataset: " + inputField.getName(),
-                        "ERR_SCHEMA_MISSING_FIELD"
-                ));
-                continue;
-            }
+        String stringValue = value instanceof Enum<?> ? ((Enum<?>) value).name() : value.toString();
 
-            SchemaField existingField = fieldMap.get(fieldName);
-
-            String existingType = normalizeType(existingField.getType().toString());
-            String expectedType = normalizeType(inputField.getType());
-
-            if (!expectedType.equals(existingType)) {
-                errors.add(new ErrorResponse(errorTimestamp,
-                        "TYPE_MISMATCH",
-                        requestURI,
-                        String.format("Type mismatch for field '%s': expected '%s', found '%s'",
-                                inputField.getName(), expectedType, existingType),
-                        "ERR_SCHEMA_TYPE_MISMATCH"
-                ));
-            }
-
-            if (existingField.isNullable() != inputField.isNullable()) {
-                errors.add(new ErrorResponse(errorTimestamp,
-                        "NULLABILITY_MISMATCH",
-                        requestURI,
-                        String.format("Nullable mismatch for field '%s': expected '%s', found '%s'",
-                                inputField.getName(), inputField.isNullable(), existingField.isNullable()),
-                        "ERR_SCHEMA_NULLABILITY_MISMATCH"
-                ));
+        for (E enumConstant : enumClass.getEnumConstants()) {
+            if (enumConstant.name().equalsIgnoreCase(stringValue)) {
+                return true;
             }
         }
-        return  errors;
+        return false;
     }
 
-    private static String normalizeType(String type) {
-        switch (type.toLowerCase()) {
-            case "int":
-            case "integer":
-                return "int";
-            case "long":
-                return "long";
-            case "string":
-                return "string";
-            case "boolean":
-                return "boolean";
-            case "timestamp":
-                return "timestamp";
-            case "double":
-                return "double";
-            default:
-                return type.toLowerCase();
+
+    public static record DataControlKey(String databaseName, String tableName, String ruleName,
+                                        String ruleColumn,String schemaName) {}
+
+    public static  DataControlKey parseDatasetName(String datasetName) {
+        String[] parts = datasetName.split("\\.");
+
+        String databaseName;
+        String schema = null;
+        String tableName;
+        if (parts.length == 1) {
+            // Format: database.table
+            databaseName = null;
+            tableName = parts[0];
         }
+        else if (parts.length == 2) {
+            // Format: database.table
+            databaseName = parts[0];
+            tableName = parts[1];
+        } else if (parts.length == 3) {
+            // Format: database.schema.table
+            databaseName = parts[0];
+            schema = parts[1];
+            tableName = parts[2];
+        } else {
+            throw new IllegalArgumentException("Invalid dataset name format: " + datasetName);
+        }
+
+        return new  DataControlKey(databaseName, tableName, null, null,schema);
     }
 
-    public static String getHtmlError(List<ErrorResponse> matchStatus)
-    {
-        String executionDate = matchStatus.get(0).getErrorTimestamp();
-        return  "<table border='1'><tr><th colspan='2'> Error Details </th>" +
-                "<th colspan='2'> Execution Date %s </th></tr><tr><th>Type</th><th>Code</th>" +
-                "<th colspan='2'>Message</th></tr>".formatted(executionDate) +
-                matchStatus.stream().map(error ->
-                        String.format("<tr><td>%s</td><td>%s</td><td colspan='2'>%s</td></tr>",
-                                error.getErrorType(),error.getErrorCode(),error.getErrorMessage()))
-                        .collect(Collectors.joining()) +
-                "</table>";
-   }
 }

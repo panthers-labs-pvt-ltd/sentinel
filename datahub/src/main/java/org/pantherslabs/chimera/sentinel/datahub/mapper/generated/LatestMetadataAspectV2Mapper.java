@@ -30,10 +30,10 @@ import org.pantherslabs.chimera.sentinel.datahub.model.generated.LatestMetadataA
 
 @Mapper
 public interface LatestMetadataAspectV2Mapper extends CommonCountMapper, CommonDeleteMapper, CommonInsertMapper<LatestMetadataAspectV2>, CommonUpdateMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.976726053Z", comments="Source Table: public.latest_metadata_aspect_v2")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.609045216Z", comments="Source Table: public.latest_metadata_aspect_v2")
     BasicColumn[] selectList = BasicColumn.columnList(urn, aspect, version, metadata, systemmetadata, createdon, createdby, createdfor);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.976143124Z", comments="Source Table: public.latest_metadata_aspect_v2")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.608469303Z", comments="Source Table: public.latest_metadata_aspect_v2")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="LatestMetadataAspectV2Result", value = {
         @Result(column="urn", property="urn", jdbcType=JdbcType.VARCHAR),
@@ -47,22 +47,22 @@ public interface LatestMetadataAspectV2Mapper extends CommonCountMapper, CommonD
     })
     List<LatestMetadataAspectV2> selectMany(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.976242653Z", comments="Source Table: public.latest_metadata_aspect_v2")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.608560212Z", comments="Source Table: public.latest_metadata_aspect_v2")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @ResultMap("LatestMetadataAspectV2Result")
     Optional<LatestMetadataAspectV2> selectOne(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.976294885Z", comments="Source Table: public.latest_metadata_aspect_v2")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.608612039Z", comments="Source Table: public.latest_metadata_aspect_v2")
     default long count(CountDSLCompleter completer) {
         return MyBatis3Utils.countFrom(this::count, latestMetadataAspectV2, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.976341344Z", comments="Source Table: public.latest_metadata_aspect_v2")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.608658525Z", comments="Source Table: public.latest_metadata_aspect_v2")
     default int delete(DeleteDSLCompleter completer) {
         return MyBatis3Utils.deleteFrom(this::delete, latestMetadataAspectV2, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.976386686Z", comments="Source Table: public.latest_metadata_aspect_v2")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.608703698Z", comments="Source Table: public.latest_metadata_aspect_v2")
     default int insert(LatestMetadataAspectV2 row) {
         return MyBatis3Utils.insert(this::insert, row, latestMetadataAspectV2, c ->
             c.map(urn).toProperty("urn")
@@ -76,7 +76,7 @@ public interface LatestMetadataAspectV2Mapper extends CommonCountMapper, CommonD
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.976491615Z", comments="Source Table: public.latest_metadata_aspect_v2")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.608793576Z", comments="Source Table: public.latest_metadata_aspect_v2")
     default int insertMultiple(Collection<LatestMetadataAspectV2> records) {
         return MyBatis3Utils.insertMultiple(this::insertMultiple, records, latestMetadataAspectV2, c ->
             c.map(urn).toProperty("urn")
@@ -90,7 +90,7 @@ public interface LatestMetadataAspectV2Mapper extends CommonCountMapper, CommonD
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.976593006Z", comments="Source Table: public.latest_metadata_aspect_v2")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.608873707Z", comments="Source Table: public.latest_metadata_aspect_v2")
     default int insertSelective(LatestMetadataAspectV2 row) {
         return MyBatis3Utils.insert(this::insert, row, latestMetadataAspectV2, c ->
             c.map(urn).toPropertyWhenPresent("urn", row::getUrn)
@@ -104,27 +104,27 @@ public interface LatestMetadataAspectV2Mapper extends CommonCountMapper, CommonD
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.976787596Z", comments="Source Table: public.latest_metadata_aspect_v2")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.609096293Z", comments="Source Table: public.latest_metadata_aspect_v2")
     default Optional<LatestMetadataAspectV2> selectOne(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectOne(this::selectOne, selectList, latestMetadataAspectV2, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.976831355Z", comments="Source Table: public.latest_metadata_aspect_v2")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.609156837Z", comments="Source Table: public.latest_metadata_aspect_v2")
     default List<LatestMetadataAspectV2> select(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectList(this::selectMany, selectList, latestMetadataAspectV2, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.976874369Z", comments="Source Table: public.latest_metadata_aspect_v2")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.609231626Z", comments="Source Table: public.latest_metadata_aspect_v2")
     default List<LatestMetadataAspectV2> selectDistinct(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectDistinct(this::selectMany, selectList, latestMetadataAspectV2, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.976919153Z", comments="Source Table: public.latest_metadata_aspect_v2")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.609325627Z", comments="Source Table: public.latest_metadata_aspect_v2")
     default int update(UpdateDSLCompleter completer) {
         return MyBatis3Utils.update(this::update, latestMetadataAspectV2, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.977054155Z", comments="Source Table: public.latest_metadata_aspect_v2")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.609391325Z", comments="Source Table: public.latest_metadata_aspect_v2")
     static UpdateDSL<UpdateModel> updateAllColumns(LatestMetadataAspectV2 row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(urn).equalTo(row::getUrn)
                 .set(aspect).equalTo(row::getAspect)
@@ -136,7 +136,7 @@ public interface LatestMetadataAspectV2Mapper extends CommonCountMapper, CommonD
                 .set(createdfor).equalTo(row::getCreatedfor);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.977145863Z", comments="Source Table: public.latest_metadata_aspect_v2")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.609523003Z", comments="Source Table: public.latest_metadata_aspect_v2")
     static UpdateDSL<UpdateModel> updateSelectiveColumns(LatestMetadataAspectV2 row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(urn).equalToWhenPresent(row::getUrn)
                 .set(aspect).equalToWhenPresent(row::getAspect)

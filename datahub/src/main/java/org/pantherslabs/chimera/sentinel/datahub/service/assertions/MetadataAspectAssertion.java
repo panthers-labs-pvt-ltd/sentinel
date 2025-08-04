@@ -101,7 +101,7 @@ public class MetadataAspectAssertion {
                                         .setType(IncrementingSegmentFieldTransformerType.NATIVE))));
 //======================================
 
-        // Dataset assertion (row count)
+        // DatasetAssertion (row count)
         UrnArray urnarray = new UrnArray();
         urnarray.add(new Urn(""));
         urnarray.add(new Urn(""));

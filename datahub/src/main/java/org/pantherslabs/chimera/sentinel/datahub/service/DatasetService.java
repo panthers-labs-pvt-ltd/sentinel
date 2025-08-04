@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 import static org.pantherslabs.chimera.sentinel.datahub.Constants.*;
 import static org.pantherslabs.chimera.sentinel.datahub.commons.EventEmitter.emitEvent;
 import static org.pantherslabs.chimera.sentinel.datahub.commons.commonsFunctions.*;
+import static org.pantherslabs.chimera.sentinel.datahub.service.assertions.utils.SchemaAssertionUtils.NativeTypeToSchemaType;
 
 @Service
 public class DatasetService {

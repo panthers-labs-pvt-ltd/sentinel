@@ -181,6 +181,11 @@ import java.util.List;
         public static final String VIEW_PROPERTIES_ASPECT_NAME = "viewProperties";
         public static final String DATASET_PROFILE_ASPECT_NAME = "datasetProfile";
 
+        //field
+
+        public static final String DATASET_FIELD_URN_PREFIX = "urn:li:schemaField:";
+
+
         public static final String STRUCTURED_PROPERTIES_ASPECT_NAME = "structuredProperties";
         public static final String FORMS_ASPECT_NAME = "forms";
         // Aspect support
@@ -319,6 +324,11 @@ import java.util.List;
                 "erModelRelationshipProperties";
         public static final String EDITABLE_ER_MODEL_RELATIONSHIP_PROPERTIES_ASPECT_NAME =
                 "editableERModelRelationshipProperties";
+
+        //Schedules
+        public static final String FIXED_INTERVAL_SCHEDULE = "FIXED_INTERVAL";
+        public static final String CRON_EXPRESSION_SCHEDULE = "CRON";
+        public static final String SINCE_THE_LAST_CHECK_SCHEDULE = "SINCE_THE_LAST_CHECK";
 
         // Assertion
         public static final String ASSERTION_KEY_ASPECT_NAME = "assertionKey";

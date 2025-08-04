@@ -18,12 +18,11 @@ import org.pantherslabs.chimera.unisca.logging.ChimeraLoggerFactory;
 import static org.pantherslabs.chimera.sentinel.datahub.commons.commonsFunctions.extractErrorDetails;
 
 public class EventEmitter {
-    static String DATAHUB_TOKEN="eyJhbGciOiJIUzI1NiJ9.eyJhY3RvclR5cGUiOiJVU0VSIiwiYWN0b3JJZCI6ImRhdGFodWIiLCJ0eXBlIjoiUEVSU09OQUwiLCJ2ZXJzaW9uIjoiMiIsImp0aSI6IjJhNWI2ODNlLTMxNTktNDQ5ZC04YmM2LTc4MjI5NTAxNjMyNSIsInN1YiI6ImRhdGFodWIiLCJpc3MiOiJkYXRhaHViLW1ldGFkYXRhLXNlcnZpY2UifQ.GMojHOdUCp0R3dltLmCJMqqxMrlo5wtDyhHAub3Vw08";
 
     ChimeraLogger logger = ChimeraLoggerFactory.getLogger(EventEmitter.class);
     private final Emitter emitter;
     private static final String DATAHUB_URL = System.getenv("DATAHUB_GMS_URL");
-    public static String DATAHUB_AUTH_TOKEN = DATAHUB_TOKEN;// System.getenv("DATAHUB_TOKEN");
+    public static String DATAHUB_AUTH_TOKEN = System.getenv("DATAHUB_TOKEN");
 
     public EventEmitter() {
         this.emitter = RestEmitter.create(builder -> builder

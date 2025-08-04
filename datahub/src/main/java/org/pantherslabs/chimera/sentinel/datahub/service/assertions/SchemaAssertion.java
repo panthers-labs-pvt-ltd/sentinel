@@ -35,6 +35,8 @@ import java.util.UUID;
 import static org.pantherslabs.chimera.sentinel.datahub.Constants.*;
 import static org.pantherslabs.chimera.sentinel.datahub.commons.EventEmitter.emitEvent;
 import static org.pantherslabs.chimera.sentinel.datahub.commons.commonsFunctions.*;
+import static org.pantherslabs.chimera.sentinel.datahub.service.assertions.utils.SchemaAssertionUtils.NativeTypeToSchemaType;
+import static org.pantherslabs.chimera.sentinel.datahub.service.assertions.utils.SchemaAssertionUtils.compareSchemas;
 
 
 public class SchemaAssertion {
@@ -117,8 +119,6 @@ public class SchemaAssertion {
 
         SchemaMetadata existingSchema = RecordUtils.toRecordTemplate(SchemaMetadata.class, schemaMetadataAspect.getMetadata());
 
-        // ObjectMapper mapper = new ObjectMapper();
-        // SchemaMetadata existingSchema = mapper.readValue(schemaMetadataAspect.getMetadata(), SchemaMetadata.class);
         StringMap nativeResult = new StringMap();
         AssertionResult assertionResult = new AssertionResult();
         AssertionAction assertionAction = new AssertionAction();
@@ -129,6 +129,7 @@ public class SchemaAssertion {
             nativeResult.put("result", "Schema matched");
             assertionAction.setType(AssertionActionType.RESOLVE_INCIDENT);
             assertionResult.setType(AssertionResultType.SUCCESS);
+
         } else {
             errorDesc = new ObjectMapper().writeValueAsString(matchStatus);
             nativeResult.put("result", "Schema MisMismatch");
@@ -141,7 +142,7 @@ public class SchemaAssertion {
         }
             if (externalUrl != null && !externalUrl.isEmpty())
                 assertionResult.setExternalUrl(externalUrl);
-
+        assertionResult.setNativeResults(nativeResult);
         AssertionRunEvent runEvent = new AssertionRunEvent()
                 .setRunId(UUID.randomUUID().toString())
                 .setAssertionUrn(assertionUrn)

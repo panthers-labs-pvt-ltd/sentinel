@@ -31,6 +31,7 @@
 
         <table schema="public" tableName="metadata_aspect_v2" delimitIdentifiers="true"/>
         <table schema="public" tableName="latest_metadata_aspect_v2" delimitIdentifiers="true"/>
+        <table schema="public" tableName="data_controls_log" delimitIdentifiers="true"/>
 
     </context>
 </generatorConfiguration>

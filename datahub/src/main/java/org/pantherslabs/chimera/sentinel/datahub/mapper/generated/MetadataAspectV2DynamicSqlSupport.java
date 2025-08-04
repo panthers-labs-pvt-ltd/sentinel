@@ -7,34 +7,34 @@ import org.mybatis.dynamic.sql.AliasableSqlTable;
 import org.mybatis.dynamic.sql.SqlColumn;
 
 public final class MetadataAspectV2DynamicSqlSupport {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.95410827Z", comments="Source Table: public.metadata_aspect_v2")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.590319571Z", comments="Source Table: public.metadata_aspect_v2")
     public static final MetadataAspectV2 metadataAspectV2 = new MetadataAspectV2();
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.954392798Z", comments="Source field: public.metadata_aspect_v2.urn")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.590660902Z", comments="Source field: public.metadata_aspect_v2.urn")
     public static final SqlColumn<String> urn = metadataAspectV2.urn;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.954881413Z", comments="Source field: public.metadata_aspect_v2.aspect")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.590974491Z", comments="Source field: public.metadata_aspect_v2.aspect")
     public static final SqlColumn<String> aspect = metadataAspectV2.aspect;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.954990997Z", comments="Source field: public.metadata_aspect_v2.version")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.591037283Z", comments="Source field: public.metadata_aspect_v2.version")
     public static final SqlColumn<Long> version = metadataAspectV2.version;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.955062595Z", comments="Source field: public.metadata_aspect_v2.metadata")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.591091548Z", comments="Source field: public.metadata_aspect_v2.metadata")
     public static final SqlColumn<String> metadata = metadataAspectV2.metadata;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.955128699Z", comments="Source field: public.metadata_aspect_v2.systemmetadata")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.591246936Z", comments="Source field: public.metadata_aspect_v2.systemmetadata")
     public static final SqlColumn<String> systemmetadata = metadataAspectV2.systemmetadata;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.955199273Z", comments="Source field: public.metadata_aspect_v2.createdon")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.591310947Z", comments="Source field: public.metadata_aspect_v2.createdon")
     public static final SqlColumn<Date> createdon = metadataAspectV2.createdon;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.955297685Z", comments="Source field: public.metadata_aspect_v2.createdby")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.591477864Z", comments="Source field: public.metadata_aspect_v2.createdby")
     public static final SqlColumn<String> createdby = metadataAspectV2.createdby;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.955366303Z", comments="Source field: public.metadata_aspect_v2.createdfor")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.591541125Z", comments="Source field: public.metadata_aspect_v2.createdfor")
     public static final SqlColumn<String> createdfor = metadataAspectV2.createdfor;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.954274741Z", comments="Source Table: public.metadata_aspect_v2")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.590532879Z", comments="Source Table: public.metadata_aspect_v2")
     public static final class MetadataAspectV2 extends AliasableSqlTable<MetadataAspectV2> {
         public final SqlColumn<String> urn = column("urn", JDBCType.VARCHAR);
 

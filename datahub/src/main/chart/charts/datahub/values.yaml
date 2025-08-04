@@ -774,7 +774,7 @@ global:
       hostForpostgresqlClient: "192.168.100.22"
       hostForMysqlClient: "192.168.100.22"
       port: "5432"
-      url: "jdbc:postgresql://192.168.100.22:5432/datahub?sslmode=disable"
+      url: "jdbc:postgresql://192.168.100.22:5432/sentinel?sslmode=disable"
       driver: "org.postgresql.Driver"
       username: "postgres"
       password:

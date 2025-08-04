@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.pantherslabs.chimera.sentinel.datahub.Constants.*;
 import static org.pantherslabs.chimera.sentinel.datahub.commons.EventEmitter.emitEvent;
 import static org.pantherslabs.chimera.sentinel.datahub.commons.commonsFunctions.*;
+import static org.pantherslabs.chimera.sentinel.datahub.service.assertions.utils.SchemaAssertionUtils.NativeTypeToSchemaType;
 
 class MetadataAspectAssertionTest {
     List<MetadataChangeProposal> proposals = new ArrayList<>();

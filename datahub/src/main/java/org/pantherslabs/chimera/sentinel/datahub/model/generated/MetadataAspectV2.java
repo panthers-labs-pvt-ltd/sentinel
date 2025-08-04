@@ -6,27 +6,27 @@ import lombok.Data;
 
 @Data
 public class MetadataAspectV2 {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.949222777Z", comments="Source field: public.metadata_aspect_v2.urn")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.583777128Z", comments="Source field: public.metadata_aspect_v2.urn")
     private String urn;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.950577267Z", comments="Source field: public.metadata_aspect_v2.aspect")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.585179094Z", comments="Source field: public.metadata_aspect_v2.aspect")
     private String aspect;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.950807516Z", comments="Source field: public.metadata_aspect_v2.version")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.585385748Z", comments="Source field: public.metadata_aspect_v2.version")
     private Long version;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.95099298Z", comments="Source field: public.metadata_aspect_v2.metadata")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.585532233Z", comments="Source field: public.metadata_aspect_v2.metadata")
     private String metadata;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.951204701Z", comments="Source field: public.metadata_aspect_v2.systemmetadata")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.585702617Z", comments="Source field: public.metadata_aspect_v2.systemmetadata")
     private String systemmetadata;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.95143616Z", comments="Source field: public.metadata_aspect_v2.createdon")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.58616091Z", comments="Source field: public.metadata_aspect_v2.createdon")
     private Date createdon;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.951647415Z", comments="Source field: public.metadata_aspect_v2.createdby")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.586605708Z", comments="Source field: public.metadata_aspect_v2.createdby")
     private String createdby;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-07-23T14:39:30.951819286Z", comments="Source field: public.metadata_aspect_v2.createdfor")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2025-08-04T14:34:09.586822202Z", comments="Source field: public.metadata_aspect_v2.createdfor")
     private String createdfor;
 }

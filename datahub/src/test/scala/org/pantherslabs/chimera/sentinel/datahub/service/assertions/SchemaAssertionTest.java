@@ -11,12 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class SchemaAssertionTest {
     SchemaAssertion assertion = new SchemaAssertion();
     String dataPlatform="postgres";
-    String datasetName="datahub.public.metadata_aspect_v2";
+    String datasetName="sentinel.public.data_control_dimensions";
     String fabricType="PROD";
     String schemaName="public";
-    String sqlDDL="Create table datahub.public.metadata_aspect_v2(sno String) ";
+    String sqlDDL="Create table sentinel.public.data_control_dimensions(sno String) ";
     List<Field> schemaList = new ArrayList<>();
-    String schemaDesc="Schema for Dataset metadata_aspect_v2";
+    String schemaDesc="Schema for Dataset data_control_dimensions";
 
     @Test
     void createAssertion() {

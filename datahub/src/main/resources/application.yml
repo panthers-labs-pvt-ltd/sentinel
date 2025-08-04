@@ -14,7 +14,7 @@ spring:
     config:
       enabled: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/datahub
+    url: jdbc:postgresql://localhost:5432/sentinel
     username: postgres
     password: Abnamro1!
     driver-class-name: org.postgresql.Driver

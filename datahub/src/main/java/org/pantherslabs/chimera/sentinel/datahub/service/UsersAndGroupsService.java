@@ -2,6 +2,7 @@ package org.pantherslabs.chimera.sentinel.datahub.service;
 
 import java.time.Instant;
 import java.util.*;
+
 import org.springframework.stereotype.Service;
 
 import com.linkedin.common.AuditStamp;
@@ -18,6 +19,7 @@ import org.pantherslabs.chimera.sentinel.datahub.dto.EmitResult;
 import org.pantherslabs.chimera.sentinel.datahub.dto.Users;
 import org.pantherslabs.chimera.unisca.logging.ChimeraLogger;
 import org.pantherslabs.chimera.unisca.logging.ChimeraLoggerFactory;
+
 import static org.pantherslabs.chimera.sentinel.datahub.Constants.*;
 import static org.pantherslabs.chimera.sentinel.datahub.commons.commonsFunctions.*;
 
@@ -29,8 +31,9 @@ public class UsersAndGroupsService {
 
     /**
      * this Service Class will be used to Create or Edit User
-     * @param userInfo  user Information
-     * @param changeType  CREATE/UPSERT
+     *
+     * @param userInfo   user Information
+     * @param changeType CREATE/UPSERT
      * @return
      * @throws Exception
      */
@@ -151,8 +154,8 @@ public class UsersAndGroupsService {
 
     /**
      * this api wll be used to deactivate any user
-     * @param userEmail
-     *                 http://localhost:8080/api/users/deactivate?userName=john.doe@example.com
+     *
+     * @param userEmail http://localhost:8080/api/users/deactivate?userName=john.doe@example.com
      * @return
      */
     public EmitResult deactivateUser(String userEmail) {
@@ -179,14 +182,13 @@ public class UsersAndGroupsService {
 
             // Emit with rollback support
             EventEmitter txEmitter = new EventEmitter();
-            EmitResult result =txEmitter.emitWithRollback(proposals);
+            EmitResult result = txEmitter.emitWithRollback(proposals);
 
             if (result.isSuccess()) {
                 logger.logInfo("✅ User soft-deleted successfully: " + userEmail + result.getSucceeded());
             } else {
                 logger.logError("❌ Soft delete failed and rollback triggered for user: " + userEmail);
             }
-
 
         } catch (IllegalArgumentException e) {
             logger.logError("⚠️ Invalid input: " + e.getMessage());
