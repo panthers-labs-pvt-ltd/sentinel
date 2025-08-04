@@ -1,4 +1,4 @@
-CREATE SEQUENCE dq_rules_asset_map_seq
+CREATE SEQUENCE if not exists dq_rules_asset_map_seq
     START WITH 1
     INCREMENT BY 1
     MINVALUE 1
@@ -8,7 +8,7 @@ CREATE SEQUENCE dq_rules_asset_map_seq
 
 
 CREATE TABLE dq_rules_asset_map (
-	asset_map_id varchar(30) DEFAULT (('DQRM-'::text || lpad(nextval('sentinel.dq_rules_asset_map_seq'::regclass)::text, 20, '0'::text))) NOT NULL, -- Should be incremental
+	asset_map_id varchar(30) DEFAULT (('DQRM-'::text || lpad(nextval('dq_rules_asset_map_seq'::regclass)::text, 20, '0'::text))) NOT NULL, -- Should be incremental
 	rule_id varchar(30) NOT NULL, -- Rule Id
 	database_name varchar(255) NOT NULL,
 	schema_name varchar(255) NULL,
@@ -34,19 +34,19 @@ CREATE TABLE dq_rules_asset_map (
 
 -- Column comments
 
-COMMENT ON COLUMN sentinel.dq_rules_asset_map.asset_map_id IS 'Should be incremental';
-COMMENT ON COLUMN sentinel.dq_rules_asset_map.rule_id IS 'Rule Id';
-COMMENT ON COLUMN sentinel.dq_rules_asset_map.database_name IS 'database_name';
-COMMENT ON COLUMN sentinel.dq_rules_asset_map.effective_from IS 'Date from which this process will be effective';
-COMMENT ON COLUMN sentinel.dq_rules_asset_map.expiry_date IS 'Date on Which this process was discontinued';
-COMMENT ON COLUMN sentinel.dq_rules_asset_map.active_flg IS 'whether this record is still valid';
-COMMENT ON COLUMN sentinel.dq_rules_asset_map.reserved_5 IS 'dummy column for future use';
-COMMENT ON COLUMN sentinel.dq_rules_asset_map.reserved_4 IS 'dummy column for future use';
-COMMENT ON COLUMN sentinel.dq_rules_asset_map.reserved_3 IS 'dummy column for future use';
-COMMENT ON COLUMN sentinel.dq_rules_asset_map.reserved_2 IS 'dummy column for future use';
-COMMENT ON COLUMN sentinel.dq_rules_asset_map.reserved_1 IS 'dummy column for future use';
-COMMENT ON COLUMN sentinel.dq_rules_asset_map.updated_ts IS 'last updated by';
-COMMENT ON COLUMN sentinel.dq_rules_asset_map.updated_by IS 'last updated timestamp';
+COMMENT ON COLUMN dq_rules_asset_map.asset_map_id IS 'Should be incremental';
+COMMENT ON COLUMN dq_rules_asset_map.rule_id IS 'Rule Id';
+COMMENT ON COLUMN dq_rules_asset_map.database_name IS 'database_name';
+COMMENT ON COLUMN dq_rules_asset_map.effective_from IS 'Date from which this process will be effective';
+COMMENT ON COLUMN dq_rules_asset_map.expiry_date IS 'Date on Which this process was discontinued';
+COMMENT ON COLUMN dq_rules_asset_map.active_flg IS 'whether this record is still valid';
+COMMENT ON COLUMN dq_rules_asset_map.reserved_5 IS 'dummy column for future use';
+COMMENT ON COLUMN dq_rules_asset_map.reserved_4 IS 'dummy column for future use';
+COMMENT ON COLUMN dq_rules_asset_map.reserved_3 IS 'dummy column for future use';
+COMMENT ON COLUMN dq_rules_asset_map.reserved_2 IS 'dummy column for future use';
+COMMENT ON COLUMN dq_rules_asset_map.reserved_1 IS 'dummy column for future use';
+COMMENT ON COLUMN dq_rules_asset_map.updated_ts IS 'last updated by';
+COMMENT ON COLUMN dq_rules_asset_map.updated_by IS 'last updated timestamp';
 
 -- Permissions
 
@@ -54,10 +54,9 @@ ALTER TABLE dq_rules_asset_map OWNER TO chimera_user;
 GRANT ALL ON TABLE dq_rules_asset_map TO chimera_user;
 
 
--- sentinel.dq_rules_asset_map foreign keys
+-- dq_rules_asset_map foreign keys
 
-ALTER TABLE sentinel.dq_rules_asset_map ADD CONSTRAINT dq_rules_asset_map_rule_id_fkey FOREIGN KEY (rule_id) REFERENCES data_quality_rules(rule_id);
+ALTER TABLE dq_rules_asset_map ADD CONSTRAINT dq_rules_asset_map_rule_id_fkey FOREIGN KEY (rule_id) REFERENCES data_quality_rules(rule_id);
 
 
 
-drop table dq_rules_asset_map cascade

@@ -9,16 +9,27 @@ import java.util.List;
     public class Constants {
         public static final String SYSTEM_USER = "Chimera";
         public static final String ACTION_TYPE = "UPSERT";
+        public static final String CREATE_ACTION_TYPE = "CREATE";
+        public static final String UPSERT_ACTION_TYPE = "UPSERT";
+        public static final String DEFAULT_USER_PASSWORD = "12345";
         public static final String INTERNAL_DELEGATED_FOR_ACTOR_HEADER_NAME = "X-DataHub-Delegated-For";
         public static final String INTERNAL_DELEGATED_FOR_ACTOR_TYPE = "X-DataHub-Delegated-For-";
+        public static String PROFILE = "https://static.vecteezy.com/system/resources/previews/014/194/219/large_2x/businessman-manager-boss-man-an-office-worker-illustration-flat-design-vector.jpg";
 
         public static final String URN_LI_PREFIX = "urn:li:";
+        public static final String URN_LI_CORP_USER_PREFIX = "urn:li:corpuser:";
+
         public static final String DATAHUB_ACTOR = "urn:li:corpuser:datahub"; // Super user.
         public static final String SYSTEM_ACTOR =
                 "urn:li:corpuser:__datahub_system"; // DataHub internal service principal.
         public static final String UNKNOWN_ACTOR = "urn:li:corpuser:UNKNOWN"; // Unknown principal.
         public static final Long ASPECT_LATEST_VERSION = 0L;
         public static final String UNKNOWN_DATA_PLATFORM = "urn:li:dataPlatform:unknown";
+        public static final String DATA_PLATFORM_PREFIX = "urn:li:dataPlatform:";
+        public static final String DATA_PLATFORM_READ_ROLE = "urn:li:dataHubRole:Reader";
+        public static final String DATA_PLATFORM_WRITE_ROLE = "urn:li:dataHubRole:Writer";
+        public static final String DATA_PLATFORM_ADMIN_ROLE = "urn:li:dataHubRole:Admin";
+
         public static final String ENTITY_TYPE_URN_PREFIX = "urn:li:entityType:";
         public static final String DATA_TYPE_URN_PREFIX = "urn:li:dataType:";
         public static final String STRUCTURED_PROPERTY_MAPPING_FIELD = "structuredProperties";
@@ -49,6 +60,8 @@ import java.util.List;
         // been processed and
         // should not be reprocessed
         public static final String APP_SOURCE = "appSource";
+        public static final String APP_URN_PREFIX = "urn:li:application:";
+        public static final String APPLICATION_ENTITY_NAME = "application";
 
         // App sources
         public static final String UI_SOURCE = "ui";
@@ -59,6 +72,7 @@ import java.util.List;
         public static final String CORP_USER_ENTITY_NAME = "corpuser";
 
         public static final String CORP_GROUP_ENTITY_NAME = "corpGroup";
+        public static final String CORP_GROUP_PREFIX = "urn:li:corpGroup:";
         public static final String DATASET_ENTITY_NAME = "dataset";
         public static final String CHART_ENTITY_NAME = "chart";
         public static final String DASHBOARD_ENTITY_NAME = "dashboard";
@@ -74,6 +88,7 @@ import java.util.List;
         public static final String ML_PRIMARY_KEY_ENTITY_NAME = "mlPrimaryKey";
         public static final String POLICY_ENTITY_NAME = "dataHubPolicy";
         public static final String TAG_ENTITY_NAME = "tag";
+        public static final String TAG_URN_PREFIX = "urn:li:tag:";
         public static final String CONTAINER_ENTITY_NAME = "container";
         public static final String DOMAIN_ENTITY_NAME = "domain";
         public static final String ER_MODEL_RELATIONSHIP_ENTITY_NAME = "erModelRelationship";
@@ -97,6 +112,8 @@ import java.util.List;
         public static final String QUERY_ENTITY_NAME = "query";
         public static final String DATA_PRODUCT_ENTITY_NAME = "dataProduct";
         public static final String OWNERSHIP_TYPE_ENTITY_NAME = "ownershipType";
+        public static final String OWNERSHIP_TYPE_URN = "urn:li:ownershipType:";
+
         public static final Urn DEFAULT_OWNERSHIP_TYPE_URN =
                 UrnUtils.getUrn("urn:li:ownershipType:__system__none");
         public static final String STRUCTURED_PROPERTY_ENTITY_NAME = "structuredProperty";
@@ -163,6 +180,11 @@ import java.util.List;
         public static final String EDITABLE_SCHEMA_METADATA_ASPECT_NAME = "editableSchemaMetadata";
         public static final String VIEW_PROPERTIES_ASPECT_NAME = "viewProperties";
         public static final String DATASET_PROFILE_ASPECT_NAME = "datasetProfile";
+
+        //field
+
+        public static final String DATASET_FIELD_URN_PREFIX = "urn:li:schemaField:";
+
 
         public static final String STRUCTURED_PROPERTIES_ASPECT_NAME = "structuredProperties";
         public static final String FORMS_ASPECT_NAME = "forms";
@@ -273,6 +295,8 @@ import java.util.List;
         public static final String GLOSSARY_TERM_KEY_ASPECT_NAME = "glossaryTermKey";
         public static final String GLOSSARY_TERM_INFO_ASPECT_NAME = "glossaryTermInfo";
         public static final String GLOSSARY_RELATED_TERM_ASPECT_NAME = "glossaryRelatedTerms";
+        public static final String GLOSSARY_TERM_URN_PREFIX = "urn:li:glossaryTerm:";
+
 
         // Glossary node
         public static final String GLOSSARY_NODE_KEY_ASPECT_NAME = "glossaryNodeKey";
@@ -282,6 +306,8 @@ import java.util.List;
         public static final String DOMAIN_KEY_ASPECT_NAME = "domainKey";
         public static final String DOMAIN_PROPERTIES_ASPECT_NAME = "domainProperties";
         public static final String DOMAINS_ASPECT_NAME = "domains";
+        public static final String DOMAINS_ASPECT_PREFIX = "urn:li:domain:";
+
 
         // ExternalRoleMetadata
         public static final String ROLE_ENTITY_NAME = "role";
@@ -299,12 +325,18 @@ import java.util.List;
         public static final String EDITABLE_ER_MODEL_RELATIONSHIP_PROPERTIES_ASPECT_NAME =
                 "editableERModelRelationshipProperties";
 
+        //Schedules
+        public static final String FIXED_INTERVAL_SCHEDULE = "FIXED_INTERVAL";
+        public static final String CRON_EXPRESSION_SCHEDULE = "CRON";
+        public static final String SINCE_THE_LAST_CHECK_SCHEDULE = "SINCE_THE_LAST_CHECK";
+
         // Assertion
         public static final String ASSERTION_KEY_ASPECT_NAME = "assertionKey";
         public static final String ASSERTION_INFO_ASPECT_NAME = "assertionInfo";
         public static final String ASSERTION_RUN_EVENT_ASPECT_NAME = "assertionRunEvent";
         public static final String ASSERTION_RUN_EVENT_STATUS_COMPLETE = "COMPLETE";
         public static final String ASSERTION_ACTIONS_ASPECT_NAME = "assertionActions";
+        public static final String ASSERTION_URN_PREFIX = "urn:li:assertion:";
 
         // Tests
         public static final String TEST_ENTITY_NAME = "test";
@@ -315,6 +347,7 @@ import java.util.List;
         // Incident
         public static final String INCIDENT_KEY_ASPECT_NAME = "incidentKey";
         public static final String INCIDENT_INFO_ASPECT_NAME = "incidentInfo";
+        public static final String INCIDENT_URN_PREFIX = "urn:li:incident:";
 
         // DataHub Ingestion Source
         public static final String INGESTION_SOURCE_KEY_ASPECT_NAME = "dataHubIngestionSourceKey";
@@ -322,6 +355,9 @@ import java.util.List;
 
         // DataHub Secret
         public static final String SECRET_VALUE_ASPECT_NAME = "dataHubSecretValue";
+        public static final String DATAHUB_SECRET_URN_PREFIX = "urn:li:dataHubSecret:";
+        public static final String DATAHUB_SECRET_ENTITY = "datahubsecret";
+
 
         // DataHub Execution Request
         public static final String EXECUTION_REQUEST_INPUT_ASPECT_NAME = "dataHubExecutionRequestInput";
@@ -361,6 +397,7 @@ import java.util.List;
         // DataProduct
         public static final String DATA_PRODUCT_PROPERTIES_ASPECT_NAME = "dataProductProperties";
         public static final String DATA_PRODUCTS_ASPECT_NAME = "dataProducts";
+        public static final String DATA_PRODUCTS_URN_PREFIX = "urn:li:dataProduct:";
 
         // Ownership Types
         public static final String OWNERSHIP_TYPE_KEY_ASPECT_NAME = "ownershipTypeKey";
