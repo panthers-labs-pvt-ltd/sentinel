@@ -16,6 +16,7 @@ import com.linkedin.mxe.SystemMetadata;
 import com.linkedin.secret.DataHubSecretValue;
 import org.pantherslabs.chimera.sentinel.datahub.commons.DataHubEntityClient;
 import org.pantherslabs.chimera.sentinel.datahub.commons.SecretService;
+import org.springframework.stereotype.Service;
 
 import static org.pantherslabs.chimera.sentinel.datahub.Constants.*;
 import static org.pantherslabs.chimera.sentinel.datahub.commons.DataHubEntityClient.performEntityAction;
@@ -23,6 +24,7 @@ import static org.pantherslabs.chimera.sentinel.datahub.commons.EventEmitter.emi
 import static org.pantherslabs.chimera.sentinel.datahub.commons.SecretService.getK8sSecret;
 import static org.pantherslabs.chimera.sentinel.datahub.commons.commonsFunctions.buildProposal;
 
+@Service
 public class UserSecretService {
     List<MetadataChangeProposal> proposals = new ArrayList<>();
 
