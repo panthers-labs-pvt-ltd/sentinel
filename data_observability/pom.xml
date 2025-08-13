@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <parent>
-        <groupId>org.pantherslabs.chimera</groupId>
-        <artifactId>sentinel</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-
-
-    <artifactId>sentinel.data_observability</artifactId>
-    <name>Data Observability</name>
-    <description>The data_observability module provides real-time monitoring and alerting on the health, quality, and behavior of datasets across pipelines. It ensures data consumers can trust the data by continuously validating freshness, volume, schema, distribution, and detecting anomalies.
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.pantherslabs.chimera</groupId>
+    <artifactId>sentinel</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>sentinel.data_observability</artifactId>
+  <name>Data Observability</name>
+  <description>The data_observability module provides real-time monitoring and alerting on the health, quality, and behavior of datasets across pipelines. It ensures data consumers can trust the data by continuously validating freshness, volume, schema, distribution, and detecting anomalies.
         Key Features:
         Data Freshness Checks: Detect delays in data arrivals or job executions.
         Volume Monitoring: Track row counts, file sizes, and ingestion rates.
@@ -22,8 +17,6 @@
         Anomaly Detection: Use statistical or ML techniques to flag unexpected changes in metrics.
         Alerting / Notifications: Notify via email, Slack, or incident platforms on issues.
     </description>
-    <url>https://github.com/panthers-labs-pvt-ltd/sentinel/tree/main/data_observability</url>
-    <version>1.0-SNAPSHOT</version>
-
-    
+  <url>https://github.com/panthers-labs-pvt-ltd/sentinel/tree/main/data_observability</url>
+  <version>1.0-SNAPSHOT</version>
 </project>

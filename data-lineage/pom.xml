@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <parent>
-        <groupId>org.pantherslabs.chimera</groupId>
-        <artifactId>sentinel</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-
-    <artifactId>sentinel.data-lineage</artifactId>
-    <name>Data Lineage</name>
-    <description>The data-lineage module is responsible for capturing, tracking, and visualizing the lineage of data as it moves through various stages of a data pipeline or ecosystem. It leverages the OpenLineage standard to report metadata events and provide end-to-end observability for jobs, datasets, and their interdependencies.
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.pantherslabs.chimera</groupId>
+    <artifactId>sentinel</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>sentinel.data-lineage</artifactId>
+  <name>Data Lineage</name>
+  <description>The data-lineage module is responsible for capturing, tracking, and visualizing the lineage of data as it moves through various stages of a data pipeline or ecosystem. It leverages the OpenLineage standard to report metadata events and provide end-to-end observability for jobs, datasets, and their interdependencies.
         Key Features:
         OpenLineage Integration: Reports lineage metadata using OpenLineage standard for interoperability.
         Job Lifecycle Tracking: Captures job start, completion, and failure events with metadata.
@@ -21,130 +17,122 @@
         Support for Multiple Executors: Works with Spark, Airflow, dbt, Flink, and custom jobs.
         Lineage Export: Sends events to compatible backends (e.g., Marquez, OpenMetadata, DataHub).
     </description>
-    <url>https://github.com/panthers-labs-pvt-ltd/sentinel.git</url>
-
-    <properties>
-        <open.lineage.version>1.25.0</open.lineage.version>
-        <open.lineage.dataplex.version>1.23.0</open.lineage.dataplex.version>
-        <kafka.client.version>3.7.1</kafka.client.version>
-        <sql.formatter.version>2.0.5</sql.formatter.version>
-        <corbix.version>2.6.9</corbix.version>
-        <scala.major.version>2.12</scala.major.version>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>unisca.tags</artifactId>
-            <version>${chimera.project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>unisca.logging</artifactId>
-            <version>${chimera.project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>unisca.pipeline_metadata_api</artifactId>
-            <version>${chimera.project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>unisca.data_sources</artifactId>
-            <version>${chimera.project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>unisca.exception</artifactId>
-            <version>${chimera.project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>2.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.spark</groupId>
-            <artifactId>spark-catalyst_${spark.scala.version}</artifactId>
-            <version>${spark.version}</version> <!-- Use the same version as your Spark core -->
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.jsqlparser</groupId>
-            <artifactId>jsqlparser</artifactId>
-            <version>4.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka-clients</artifactId>
-            <version>${kafka.client.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.openlineage</groupId>
-            <artifactId>transports-s3</artifactId>
-            <version>${open.lineage.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.openlineage</groupId>
-            <artifactId>transports-gcplineage</artifactId>
-            <version>${open.lineage.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.openlineage</groupId>
-            <artifactId>openlineage-flink</artifactId>
-            <version>${open.lineage.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.openlineage</groupId>
-            <artifactId>transports-dataplex</artifactId>
-            <version>${open.lineage.dataplex.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>za.co.absa.cobrix</groupId>
-            <artifactId>spark-cobol_${scala.major.version}</artifactId>
-            <version>${corbix.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.openlineage</groupId>
-            <artifactId>openlineage-spark_${scala.major.version}</artifactId>
-            <version>${open.lineage.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.openlineage</groupId>
-            <artifactId>openlineage-java</artifactId>
-            <version>${open.lineage.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.openlineage</groupId>
-            <artifactId>openlineage-sql-java</artifactId>
-            <version>${open.lineage.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.vertical-blank</groupId>
-            <artifactId>sql-formatter</artifactId>
-            <version>${sql.formatter.version}</version>
-        </dependency>
-    </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M7</version>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
+  <url>https://github.com/panthers-labs-pvt-ltd/sentinel.git</url>
+  <properties>
+    <open.lineage.version>1.25.0</open.lineage.version>
+    <open.lineage.dataplex.version>1.23.0</open.lineage.dataplex.version>
+    <kafka.client.version>3.7.1</kafka.client.version>
+    <sql.formatter.version>2.0.5</sql.formatter.version>
+    <corbix.version>2.6.9</corbix.version>
+    <scala.major.version>2.12</scala.major.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.pantherslabs.chimera</groupId>
+      <artifactId>unisca.tags</artifactId>
+      <version>${chimera.project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.pantherslabs.chimera</groupId>
+      <artifactId>unisca.logging</artifactId>
+      <version>${chimera.project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.pantherslabs.chimera</groupId>
+      <artifactId>unisca.pipeline_metadata_api</artifactId>
+      <version>${chimera.project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.pantherslabs.chimera</groupId>
+      <artifactId>unisca.data_sources</artifactId>
+      <version>${chimera.project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.pantherslabs.chimera</groupId>
+      <artifactId>unisca.exception</artifactId>
+      <version>${chimera.project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+      <version>2.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-catalyst_${spark.scala.version}</artifactId>
+      <version>${spark.version}</version>
+      <!-- Use the same version as your Spark core -->
+    </dependency>
+    <dependency>
+      <groupId>com.github.jsqlparser</groupId>
+      <artifactId>jsqlparser</artifactId>
+      <version>4.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-clients</artifactId>
+      <version>${kafka.client.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.openlineage</groupId>
+      <artifactId>transports-s3</artifactId>
+      <version>${open.lineage.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.openlineage</groupId>
+      <artifactId>transports-gcplineage</artifactId>
+      <version>${open.lineage.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.openlineage</groupId>
+      <artifactId>openlineage-flink</artifactId>
+      <version>${open.lineage.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.openlineage</groupId>
+      <artifactId>transports-dataplex</artifactId>
+      <version>${open.lineage.dataplex.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>za.co.absa.cobrix</groupId>
+      <artifactId>spark-cobol_${scala.major.version}</artifactId>
+      <version>${corbix.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.openlineage</groupId>
+      <artifactId>openlineage-spark_${scala.major.version}</artifactId>
+      <version>${open.lineage.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.openlineage</groupId>
+      <artifactId>openlineage-java</artifactId>
+      <version>${open.lineage.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.openlineage</groupId>
+      <artifactId>openlineage-sql-java</artifactId>
+      <version>${open.lineage.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.vertical-blank</groupId>
+      <artifactId>sql-formatter</artifactId>
+      <version>${sql.formatter.version}</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M7</version>
+        <configuration>
+          <skipTests>true</skipTests>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

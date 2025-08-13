@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <parent>
-        <groupId>org.pantherslabs.chimera</groupId>
-        <artifactId>sentinel</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-
-    <artifactId>sentinel.datahub</artifactId>
-    <name>Datahub Integration</name>
-    <description>The datahub_integration module enables seamless integration between the Chimera framework and Acryl DataHub. It facilitates automated metadata ingestion, publishing of lineage, schema, ownership, and operational metadata from Chimera-managed jobs and datasets to DataHub for search, discovery, observability, and governance.
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.pantherslabs.chimera</groupId>
+    <artifactId>sentinel</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>sentinel.datahub</artifactId>
+  <name>Datahub Integration</name>
+  <description>The datahub_integration module enables seamless integration between the Chimera framework and Acryl DataHub. It facilitates automated metadata ingestion, publishing of lineage, schema, ownership, and operational metadata from Chimera-managed jobs and datasets to DataHub for search, discovery, observability, and governance.
         Purpose:
         Centralize metadata from Chimera pipelines into DataHub
         Enable schema versioning and evolution tracking
@@ -20,173 +16,165 @@
         Support asset cataloging, governance, and access policies
         Expose Chimera assets via DataHub’s GraphQL/REST APIs and UI
     </description>
-    <url>https://github.com/panthers-labs-pvt-ltd/sentinel/tree/main/datahub</url>
-    <properties>
-        <chimera.project.version>${project.version}</chimera.project.version>
-        <open.lineage.version>1.25.0</open.lineage.version>
-        <open.lineage.dataplex.version>1.23.0</open.lineage.dataplex.version>
-        <kafka.client.version>3.7.1</kafka.client.version>
-        <sql.formatter.version>2.0.5</sql.formatter.version>
-        <corbix.version>2.6.9</corbix.version>
-        <database.url>${env.DATABASE_URL}</database.url>
-        <database.username>${env.DATABASE_USER}</database.username>
-        <database.password>${env.DATABASE_PWD}</database.password>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.google.protobuf</groupId>
-                <artifactId>protobuf-java</artifactId>
-                <version>4.29.3</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
+  <url>https://github.com/panthers-labs-pvt-ltd/sentinel/tree/main/datahub</url>
+  <properties>
+    <chimera.project.version>${project.version}</chimera.project.version>
+    <open.lineage.version>1.25.0</open.lineage.version>
+    <open.lineage.dataplex.version>1.23.0</open.lineage.dataplex.version>
+    <kafka.client.version>3.7.1</kafka.client.version>
+    <sql.formatter.version>2.0.5</sql.formatter.version>
+    <corbix.version>2.6.9</corbix.version>
+    <database.url>${env.DATABASE_URL}</database.url>
+    <database.username>${env.DATABASE_USER}</database.username>
+    <database.password>${env.DATABASE_PWD}</database.password>
+  </properties>
+  <dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>api-nexus-client</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>api-nexus-web</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>io.kubernetes</groupId>
-            <artifactId>client-java</artifactId>
-            <version>18.0.1</version> <!-- Use the version matching your cluster -->
-        </dependency>
-        <dependency>
-            <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>api-nexus-security</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>api-nexus-db</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.cronutils</groupId>
-            <artifactId>cron-utils</artifactId>
-            <version>9.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>unisca.logging</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-simple</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-            <version>4.29.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.acryl</groupId>
-            <artifactId>datahub-client</artifactId>
-            <!--<version>0.15.0-2rc7</version>-->
-            <version>15.0.5rc2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>unisca.exception</artifactId>
-            <version>${chimera.project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>unisca.tags</artifactId>
-            <version>${chimera.project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.openlineage</groupId>
-            <artifactId>openlineage-flink</artifactId>
-            <version>1.25.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-yaml</artifactId>
-            <version>2.15.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>6.2.1</version>
-            <scope>compile</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.iceberg</groupId>
-            <artifactId>iceberg-spark-runtime-3.5_2.12</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.11.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.pantherslabs.chimera</groupId>
-            <artifactId>sentinel.data_quality</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-
-
-        <!--    <dependency>
+      <dependency>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protobuf-java</artifactId>
+        <version>4.29.3</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.pantherslabs.chimera</groupId>
+      <artifactId>api-nexus-client</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.pantherslabs.chimera</groupId>
+      <artifactId>api-nexus-web</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>io.kubernetes</groupId>
+      <artifactId>client-java</artifactId>
+      <version>18.0.1</version>
+      <!-- Use the version matching your cluster -->
+    </dependency>
+    <dependency>
+      <groupId>org.pantherslabs.chimera</groupId>
+      <artifactId>api-nexus-security</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.pantherslabs.chimera</groupId>
+      <artifactId>api-nexus-db</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.cronutils</groupId>
+      <artifactId>cron-utils</artifactId>
+      <version>9.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.pantherslabs.chimera</groupId>
+      <artifactId>unisca.logging</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-simple</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java</artifactId>
+      <version>4.29.3</version>
+    </dependency>
+    <dependency>
+      <groupId>io.acryl</groupId>
+      <artifactId>datahub-client</artifactId>
+      <!--<version>0.15.0-2rc7</version>-->
+      <version>15.0.5rc2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.pantherslabs.chimera</groupId>
+      <artifactId>unisca.exception</artifactId>
+      <version>${chimera.project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.pantherslabs.chimera</groupId>
+      <artifactId>unisca.tags</artifactId>
+      <version>${chimera.project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.openlineage</groupId>
+      <artifactId>openlineage-flink</artifactId>
+      <version>1.25.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-yaml</artifactId>
+      <version>2.15.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>6.2.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>2.0.1.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.iceberg</groupId>
+      <artifactId>iceberg-spark-runtime-3.5_2.12</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>7.11.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.pantherslabs.chimera</groupId>
+      <artifactId>sentinel.data_quality</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <!--    <dependency>
                        <groupId>com.linkedin.pegasus</groupId>
                        <artifactId>data</artifactId>
                        <version>30.0.1-rc.1</version>
@@ -210,69 +198,65 @@
                        <artifactId>core-models-data-template</artifactId>
                        <version>0.6.9</version>
                    </dependency>-->
-
-    </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>1.4.2</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <configurationFile>src/main/resources/mybatis-generator-config.xml</configurationFile>
-                    <overwrite>true</overwrite>
-                </configuration>
-                <dependencies>
-                    <!-- Lombok Plugin for MyBatis Generator -->
-                    <dependency>
-                        <groupId>com.softwareloop</groupId>
-                        <artifactId>mybatis-generator-lombok-plugin</artifactId>
-                        <version>1.0</version>
-                    </dependency>
-
-                    <!-- PostgresSQL Driver -->
-                    <dependency>
-                        <groupId>org.postgresql</groupId>
-                        <artifactId>postgresql</artifactId>
-                        <version>42.7.4</version>
-                    </dependency>
-                    <!-- SLF4J Binding Exclusion -->
-                    <dependency>
-                        <groupId>org.mybatis.generator</groupId>
-                        <artifactId>mybatis-generator-core</artifactId>
-                        <version>1.4.2</version>
-                        <exclusions>
-                            <exclusion>
-                                <groupId>org.slf4j</groupId>
-                                <artifactId>slf4j-simple</artifactId>
-                            </exclusion>
-                        </exclusions>
-                    </dependency>
-                </dependencies>
-            </plugin>
-        </plugins>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring-boot.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.mybatis.generator</groupId>
+        <artifactId>mybatis-generator-maven-plugin</artifactId>
+        <version>1.4.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <configurationFile>src/main/resources/mybatis-generator-config.xml</configurationFile>
+          <overwrite>true</overwrite>
+        </configuration>
+        <dependencies>
+          <!-- Lombok Plugin for MyBatis Generator -->
+          <dependency>
+            <groupId>com.softwareloop</groupId>
+            <artifactId>mybatis-generator-lombok-plugin</artifactId>
+            <version>1.0</version>
+          </dependency>
+          <!-- PostgresSQL Driver -->
+          <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.4</version>
+          </dependency>
+          <!-- SLF4J Binding Exclusion -->
+          <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>1.4.2</version>
+            <exclusions>
+              <exclusion>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+              </exclusion>
+            </exclusions>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
     <sourceDirectory>src/main/java</sourceDirectory>
-        <testSourceDirectory>src/test_disable/java</testSourceDirectory>
-
-    </build>
-
+    <testSourceDirectory>src/test_disable/java</testSourceDirectory>
+  </build>
 </project>
