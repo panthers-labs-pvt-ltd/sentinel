@@ -1,5 +1,7 @@
 name: Validate Jira Ticket from Branch Name
 
+permissions:
+  contents: read
 on:
   create:     # triggers when a new branch or tag is created
     branches:
