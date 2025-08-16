@@ -2,13 +2,16 @@ package org.pantherslabs.chimera.sentinel.data_quality
 
 import junit.framework.TestCase
 import org.apache.spark.sql.DataFrame
+import org.junit.Test
 import org.pantherslabs.chimera.sentinel.data_quality.DataQualityRunner.{execute, loggerTag}
 import org.pantherslabs.chimera.unisca.execution_engine.OptimizedSparkSession
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class DataQualityRunnerTest extends TestCase {
+class DataQualityRunnerTest {
+
+  @Test
   def testGetDqRules(): Unit = {
     val spark: OptimizedSparkSession = OptimizedSparkSession.get("DataQualityRunnerTest", "test")
     val DatabaseName= "data_management";
