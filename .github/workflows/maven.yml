@@ -93,14 +93,18 @@ jobs:
           # Find all .jar files excluding original ones
           [ -d "jars-to-upload" ] && rm -rf "jars-to-upload"
           for jar in $(find . -name "*.jar" ! -name "*javadoc*.jar" ! -name "*sources*.jar" -not -path "*/target/original-*.jar"); do
-            module_dir=$(dirname "$jar")
-            module_dir="${module_dir%/target}"
+            module_dirs=$(dirname "$jar")
+            module_dir="${module_dirs%/target}"
             #module_name=$(basename "$(dirname "$jar")")
             module_name=$(basename "$module_dir")
           
             # Extract the version from the module's pom.xml
-            version=$(grep -oP '(?<=<version>)[^<]+' "$module_dir/pom.xml" | head -n 1)
-          
+            if [ -f "$module_dir/pom.xml" ]; then
+                version=$(grep -oP '(?<=<version>)[^<]+' "$module_dir/pom.xml" | head -n 1)
+            else
+              version="latest"
+            fi
+
             # Ensure module_name is lowercase and replace spaces with underscores
             formatted_module_name=$(echo "$module_name" | tr '[:space:]' '_'| sed 's/__/_/g'| sed 's/_$//')
           
@@ -133,6 +137,11 @@ jobs:
               echo "Found JAR: $jar_path. Building Docker image..."
               docker build -t "$image_name_lowercase" "$module_dir"
               docker push "$image_name_lowercase"
+              echo "***************************************************************************"
+              echo "Module Name          : $module_dirs"
+              echo "Module Version       : $version"
+              echo "Docker Image Name    : $image_name_lowercase"
+              echo "Status               : Pueshed"
             else
               echo "JAR not found at $jar_path. Skipping Docker build."
             fi
