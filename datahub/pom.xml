@@ -199,7 +199,7 @@
                        <version>0.6.9</version>
                    </dependency>-->
   </dependencies>
-  <!--<build>
+  <build>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
@@ -213,50 +213,51 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.mybatis.generator</groupId>
-        <artifactId>mybatis-generator-maven-plugin</artifactId>
-        <version>1.4.2</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>generate</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <configurationFile>src/main/resources/mybatis-generator-config.xml</configurationFile>
-          <overwrite>true</overwrite>
-        </configuration>
-        <dependencies>
-          &lt;!&ndash; Lombok Plugin for MyBatis Generator &ndash;&gt;
-          <dependency>
-            <groupId>com.softwareloop</groupId>
-            <artifactId>mybatis-generator-lombok-plugin</artifactId>
-            <version>1.0</version>
-          </dependency>
-          &lt;!&ndash; PostgresSQL Driver &ndash;&gt;
-          <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.7.4</version>
-          </dependency>
-          &lt;!&ndash; SLF4J Binding Exclusion &ndash;&gt;
-          <dependency>
-            <groupId>org.mybatis.generator</groupId>
-            <artifactId>mybatis-generator-core</artifactId>
-            <version>1.4.2</version>
-            <exclusions>
-              <exclusion>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-simple</artifactId>
-              </exclusion>
-            </exclusions>
-          </dependency>
-        </dependencies>
-      </plugin>
     </plugins>
-    <sourceDirectory>src/main/java</sourceDirectory>
-    <testSourceDirectory>src/test_disable/java</testSourceDirectory>
-  </build>-->
+    <!--   <plugin>
+         <groupId>org.mybatis.generator</groupId>
+         <artifactId>mybatis-generator-maven-plugin</artifactId>
+         <version>1.4.2</version>
+         <executions>
+           <execution>
+             <goals>
+               <goal>generate</goal>
+             </goals>
+           </execution>
+         </executions>
+         <configuration>
+           <configurationFile>src/main/resources/mybatis-generator-config.xml</configurationFile>
+           <overwrite>true</overwrite>
+         </configuration>
+         <dependencies>
+           &lt;!&ndash; Lombok Plugin for MyBatis Generator &ndash;&gt;
+           <dependency>
+             <groupId>com.softwareloop</groupId>
+             <artifactId>mybatis-generator-lombok-plugin</artifactId>
+             <version>1.0</version>
+           </dependency>
+           &lt;!&ndash; PostgresSQL Driver &ndash;&gt;
+           <dependency>
+             <groupId>org.postgresql</groupId>
+             <artifactId>postgresql</artifactId>
+             <version>42.7.4</version>
+           </dependency>
+           &lt;!&ndash; SLF4J Binding Exclusion &ndash;&gt;
+           <dependency>
+             <groupId>org.mybatis.generator</groupId>
+             <artifactId>mybatis-generator-core</artifactId>
+             <version>1.4.2</version>
+             <exclusions>
+               <exclusion>
+                 <groupId>org.slf4j</groupId>
+                 <artifactId>slf4j-simple</artifactId>
+               </exclusion>
+             </exclusions>
+           </dependency>
+         </dependencies>
+       </plugin>
+     </plugins>
+     <sourceDirectory>src/main/java</sourceDirectory>
+     <testSourceDirectory>src/test_disable/java</testSourceDirectory>-->
+  </build>
 </project>
