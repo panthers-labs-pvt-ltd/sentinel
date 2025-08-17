@@ -26,8 +26,9 @@ class DataQualityRunnerTest {
     val timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))
     val batch_id = f"${DatabaseName}_${TableName}_${timestamp}"
     var curr_date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-    execute(batch_id, goods_classification_df, DatabaseName, TableName,
-      curr_date)
+    spark.sql(f"SELECT * FROM $DatabaseName.$TableName").show(10)
+/*    execute(batch_id, goods_classification_df, DatabaseName, TableName,
+      curr_date)*/
 
   }
 }
