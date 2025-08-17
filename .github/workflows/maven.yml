@@ -141,7 +141,8 @@ jobs:
               echo "Module Name          : $module_dirs"
               echo "Module Version       : $version"
               echo "Docker Image Name    : $image_name_lowercase"
-              echo "Status               : Pueshed"
+              echo "Status               : Pushed"
+              echo "***************************************************************************"
             else
               echo "JAR not found at $jar_path. Skipping Docker build."
             fi
